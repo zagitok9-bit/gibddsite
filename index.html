@@ -1974,7 +1974,8 @@
                                     <label for="editPosition">Должность</label>
                                     <input type="text" id="editPosition" class="form-control" placeholder="Введите должность">
                                 </div>
-                                <button class="btn" onclick="updateUserData()"><i class="fas fa-save"></i> Сохранить изменения</button>
+                                <button class="btn" onclick="updateUserDataFromForm()">
+<i class="fas fa-save"></i> Сохранить изменения</button>
                             </div>
                             
                             <div class="admin-card">
@@ -3418,6 +3419,73 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Показываем главную страницу
     showSection('dashboard');
+});
+// ==================== ФИКС КЭША CLOUDFLARE ====================
+
+// Принудительное обновление кэша при каждой загрузке
+const CACHE_BUSTER = 'v=' + Date.now();
+
+// Добавляем параметр версии ко всем запросам
+function bustCache() {
+    const links = document.querySelectorAll('link[rel="stylesheet"]');
+    const scripts = document.querySelectorAll('script[src]');
+    
+    links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && !href.includes('?')) {
+            link.setAttribute('href', href + '?' + CACHE_BUSTER);
+        }
+    });
+    
+    console.log('🔄 Cache buster activated:', CACHE_BUSTER);
+}
+
+// Вызываем при загрузке
+bustCache();
+// ==================== ФИКС РЕКУРСИИ ====================
+
+// Переименовываем конфликтующую функцию
+async function updateUserDataFromForm() {
+  if (!requirePermission('manage_users')) return;
+  
+  const userId = parseInt(document.getElementById('editUser').value);
+  const fraction = document.getElementById('editFraction').value;
+  const city = document.getElementById('editCity').value;
+  const rank = document.getElementById('editRank').value;
+  const position = document.getElementById('editPosition').value;
+  
+  if (!userId) {
+    showError('Выберите пользователя');
+    return;
+  }
+  
+  try {
+    const success = await updateUserData(userId, {
+      fraction,
+      city,
+      rank,
+      position
+    });
+    
+    if (success) {
+      alert('✅ Данные пользователя обновлены!');
+      loadUsersForAdmin();
+      logAdminAction('update_user_data', userId, `Обновлены данные: ${fraction}, ${city}, ${rank}, ${position}`);
+    } else {
+      showError('Ошибка при обновлении данных');
+    }
+  } catch (error) {
+    console.error('Error updating user data:', error);
+    showError('Ошибка при обновлении данных');
+  }
+}
+
+// Обновляем кнопку в HTML
+document.addEventListener('DOMContentLoaded', function() {
+  const saveButton = document.querySelector('button[onclick="updateUserData()"]');
+  if (saveButton) {
+    saveButton.setAttribute('onclick', 'updateUserDataFromForm()');
+  }
 });
     </script>
 </body>
