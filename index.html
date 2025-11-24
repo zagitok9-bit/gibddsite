@@ -2479,7 +2479,12 @@ async function getAllUsers() {
 }
 
 // Обновление данных пользователя
-async function updateUserData(userId, userData) {
+// ==================== ФИКС РЕКУРСИИ - ПОЛНАЯ ЗАМЕНА ====================
+
+// Удали старую функцию updateUserData и замени на эти две:
+
+// 1. Функция для обновления в базе данных
+async function updateUserInDatabase(userId, userData) {
   try {
     const { error } = await supabase
       .from('users')
@@ -2493,6 +2498,42 @@ async function updateUserData(userId, userData) {
   } catch (error) {
     console.error('Update user error:', error);
     return false;
+  }
+}
+
+// 2. Функция для обработки формы (НОВОЕ НАЗВАНИЕ)
+async function saveUserChanges() {
+  if (!requirePermission('manage_users')) return;
+  
+  const userId = parseInt(document.getElementById('editUser').value);
+  const fraction = document.getElementById('editFraction').value;
+  const city = document.getElementById('editCity').value;
+  const rank = document.getElementById('editRank').value;
+  const position = document.getElementById('editPosition').value;
+  
+  if (!userId) {
+    showError('Выберите пользователя');
+    return;
+  }
+  
+  try {
+    const success = await updateUserInDatabase(userId, {
+      fraction,
+      city,
+      rank,
+      position
+    });
+    
+    if (success) {
+      alert('✅ Данные пользователя обновлены!');
+      loadUsersForAdmin();
+      logAdminAction('update_user_data', userId, `Обновлены данные: ${fraction}, ${city}, ${rank}, ${position}`);
+    } else {
+      showError('Ошибка при обновлении данных');
+    }
+  } catch (error) {
+    console.error('Error updating user data:', error);
+    showError('Ошибка при обновлении данных');
   }
 }
 
@@ -3442,51 +3483,6 @@ function bustCache() {
 
 // Вызываем при загрузке
 bustCache();
-// ==================== ФИКС РЕКУРСИИ ====================
-
-// Переименовываем конфликтующую функцию
-async function updateUserDataFromForm() {
-  if (!requirePermission('manage_users')) return;
-  
-  const userId = parseInt(document.getElementById('editUser').value);
-  const fraction = document.getElementById('editFraction').value;
-  const city = document.getElementById('editCity').value;
-  const rank = document.getElementById('editRank').value;
-  const position = document.getElementById('editPosition').value;
-  
-  if (!userId) {
-    showError('Выберите пользователя');
-    return;
-  }
-  
-  try {
-    const success = await updateUserData(userId, {
-      fraction,
-      city,
-      rank,
-      position
-    });
-    
-    if (success) {
-      alert('✅ Данные пользователя обновлены!');
-      loadUsersForAdmin();
-      logAdminAction('update_user_data', userId, `Обновлены данные: ${fraction}, ${city}, ${rank}, ${position}`);
-    } else {
-      showError('Ошибка при обновлении данных');
-    }
-  } catch (error) {
-    console.error('Error updating user data:', error);
-    showError('Ошибка при обновлении данных');
-  }
-}
-
-// Обновляем кнопку в HTML
-document.addEventListener('DOMContentLoaded', function() {
-  const saveButton = document.querySelector('button[onclick="updateUserData()"]');
-  if (saveButton) {
-    saveButton.setAttribute('onclick', 'updateUserDataFromForm()');
-  }
-});
     </script>
 </body>
 </html>
