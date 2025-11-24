@@ -1974,7 +1974,7 @@
                                     <label for="editPosition">Должность</label>
                                     <input type="text" id="editPosition" class="form-control" placeholder="Введите должность">
                                 </div>
-                                <button class="btn" onclick="updateUserDataFromForm()">
+                              <button class="btn" onclick="saveUserChanges()">
 <i class="fas fa-save"></i> Сохранить изменения</button>
                             </div>
                             
@@ -3483,6 +3483,85 @@ function bustCache() {
 
 // Вызываем при загрузке
 bustCache();
+// ==================== ПОЛНЫЙ СБРОС РЕКУРСИИ ====================
+
+// Удаляем все старые версии функций
+delete window.updateUserData;
+delete window.updateUserDataFromForm;
+delete window.saveUserChanges;
+
+// Новая функция для сохранения данных пользователя
+window.saveUserChanges = async function() {
+    console.log('🔄 saveUserChanges вызвана');
+    
+    if (!currentUser) {
+        alert('❌ Сначала авторизуйтесь');
+        return;
+    }
+    
+    const userId = parseInt(document.getElementById('editUser').value);
+    const fraction = document.getElementById('editFraction').value;
+    const city = document.getElementById('editCity').value;
+    const rank = document.getElementById('editRank').value;
+    const position = document.getElementById('editPosition').value;
+    
+    if (!userId) {
+        alert('❌ Выберите пользователя');
+        return;
+    }
+    
+    try {
+        console.log('📤 Отправка данных в Supabase...', { userId, fraction, city, rank, position });
+        
+        // ПРЯМОЙ ЗАПРОС К SUPABASE - без рекурсии
+        const { data, error } = await supabase
+            .from('users')
+            .update({
+                fraction: fraction,
+                city: city,
+                rank: rank,
+                position: position,
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', userId)
+            .select();
+
+        if (error) {
+            console.error('❌ Ошибка Supabase:', error);
+            alert('❌ Ошибка: ' + error.message);
+            return;
+        }
+
+        console.log('✅ Данные обновлены:', data);
+        alert('✅ Данные пользователя обновлены!');
+        
+        // Обновляем интерфейс
+        if (window.loadUsersForAdmin) {
+            loadUsersForAdmin();
+        }
+        
+    } catch (error) {
+        console.error('❌ Ошибка:', error);
+        alert('❌ Ошибка сохранения: ' + error.message);
+    }
+};
+
+// Автоматически исправляем кнопку при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔧 Исправление кнопок...');
+    
+    // Исправляем все кнопки сохранения
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        const onclick = button.getAttribute('onclick');
+        if (onclick && onclick.includes('updateUserData')) {
+            button.setAttribute('onclick', 'saveUserChanges()');
+            console.log('✅ Исправлена кнопка:', button);
+        }
+    });
+});
+
+console.log('🎯 Анти-рекурсия активирована');
     </script>
 </body>
 </html>
