@@ -3562,6 +3562,250 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 console.log('🎯 Анти-рекурсия активирована');
+// ==================== ФУНКЦИИ ДЛЯ АДМИН-ПАНЕЛИ ====================
+
+// Назначение администратора
+window.assignAdmin = async function() {
+    console.log('🔄 assignAdmin вызвана');
+    
+    if (!currentUser) {
+        alert('❌ Сначала авторизуйтесь');
+        return;
+    }
+    
+    const userId = parseInt(document.getElementById('adminUser').value);
+    
+    if (!userId) {
+        alert('❌ Выберите пользователя');
+        return;
+    }
+    
+    try {
+        console.log('📤 Назначение админа:', userId);
+        
+        const { data, error } = await supabase
+            .from('users')
+            .update({
+                role: 'ADMIN',
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', userId)
+            .select();
+
+        if (error) {
+            console.error('❌ Ошибка Supabase:', error);
+            alert('❌ Ошибка: ' + error.message);
+            return;
+        }
+
+        console.log('✅ Пользователь назначен админом:', data);
+        alert('✅ Пользователь назначен администратором!');
+        
+        // Обновляем интерфейс
+        if (window.loadUsersForAdmin) {
+            loadUsersForAdmin();
+        }
+        if (window.loadAdminsForAdmin) {
+            loadAdminsForAdmin();
+        }
+        
+    } catch (error) {
+        console.error('❌ Ошибка:', error);
+        alert('❌ Ошибка назначения: ' + error.message);
+    }
+};
+
+// Блокировка пользователя
+window.banUser = async function() {
+    console.log('🔄 banUser вызвана');
+    
+    if (!currentUser) {
+        alert('❌ Сначала авторизуйтесь');
+        return;
+    }
+    
+    const userId = parseInt(document.getElementById('banUser').value);
+    const reason = document.getElementById('banReason').value;
+    const duration = parseInt(document.getElementById('banDuration').value) || 0;
+    
+    if (!userId) {
+        alert('❌ Выберите пользователя');
+        return;
+    }
+    
+    if (!reason) {
+        alert('❌ Введите причину блокировки');
+        return;
+    }
+    
+    try {
+        console.log('📤 Блокировка пользователя:', { userId, reason, duration });
+        
+        const banExpires = duration > 0 ? 
+            new Date(Date.now() + duration * 24 * 60 * 60 * 1000).toISOString() : 
+            null;
+
+        const { data, error } = await supabase
+            .from('users')
+            .update({
+                banned: true,
+                ban_reason: reason,
+                ban_expires: banExpires,
+                banned_by: currentUser.nickname,
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', userId)
+            .select();
+
+        if (error) {
+            console.error('❌ Ошибка Supabase:', error);
+            alert('❌ Ошибка: ' + error.message);
+            return;
+        }
+
+        console.log('✅ Пользователь заблокирован:', data);
+        alert('✅ Пользователь заблокирован!');
+        
+        // Очищаем форму
+        document.getElementById('banReason').value = '';
+        document.getElementById('banDuration').value = '';
+        
+        // Обновляем интерфейс
+        if (window.loadUsersForAdmin) {
+            loadUsersForAdmin();
+        }
+        if (window.loadBansForAdmin) {
+            loadBansForAdmin();
+        }
+        
+    } catch (error) {
+        console.error('❌ Ошибка:', error);
+        alert('❌ Ошибка блокировки: ' + error.message);
+    }
+};
+
+// Разблокировка пользователя
+window.unbanUser = async function() {
+    console.log('🔄 unbanUser вызвана');
+    
+    if (!currentUser) {
+        alert('❌ Сначала авторизуйтесь');
+        return;
+    }
+    
+    const userId = parseInt(document.getElementById('unbanUser').value);
+    
+    if (!userId) {
+        alert('❌ Выберите пользователя');
+        return;
+    }
+    
+    try {
+        console.log('📤 Разблокировка пользователя:', userId);
+        
+        const { data, error } = await supabase
+            .from('users')
+            .update({
+                banned: false,
+                ban_reason: null,
+                ban_expires: null,
+                banned_by: null,
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', userId)
+            .select();
+
+        if (error) {
+            console.error('❌ Ошибка Supabase:', error);
+            alert('❌ Ошибка: ' + error.message);
+            return;
+        }
+
+        console.log('✅ Пользователь разблокирован:', data);
+        alert('✅ Пользователь разблокирован!');
+        
+        // Обновляем интерфейс
+        if (window.loadUsersForAdmin) {
+            loadUsersForAdmin();
+        }
+        if (window.loadBansForAdmin) {
+            loadBansForAdmin();
+        }
+        
+    } catch (error) {
+        console.error('❌ Ошибка:', error);
+        alert('❌ Ошибка разблокировки: ' + error.message);
+    }
+};
+
+// Снятие прав администратора
+window.removeAdmin = async function() {
+    console.log('🔄 removeAdmin вызвана');
+    
+    if (!currentUser) {
+        alert('❌ Сначала авторизуйтесь');
+        return;
+    }
+    
+    const userId = parseInt(document.getElementById('removeAdminUser').value);
+    
+    if (!userId) {
+        alert('❌ Выберите администратора');
+        return;
+    }
+    
+    try {
+        console.log('📤 Снятие прав админа:', userId);
+        
+        const { data, error } = await supabase
+            .from('users')
+            .update({
+                role: 'USER',
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', userId)
+            .select();
+
+        if (error) {
+            console.error('❌ Ошибка Supabase:', error);
+            alert('❌ Ошибка: ' + error.message);
+            return;
+        }
+
+        console.log('✅ Права админа сняты:', data);
+        alert('✅ Права администратора сняты!');
+        
+        // Обновляем интерфейс
+        if (window.loadUsersForAdmin) {
+            loadUsersForAdmin();
+        }
+        if (window.loadAdminsForAdmin) {
+            loadAdminsForAdmin();
+        }
+        
+    } catch (error) {
+        console.error('❌ Ошибка:', error);
+        alert('❌ Ошибка снятия прав: ' + error.message);
+    }
+};
+
+// Функции для загрузки данных в админ-панели
+window.loadUsersForAdmin = async function() {
+    console.log('🔄 Загрузка пользователей для админки');
+    // Эта функция будет заполнять списки пользователей
+};
+
+window.loadAdminsForAdmin = async function() {
+    console.log('🔄 Загрузка администраторов');
+    // Эта функция будет заполнять списки админов
+};
+
+window.loadBansForAdmin = async function() {
+    console.log('🔄 Загрузка заблокированных');
+    // Эта функция будет заполнять списки банов
+};
+
+console.log('🎯 Функции админ-панели загружены');
     </script>
 </body>
 </html>
