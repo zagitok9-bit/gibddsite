@@ -275,6 +275,39 @@
             font-size: 1.4rem;
         }
         
+        /* Map Section */
+        .map-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .map-image {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+        }
+        
+        .map-description {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary);
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .map-description h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .map-description p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
         /* Binds Section */
         .binds-categories {
             display: grid;
@@ -1171,6 +1204,7 @@
                 <li><a href="#" onclick="showSection('binds')"><i class="fas fa-keyboard"></i> Бинды</a></li>
                 <li><a href="#" onclick="showSection('commands')"><i class="fas fa-terminal"></i> Команды</a></li>
                 <li><a href="#" onclick="showSection('documents')"><i class="fas fa-file-alt"></i> Документы</a></li>
+                <li><a href="#" onclick="showSection('map')"><i class="fas fa-map"></i> Карта постов</a></li>
                 <li><a href="#" onclick="showSection('statistics')"><i class="fas fa-chart-bar"></i> Статистика</a></li>
                 <li><a href="#" onclick="showSection('leaderboard')"><i class="fas fa-trophy"></i> Таблица лидеров</a></li>
                 <li><a href="#" onclick="showSection('profile')" id="profileTab"><i class="fas fa-user"></i> Профиль</a></li>
@@ -1698,6 +1732,30 @@
                     </div>
                 </section>
                 
+                <!-- Map Section -->
+                <section id="map-section" class="content-section" style="display: none;">
+                    <div class="section-title">
+                        <i class="fas fa-map"></i>
+                        <h2>Карта постов</h2>
+                    </div>
+                    <p>Карта с расположением всех постов для патрулирования и контроля дорожного движения.</p>
+                    
+                    <div class="map-container">
+                        <!-- Здесь будет ваша картинка -->
+                        <div class="map-placeholder" style="background: var(--light); padding: 60px 20px; border-radius: 10px; text-align: center; margin: 20px 0;">
+                            <i class="fas fa-map-marked-alt" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                            <h3 style="color: var(--primary); margin-bottom: 10px;">Карта постов ГИБДД</h3>
+                            <p style="color: var(--gray);">Здесь будет отображаться карта с расположением всех постов</p>
+                        </div>
+                        
+                        <div class="map-description">
+                            <h3><i class="fas fa-info-circle"></i> Информация о постах</h3>
+                            <p>Карта с расположением всех постов. Количество сотрудников на одном посту не ограничено.</p>
+                            <p>На постах разрешено устанавливать специальные ограждения и заграждения, однако они должны быть установлены согласно приказу МВД.</p>
+                        </div>
+                    </div>
+                </section>
+                
                 <!-- Statistics Section -->
                 <section id="statistics-section" class="content-section" style="display: none;">
                     <div class="section-title">
@@ -1954,17 +2012,18 @@
                                 <div class="form-group">
                                     <label for="editRank">Звание</label>
                                     <select id="editRank" class="form-control">
-                                        <option value="Рядовой полиции">Рядовой полиции</option>
-                                        <option value="Сержант полиции">Сержант полиции</option>
-                                        <option value="Старшина полиции">Старшина полиции</option>
-                                        <option value="Прапорщик полиции">Прапорщик полиции</option>
-                                        <option value="Лейтенант полиции">Лейтенант полиции</option>
-                                        <option value="Старший лейтенант полиции">Старший лейтенант полиции</option>
-                                        <option value="Капитан полиции">Капитан полиции</option>
-                                        <option value="Майор полиции">Майор полиции</option>
-                                        <option value="Подполковник полиции">Подполковник полиции</option>
-                                        <option value="Полковник полиции">Полковник полиции</option>
-                                        <option value="Полковник полиции">Генерал полиции</option>
+                                        <option value="Рядовой">Рядовой</option>
+                                        <option value="Сержант">Сержант</option>
+                                        <option value="Старшина">Старшина</option>
+                                        <option value="Прапорщик">Прапорщик</option>
+                                        <option value="Лейтенант">Лейтенант</option>
+                                        <option value="Старший лейтенант">Старший лейтенант</option>
+                                        <option value="Капитан">Капитан</option>
+                                        <option value="Майор">Майор</option>
+                                        <option value="Подполковник">Подполковник</option>
+                                        <option value="Полковник">Полковник</option>
+                                        <option value="Генерал">Генерал</option>
+                                        <option value="Следящий за фракцией">Следящий за фракцией</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -2137,6 +2196,7 @@
                         <li><a href="#" onclick="showSection('binds')"><i class="fas fa-keyboard"></i> Бинды для игры</a></li>
                         <li><a href="#" onclick="showSection('commands')"><i class="fas fa-terminal"></i> Игровые команды</a></li>
                         <li><a href="#" onclick="showSection('documents')"><i class="fas fa-file-alt"></i> Нормативные документы</a></li>
+                        <li><a href="#" onclick="showSection('map')"><i class="fas fa-map"></i> Карта постов</a></li>
                     </ul>
                 </div>
             </div>
@@ -2159,6 +2219,7 @@
                         <li><a href="#" onclick="showSection('binds')"><i class="fas fa-keyboard"></i> Бинды</a></li>
                         <li><a href="#" onclick="showSection('commands')"><i class="fas fa-terminal"></i> Команды</a></li>
                         <li><a href="#" onclick="showSection('documents')"><i class="fas fa-file-alt"></i> Документы</a></li>
+                        <li><a href="#" onclick="showSection('map')"><i class="fas fa-map"></i> Карта постов</a></li>
                     </ul>
                 </div>
                 
@@ -2198,23 +2259,23 @@ const PERMISSION_LEVELS = {
 const ROLES = {
   USER: { 
     level: 0, 
-    name: "Сотрудник", 
-    permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents'] 
+    name: "Гражданский", 
+    permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_map'] 
   },
   HELPER: { 
     level: 1, 
     name: "Помощник", 
-    permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_all_stats', 'view_users'] 
+    permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_map', 'view_all_stats', 'view_users'] 
   },
   MODERATOR: { 
     level: 2, 
     name: "Модератор", 
-    permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_all_stats', 'view_users', 'ban_users', 'edit_stats', 'view_logs'] 
+    permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_map', 'view_all_stats', 'view_users', 'ban_users', 'edit_stats', 'view_logs'] 
   },
   ADMIN: { 
     level: 3, 
     name: "Администратор", 
-    permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_all_stats', 'view_users', 'ban_users', 'edit_stats', 'view_logs', 'manage_users', 'assign_roles', 'system_settings'] 
+    permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_map', 'view_all_stats', 'view_users', 'ban_users', 'edit_stats', 'view_logs', 'manage_users', 'assign_roles', 'system_settings'] 
   },
   SUPER_ADMIN: { 
     level: 4, 
@@ -2275,9 +2336,9 @@ async function registerUser(userData) {
         email: userData.email,
         password_hash: await hashPassword(userData.password),
         role: isSuperAdmin(userData) ? 'SUPER_ADMIN' : 'USER',
-        rank: 'Курсант',
-        position: 'Курсант',
-        fraction: 'ГИБДД',
+        rank: 'Гражданский',
+        position: '',
+        fraction: '',
         city: 'Приволжск'
       }])
       .select()
@@ -2478,8 +2539,6 @@ async function getAllUsers() {
 // Обновление данных пользователя
 // ==================== ФИКС РЕКУРСИИ - ПОЛНАЯ ЗАМЕНА ====================
 
-// Удали старую функцию updateUserData и замени на эти две:
-
 // 1. Функция для обновления в базе данных
 async function updateUserInDatabase(userId, userData) {
   try {
@@ -2535,7 +2594,7 @@ async function saveUserChanges() {
 }
 
 // Блокировка пользователя
-async function banUser(userId, reason, durationDays = 0, adminName) {
+async function banUserInDatabase(userId, reason, durationDays = 0, adminName) {
   try {
     const banExpires = durationDays > 0 ? 
       new Date(Date.now() + durationDays * 24 * 60 * 60 * 1000).toISOString() : 
@@ -2560,7 +2619,7 @@ async function banUser(userId, reason, durationDays = 0, adminName) {
 }
 
 // Разблокировка пользователя
-async function unbanUser(userId) {
+async function unbanUserInDatabase(userId) {
   try {
     const { error } = await supabase
       .from('users')
@@ -2738,6 +2797,8 @@ function updateProfileInfo() {
     status = 'Модератор';
   } else if (currentUser.role === 'HELPER') {
     status = 'Помощник';
+  } else if (currentUser.role === 'USER') {
+    status = 'Гражданский';
   }
   document.getElementById('profile-status').textContent = status;
   
@@ -2891,7 +2952,7 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     if (isSuperAdmin(currentUser)) {
       alert('🎉 Регистрация успешна! Вы стали Главным Администратором системы.');
     } else {
-      alert('🎉 Регистрация успешна!');
+      alert('🎉 Регистрация успешна! Ваша роль: Гражданский');
     }
   } else {
     alert('❌ ' + result.error);
@@ -3039,7 +3100,7 @@ async function loadUsersForAdmin() {
             } else if (user.role === 'HELPER') {
                 roleBadge = '<span style="color: #10b981;">Помощник</span>';
             } else {
-                roleBadge = 'Сотрудник';
+                roleBadge = 'Гражданский';
             }
             
             row.innerHTML = `
@@ -3052,7 +3113,7 @@ async function loadUsersForAdmin() {
                 <td>${user.banned ? '<span style="color: var(--danger);">Заблокирован</span>' : roleBadge}</td>
                 <td>
                     ${hasPermission(currentUser, 'manage_users') ? 
-                      `<button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem;" onclick="editUserPrompt(${user.id})">Изменить</button>` : ''}
+                      `<button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem;" onclick="selectUserForEdit(${user.id})">Изменить</button>` : ''}
                     ${hasPermission(currentUser, 'assign_roles') && user.role === 'USER' ? 
                       `<button class="btn btn-warning" style="padding: 5px 10px; font-size: 0.8rem;" onclick="assignAdminPrompt(${user.id})">Сделать админом</button>` : ''}
                 </td>
@@ -3212,8 +3273,17 @@ async function updateLeaderboardTable(type) {
 // ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ АДМИН-ПАНЕЛИ ====================
 
 // Подсказка для редактирования пользователя
-function editUserPrompt(userId) {
+function selectUserForEdit(userId) {
     document.getElementById('editUser').value = userId;
+    
+    // Находим пользователя и заполняем форму его данными
+    const user = allUsers.find(u => u.id === userId);
+    if (user) {
+        document.getElementById('editFraction').value = user.fraction || '';
+        document.getElementById('editCity').value = user.city || 'Приволжск';
+        document.getElementById('editRank').value = user.rank || 'Гражданский';
+        document.getElementById('editPosition').value = user.position || '';
+    }
 }
 
 // Подсказка для назначения админа
@@ -3231,42 +3301,6 @@ function unbanUserPrompt(userId) {
     document.getElementById('unbanUser').value = userId;
 }
 
-// Обновление данных пользователя
-async function updateUserData() {
-    if (!requirePermission('manage_users')) return;
-    
-    const userId = parseInt(document.getElementById('editUser').value);
-    const fraction = document.getElementById('editFraction').value;
-    const city = document.getElementById('editCity').value;
-    const rank = document.getElementById('editRank').value;
-    const position = document.getElementById('editPosition').value;
-    
-    if (!userId) {
-        showError('Выберите пользователя');
-        return;
-    }
-    
-    try {
-        const success = await updateUserData(userId, {
-            fraction,
-            city,
-            rank,
-            position
-        });
-        
-        if (success) {
-            alert('✅ Данные пользователя обновлены!');
-            loadUsersForAdmin();
-            logAdminAction('update_user_data', userId, `Обновлены данные: ${fraction}, ${city}, ${rank}, ${position}`);
-        } else {
-            showError('Ошибка при обновлении данных');
-        }
-    } catch (error) {
-        console.error('Error updating user data:', error);
-        showError('Ошибка при обновлении данных');
-    }
-}
-
 // Назначение администратора
 async function assignAdmin() {
     if (!requirePermission('assign_roles')) return;
@@ -3279,7 +3313,7 @@ async function assignAdmin() {
     }
     
     try {
-        const success = await updateUserData(userId, {
+        const success = await updateUserInDatabase(userId, {
             role: 'ADMIN'
         });
         
@@ -3309,7 +3343,7 @@ async function removeAdmin() {
     }
     
     try {
-        const success = await updateUserData(userId, {
+        const success = await updateUserInDatabase(userId, {
             role: 'USER'
         });
         
@@ -3346,7 +3380,7 @@ async function banUser() {
     }
     
     try {
-        const success = await banUser(userId, reason, duration, currentUser.nickname);
+        const success = await banUserInDatabase(userId, reason, duration, currentUser.nickname);
         
         if (success) {
             alert('✅ Пользователь заблокирован!');
@@ -3376,7 +3410,7 @@ async function unbanUser() {
     }
     
     try {
-        const success = await unbanUser(userId);
+        const success = await unbanUserInDatabase(userId);
         
         if (success) {
             alert('✅ Пользователь разблокирован!');
@@ -3480,85 +3514,7 @@ function bustCache() {
 
 // Вызываем при загрузке
 bustCache();
-// ==================== ПОЛНЫЙ СБРОС РЕКУРСИИ ====================
 
-// Удаляем все старые версии функций
-delete window.updateUserData;
-delete window.updateUserDataFromForm;
-delete window.saveUserChanges;
-
-// Новая функция для сохранения данных пользователя
-window.saveUserChanges = async function() {
-    console.log('🔄 saveUserChanges вызвана');
-    
-    if (!currentUser) {
-        alert('❌ Сначала авторизуйтесь');
-        return;
-    }
-    
-    const userId = parseInt(document.getElementById('editUser').value);
-    const fraction = document.getElementById('editFraction').value;
-    const city = document.getElementById('editCity').value;
-    const rank = document.getElementById('editRank').value;
-    const position = document.getElementById('editPosition').value;
-    
-    if (!userId) {
-        alert('❌ Выберите пользователя');
-        return;
-    }
-    
-    try {
-        console.log('📤 Отправка данных в Supabase...', { userId, fraction, city, rank, position });
-        
-        // ПРЯМОЙ ЗАПРОС К SUPABASE - без рекурсии
-        const { data, error } = await supabase
-            .from('users')
-            .update({
-                fraction: fraction,
-                city: city,
-                rank: rank,
-                position: position,
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', userId)
-            .select();
-
-        if (error) {
-            console.error('❌ Ошибка Supabase:', error);
-            alert('❌ Ошибка: ' + error.message);
-            return;
-        }
-
-        console.log('✅ Данные обновлены:', data);
-        alert('✅ Данные пользователя обновлены!');
-        
-        // Обновляем интерфейс
-        if (window.loadUsersForAdmin) {
-            loadUsersForAdmin();
-        }
-        
-    } catch (error) {
-        console.error('❌ Ошибка:', error);
-        alert('❌ Ошибка сохранения: ' + error.message);
-    }
-};
-
-// Автоматически исправляем кнопку при загрузке
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🔧 Исправление кнопок...');
-    
-    // Исправляем все кнопки сохранения
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => {
-        const onclick = button.getAttribute('onclick');
-        if (onclick && onclick.includes('updateUserData')) {
-            button.setAttribute('onclick', 'saveUserChanges()');
-            console.log('✅ Исправлена кнопка:', button);
-        }
-    });
-});
-
-console.log('🎯 Анти-рекурсия активирована');
 // ==================== ЗАГРУЗКА ПОЛЬЗОВАТЕЛЕЙ В АДМИН-ПАНЕЛЬ ====================
 
 // Основная функция загрузки пользователей для админ-панели
@@ -3657,7 +3613,7 @@ window.loadUsersForAdmin = async function() {
                 } else if (user.role === 'HELPER') {
                     roleBadge = '<span style="color: #10b981;">Помощник</span>';
                 } else {
-                    roleBadge = 'Сотрудник';
+                    roleBadge = 'Гражданский';
                 }
 
                 row.innerHTML = `
@@ -3688,10 +3644,10 @@ window.selectUserForEdit = function(userId) {
     // Находим пользователя и заполняем форму его данными
     const user = allUsers.find(u => u.id === userId);
     if (user) {
-        document.getElementById('editFraction').value = user.fraction || 'ГИБДД';
+        document.getElementById('editFraction').value = user.fraction || '';
         document.getElementById('editCity').value = user.city || 'Приволжск';
-        document.getElementById('editRank').value = user.rank || 'Курсант';
-        document.getElementById('editPosition').value = user.position || 'Курсант';
+        document.getElementById('editRank').value = user.rank || 'Гражданский';
+        document.getElementById('editPosition').value = user.position || '';
     }
 };
 
@@ -3728,358 +3684,6 @@ window.showAdminTab = function(tabName) {
 };
 
 console.log('🎯 Функции загрузки пользователей загружены');
-// ==================== ПОЛНЫЙ СКРИПТ БАНОВ И АДМИНКИ ====================
-
-// Удаляем старые функции чтобы избежать рекурсии
-delete window.banUser;
-delete window.unbanUser;
-delete window.assignAdmin;
-delete window.removeAdmin;
-
-// ==================== ФУНКЦИЯ БАНА ПОЛЬЗОВАТЕЛЯ ====================
-window.banUser = async function() {
-    console.log('🔄 banUser вызвана');
-    
-    if (!currentUser) {
-        alert('❌ Сначала авторизуйтесь');
-        return;
-    }
-    
-    const userId = parseInt(document.getElementById('banUser').value);
-    const reason = document.getElementById('banReason').value;
-    const duration = parseInt(document.getElementById('banDuration').value) || 0;
-    
-    if (!userId) {
-        alert('❌ Выберите пользователя для блокировки');
-        return;
-    }
-    
-    if (!reason) {
-        alert('❌ Введите причину блокировки');
-        return;
-    }
-    
-    // Подтверждение действия
-    const confirmMessage = duration > 0 
-        ? `Заблокировать пользователя на ${duration} дней?\nПричина: ${reason}`
-        : `Заблокировать пользователя НАВСЕГДА?\nПричина: ${reason}`;
-    
-    if (!confirm(confirmMessage)) {
-        return;
-    }
-    
-    try {
-        console.log('📤 Блокировка пользователя:', { userId, reason, duration });
-        
-        const banExpires = duration > 0 ? 
-            new Date(Date.now() + duration * 24 * 60 * 60 * 1000).toISOString() : 
-            null;
-
-        // Прямой запрос к Supabase
-        const { data, error } = await supabase
-            .from('users')
-            .update({
-                banned: true,
-                ban_reason: reason,
-                ban_expires: banExpires,
-                banned_by: currentUser.nickname,
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', userId)
-            .select();
-
-        if (error) {
-            console.error('❌ Ошибка Supabase:', error);
-            alert('❌ Ошибка базы данных: ' + error.message);
-            return;
-        }
-
-        console.log('✅ Пользователь заблокирован:', data);
-        
-        const successMessage = duration > 0 
-            ? `✅ Пользователь заблокирован на ${duration} дней!`
-            : `✅ Пользователь заблокирован НАВСЕГДА!`;
-            
-        alert(successMessage);
-        
-        // Очищаем форму
-        document.getElementById('banReason').value = '';
-        document.getElementById('banDuration').value = '';
-        
-        // Обновляем интерфейс
-        if (window.loadUsersForAdmin) {
-            setTimeout(() => loadUsersForAdmin(), 500);
-        }
-        
-    } catch (error) {
-        console.error('❌ Ошибка:', error);
-        alert('❌ Ошибка блокировки: ' + error.message);
-    }
-};
-
-// ==================== ФУНКЦИЯ РАЗБАНА ПОЛЬЗОВАТЕЛЯ ====================
-window.unbanUser = async function() {
-    console.log('🔄 unbanUser вызвана');
-    
-    if (!currentUser) {
-        alert('❌ Сначала авторизуйтесь');
-        return;
-    }
-    
-    const userId = parseInt(document.getElementById('unbanUser').value);
-    
-    if (!userId) {
-        alert('❌ Выберите пользователя для разблокировки');
-        return;
-    }
-    
-    if (!confirm('Разблокировать этого пользователя?')) {
-        return;
-    }
-    
-    try {
-        console.log('📤 Разблокировка пользователя:', userId);
-        
-        const { data, error } = await supabase
-            .from('users')
-            .update({
-                banned: false,
-                ban_reason: null,
-                ban_expires: null,
-                banned_by: null,
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', userId)
-            .select();
-
-        if (error) {
-            console.error('❌ Ошибка Supabase:', error);
-            alert('❌ Ошибка базы данных: ' + error.message);
-            return;
-        }
-
-        console.log('✅ Пользователь разблокирован:', data);
-        alert('✅ Пользователь разблокирован!');
-        
-        // Обновляем интерфейс
-        if (window.loadUsersForAdmin) {
-            setTimeout(() => loadUsersForAdmin(), 500);
-        }
-        
-    } catch (error) {
-        console.error('❌ Ошибка:', error);
-        alert('❌ Ошибка разблокировки: ' + error.message);
-    }
-};
-
-// ==================== ФУНКЦИЯ НАЗНАЧЕНИЯ АДМИНА ====================
-window.assignAdmin = async function() {
-    console.log('🔄 assignAdmin вызвана');
-    
-    if (!currentUser) {
-        alert('❌ Сначала авторизуйтесь');
-        return;
-    }
-    
-    const userId = parseInt(document.getElementById('adminUser').value);
-    
-    if (!userId) {
-        alert('❌ Выберите пользователя для назначения админом');
-        return;
-    }
-    
-    // Находим пользователя для подтверждения
-    const user = allUsers.find(u => u.id === userId);
-    if (!user) {
-        alert('❌ Пользователь не найден');
-        return;
-    }
-    
-    if (!confirm(`Назначить пользователя "${user.nickname}" администратором?`)) {
-        return;
-    }
-    
-    try {
-        console.log('📤 Назначение админа:', userId);
-        
-        const { data, error } = await supabase
-            .from('users')
-            .update({
-                role: 'ADMIN',
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', userId)
-            .select();
-
-        if (error) {
-            console.error('❌ Ошибка Supabase:', error);
-            alert('❌ Ошибка базы данных: ' + error.message);
-            return;
-        }
-
-        console.log('✅ Пользователь назначен админом:', data);
-        alert('✅ Пользователь назначен администратором!');
-        
-        // Перезагружаем списки
-        if (window.loadUsersForAdmin) {
-            setTimeout(() => loadUsersForAdmin(), 500);
-        }
-        
-    } catch (error) {
-        console.error('❌ Ошибка:', error);
-        alert('❌ Ошибка назначения: ' + error.message);
-    }
-};
-
-// ==================== ФУНКЦИЯ СНЯТИЯ ПРАВ АДМИНА ====================
-window.removeAdmin = async function() {
-    console.log('🔄 removeAdmin вызвана');
-    
-    if (!currentUser) {
-        alert('❌ Сначала авторизуйтесь');
-        return;
-    }
-    
-    const userId = parseInt(document.getElementById('removeAdminUser').value);
-    
-    if (!userId) {
-        alert('❌ Выберите администратора для снятия прав');
-        return;
-    }
-    
-    // Находим пользователя для подтверждения
-    const user = allUsers.find(u => u.id === userId);
-    if (!user) {
-        alert('❌ Пользователь не найден');
-        return;
-    }
-    
-    if (!confirm(`Снять права администратора с пользователя "${user.nickname}"?`)) {
-        return;
-    }
-    
-    try {
-        console.log('📤 Снятие прав админа:', userId);
-        
-        const { data, error } = await supabase
-            .from('users')
-            .update({
-                role: 'USER',
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', userId)
-            .select();
-
-        if (error) {
-            console.error('❌ Ошибка Supabase:', error);
-            alert('❌ Ошибка базы данных: ' + error.message);
-            return;
-        }
-
-        console.log('✅ Права админа сняты:', data);
-        alert('✅ Права администратора сняты!');
-        
-        // Обновляем интерфейс
-        if (window.loadUsersForAdmin) {
-            setTimeout(() => loadUsersForAdmin(), 500);
-        }
-        
-    } catch (error) {
-        console.error('❌ Ошибка:', error);
-        alert('❌ Ошибка снятия прав: ' + error.message);
-    }
-};
-
-// ==================== ОБНОВЛЕННАЯ ФУНКЦИЯ ЗАГРУЗКИ ПОЛЬЗОВАТЕЛЕЙ ====================
-window.loadUsersForAdmin = async function() {
-    console.log('🔄 Загрузка пользователей для админки');
-    
-    try {
-        const { data: users, error } = await supabase
-            .from('users')
-            .select('*')
-            .order('created_at', { ascending: false });
-
-        if (error) {
-            console.error('❌ Ошибка загрузки пользователей:', error);
-            return;
-        }
-
-        console.log('✅ Пользователи загружены:', users.length, 'шт');
-        allUsers = users; // Сохраняем в глобальную переменную
-
-        // Заполняем все выпадающие списки
-        const editUserSelect = document.getElementById('editUser');
-        const adminUserSelect = document.getElementById('adminUser');
-        const banUserSelect = document.getElementById('banUser');
-        const removeAdminSelect = document.getElementById('removeAdminUser');
-        const unbanSelect = document.getElementById('unbanUser');
-
-        // Очищаем списки
-        editUserSelect.innerHTML = '<option value="">Выберите пользователя</option>';
-        adminUserSelect.innerHTML = '<option value="">Выберите пользователя</option>';
-        banUserSelect.innerHTML = '<option value="">Выберите пользователя</option>';
-        removeAdminSelect.innerHTML = '<option value="">Выберите администратора</option>';
-        unbanSelect.innerHTML = '<option value="">Выберите пользователя</option>';
-
-        let adminCount = 0;
-        let banCount = 0;
-        let userCount = 0;
-
-        // Заполняем списки
-        users.forEach(user => {
-            if (user.id === currentUser.id) return; // Пропускаем текущего пользователя
-
-            // Для редактирования - все пользователи
-            const editOption = document.createElement('option');
-            editOption.value = user.id;
-            editOption.textContent = `${user.nickname} (${user.role})`;
-            editUserSelect.appendChild(editOption);
-
-            // Для назначения админа - только обычные пользователи
-            if (user.role === 'USER' && !user.banned) {
-                const adminOption = document.createElement('option');
-                adminOption.value = user.id;
-                adminOption.textContent = `${user.nickname} (${user.rank})`;
-                adminUserSelect.appendChild(adminOption);
-                userCount++;
-            }
-
-            // Для бана - все пользователи кроме суперадминов и текущего
-            if (!isSuperAdmin(user) && !user.banned) {
-                const banOption = document.createElement('option');
-                banOption.value = user.id;
-                banOption.textContent = `${user.nickname} (${user.role})`;
-                banUserSelect.appendChild(banOption);
-            }
-
-            // Для снятия прав - только админы и модераторы
-            if ((user.role === 'ADMIN' || user.role === 'MODERATOR') && !isSuperAdmin(user)) {
-                const removeAdminOption = document.createElement('option');
-                removeAdminOption.value = user.id;
-                removeAdminOption.textContent = `${user.nickname} (${user.role})`;
-                removeAdminSelect.appendChild(removeAdminOption);
-                adminCount++;
-            }
-
-            // Для разбана - только заблокированные
-            if (user.banned) {
-                const unbanOption = document.createElement('option');
-                unbanOption.value = user.id;
-                unbanOption.textContent = `${user.nickname} (заблокирован)`;
-                unbanSelect.appendChild(unbanOption);
-                banCount++;
-            }
-        });
-
-        console.log(`📊 Статистика: ${userCount} пользователей, ${adminCount} админов, ${banCount} заблокированных`);
-
-    } catch (error) {
-        console.error('❌ Ошибка загрузки пользователей:', error);
-    }
-};
-
-console.log('🎯 Все функции банов и админки загружены и готовы к тестированию!');
     </script>
 </body>
 </html>
