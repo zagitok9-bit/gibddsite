@@ -1117,6 +1117,187 @@
                 padding: 0 15px;
             }
         }
+
+        /* Стили для новых разделов */
+        
+        /* Стили для раздела оружия */
+        .weapon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+        
+        .weapon-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 24px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .weapon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .weapon-card h3 {
+            margin-bottom: 18px;
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .weapon-info {
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        
+        .weapon-info:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .weapon-info .label {
+            font-weight: 600;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .weapon-info .value {
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+        
+        /* Стили для раздела радиообмена */
+        .radio-category {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 24px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+            transition: all 0.3s;
+        }
+        
+        .radio-category:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .radio-category h3 {
+            margin-bottom: 18px;
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .radio-item {
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        
+        .radio-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .radio-syntax {
+            background: var(--dark);
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            margin: 8px 0;
+            font-size: 0.95rem;
+            overflow-x: auto;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .radio-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+        
+        /* Стили для раздела юрисдикций */
+        .jurisdiction-map {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .jurisdiction-image {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+        }
+        
+        .jurisdiction-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+        
+        .jurisdiction-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 24px;
+            border-top: 5px solid;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .jurisdiction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .jurisdiction-card h3 {
+            margin-bottom: 18px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .jurisdiction-card.mirny {
+            border-top-color: #3b82f6; /* Синий для Мирного */
+        }
+        
+        .jurisdiction-card.mirny h3 {
+            color: #3b82f6;
+        }
+        
+        .jurisdiction-card.nevsky {
+            border-top-color: #ef4444; /* Красный для Невского */
+        }
+        
+        .jurisdiction-card.nevsky h3 {
+            color: #ef4444;
+        }
+        
+        .jurisdiction-card.privolzhsk {
+            border-top-color: #10b981; /* Зеленый для Приволжска */
+        }
+        
+        .jurisdiction-card.privolzhsk h3 {
+            color: #10b981;
+        }
     </style>
 </head>
 <body>
@@ -1204,6 +1385,9 @@
                 <li><a href="#" onclick="showSection('binds')"><i class="fas fa-keyboard"></i> Бинды</a></li>
                 <li><a href="#" onclick="showSection('commands')"><i class="fas fa-terminal"></i> Команды</a></li>
                 <li><a href="#" onclick="showSection('documents')"><i class="fas fa-file-alt"></i> Документы</a></li>
+                <li><a href="#" onclick="showSection('weapon')"><i class="fas fa-shield-alt"></i> Табельное оружие</a></li>
+                <li><a href="#" onclick="showSection('radio')"><i class="fas fa-walkie-talkie"></i> Регламент радиообмена</a></li>
+                <li><a href="#" onclick="showSection('jurisdiction')"><i class="fas fa-map-marked-alt"></i> Юрисдикции МВД</a></li>
                 <li><a href="#" onclick="showSection('map')"><i class="fas fa-map"></i> Карта постов</a></li>
                 <li><a href="#" onclick="showSection('statistics')"><i class="fas fa-chart-bar"></i> Статистика</a></li>
                 <li><a href="#" onclick="showSection('leaderboard')"><i class="fas fa-trophy"></i> Таблица лидеров</a></li>
@@ -1731,26 +1915,452 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- Weapon Section -->
+                <section id="weapon-section" class="content-section" style="display: none;">
+                    <div class="section-title">
+                        <i class="fas fa-shield-alt"></i>
+                        <h2>Справка по табельному оружию и снаряжению</h2>
+                    </div>
+                    <p>Информация о табельном оружии, спецсредствах и снаряжении, доступном сотрудникам ДПС ОГИБДД.</p>
+                    
+                    <div class="weapon-grid">
+                        <div class="weapon-card">
+                            <h3><i class="fas fa-gavel"></i> Дубинка резиновая ПУС-2 «Аргумент-М»</h3>
+                            <div class="weapon-info">
+                                <div class="label">Доступность:</div>
+                                <div class="value">Доступна всем сотрудникам ДПС ОГИБДД</div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Назначение:</div>
+                                <div class="value">Используется для нейтрализации подозреваемого с целью последующего ареста</div>
+                            </div>
+                        </div>
+                        
+                        <div class="weapon-card">
+                            <h3><i class="fas fa-traffic-light"></i> Жезл регулировщика</h3>
+                            <div class="weapon-info">
+                                <div class="label">Доступность:</div>
+                                <div class="value">Доступен всем сотрудникам ДПС ОГИБДД</div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Назначение:</div>
+                                <div class="value">Используется для остановки транспортного средства и регулирования дорожного движения</div>
+                            </div>
+                        </div>
+                        
+                        <div class="weapon-card">
+                            <h3><i class="fas fa-vest"></i> Бронежилет «КОРА-1М»</h3>
+                            <div class="weapon-info">
+                                <div class="label">Доступность:</div>
+                                <div class="value">Доступен всем сотрудникам ДПС ОГИБДД</div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Назначение:</div>
+                                <div class="value">Является средством индивидуальной защиты сотрудников ДПС ОГИБДД от огнестрельного оружия</div>
+                            </div>
+                        </div>
+                        
+                        <div class="weapon-card">
+                            <h3><i class="fas fa-bolt"></i> Электрошоковое устройство «Taser»</h3>
+                            <div class="weapon-info">
+                                <div class="label">Доступность:</div>
+                                <div class="value">Доступен всем сотрудникам ДПС ОГИБДД</div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Назначение:</div>
+                                <div class="value">Используется для остановки и нейтрализации подозреваемого на более длительных дистанциях с целью последующего ареста</div>
+                            </div>
+                        </div>
+                        
+                        <div class="weapon-card">
+                            <h3><i class="fas fa-gun"></i> Пистолет «MP-443 «Грач»</h3>
+                            <div class="weapon-info">
+                                <div class="label">Доступность:</div>
+                                <div class="value">Доступен сотрудникам ДПС ОГИБДД звания "Старшина полиции" и выше. Запрещен для использования курсантам УК и стажёрам ОБ.</div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Назначение:</div>
+                                <div class="value">Используется для нейтрализации преступника, в случае угрозы жизни гражданскому населению или жизни сотрудника, непосредственно. Также используется для стрельбы из окна по колёсам.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="weapon-card">
+                            <h3><i class="fas fa-gun"></i> Гладкоствольное ружьё «МР-133»</h3>
+                            <div class="weapon-info">
+                                <div class="label">Доступность:</div>
+                                <div class="value">Доступно всем сотрудникам со звания "Лейтенант полиции"</div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Назначение:</div>
+                                <div class="value">Используется для нейтрализации преступника, в случае угрозы жизни сотрудника или гражданскому населению. Также используется с целью устрашения и морального подавления противника. Крайне неэффективно на дальних дистанциях.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="weapon-card">
+                            <h3><i class="fas fa-gun"></i> Автомат «АК-74M»</h3>
+                            <div class="weapon-info">
+                                <div class="label">Доступность:</div>
+                                <div class="value">Доступен всем сотрудникам ОСР и инструкторам</div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Назначение:</div>
+                                <div class="value">Используется для выезда за особо-опасными преступниками и нарушителями, а также с целью нейтрализации преступника на дальней дистанции в случае угрозы жизни гражданскому населению или сотрудника, непосредственно.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Radio Section -->
+                <section id="radio-section" class="content-section" style="display: none;">
+                    <div class="section-title">
+                        <i class="fas fa-walkie-talkie"></i>
+                        <h2>Регламент радиообмена</h2>
+                    </div>
+                    <p>Правила и стандарты ведения радиообмена сотрудниками ГИБДД для обеспечения эффективной коммуникации.</p>
+                    
+                    <div class="radio-category">
+                        <h3><i class="fas fa-exchange-alt"></i> Доклад о сдаче/заступлении на смену и о взятии перерыва</h3>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], заступил на смену.</div>
+                            <div class="radio-desc">Доклад о начале смены</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], сдал смену.</div>
+                            <div class="radio-desc">Доклад о завершении смены</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], разрешите взять перерыв на [минут]. [Причина].</div>
+                            <div class="radio-desc">Запрос на перерыв</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], взял перерыв на [время].</div>
+                            <div class="radio-desc">Уведомление о начале перерыва</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], вернулся с перерыва.</div>
+                            <div class="radio-desc">Уведомление о возвращении с перерыва</div>
+                        </div>
+                    </div>
+                    
+                    <div class="radio-category">
+                        <h3><i class="fas fa-car"></i> Доклады во время патрулирования на автомобиле</h3>
+                        <p>Во время патрулирования используются такие аббревиатуры, как ПГ и ПЮ (ПГ / ПЮ - патрулирование города / юрисдикции)</p>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], А-ПГ-1, [Маркировка экипажа] - Выехали в патрулирование города.</div>
+                            <div class="radio-desc">Начало патрулирования на автомобиле</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], А-ПГ-2, [Маркировка экипажа] - Патрулирование города, состояние стабильное.</div>
+                            <div class="radio-desc">Доклад о стабильной обстановке</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], А-ПГ-3, [Маркировка экипажа] - Завершили патрулирование города.</div>
+                            <div class="radio-desc">Завершение патрулирования</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], А-ПГ-4, [Маркировка экипажа], [Деятельность экипажа] - Доклад для указания деятельности экипажа.</div>
+                            <div class="radio-desc">Доклад о текущей деятельности (если имеется напарник, указываете его позывной в конце доклада)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="radio-category">
+                        <h3><i class="fas fa-helicopter"></i> Доклады во время патрулирования на вертолёте</h3>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], В-ПЮ-1, Киров - Вылетели в патрулирование города.</div>
+                            <div class="radio-desc">Начало патрулирования на вертолете</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], В-ПЮ-2, Киров - Патрулирование города, состояние стабильное.</div>
+                            <div class="radio-desc">Доклад о стабильной обстановке с воздуха</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], В-ПЮ-3, Киров - Завершили патрулирование города.</div>
+                            <div class="radio-desc">Завершение воздушного патрулирования</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], В-ПЮ-4, Киров, [Деятельность экипажа] - Доклад для указания деятельности экипажа.</div>
+                            <div class="radio-desc">Доклад о текущей деятельности (если имеется напарник, указываете его позывной в конце доклада)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="radio-category">
+                        <h3><i class="fas fa-walking"></i> Доклады во время пешего патрулирования</h3>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], П-ПГ-1 - Вышли в патрулирование города.</div>
+                            <div class="radio-desc">Начало пешего патрулирования</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], П-ПГ-2 - Патрулирование города, состояние стабильное.</div>
+                            <div class="radio-desc">Доклад о стабильной обстановке при пешем патрулировании</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], П-ПГ-3 - Завершили патрулирование города.</div>
+                            <div class="radio-desc">Завершение пешего патрулирования</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], П-ПГ-4, [Деятельность сотрудников] - Доклад для указания деятельности, если таковая имеется.</div>
+                            <div class="radio-desc">Доклад о текущей деятельности (если имеется напарник, указываете его позывной в конце доклада)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="radio-category">
+                        <h3><i class="fas fa-motorcycle"></i> Доклады во время патрулирования на мотоцикле</h3>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], М-ПГ-1 - Выехали в мотопатрулирование города.</div>
+                            <div class="radio-desc">Начало мотопатрулирования</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], М-ПГ-2 - Мотопатрулирование города, состояние стабильное.</div>
+                            <div class="radio-desc">Доклад о стабильной обстановке при мотопатрулировании</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], М-ПГ-3 - Завершили мотопатрулирование города.</div>
+                            <div class="radio-desc">Завершение мотопатрулирования</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], М-ПГ-4, [Деятельность сотрудников] - Доклад для указания деятельности, если таковая имеется.</div>
+                            <div class="radio-desc">Доклад о текущей деятельности (если имеется напарник, указываете его позывной в конце доклада)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="radio-category">
+                        <h3><i class="fas fa-phone-alt"></i> Доклады во время принятия вызова</h3>
+                        <p>Во время обработки вызова используется такая аббревиатура, как ОВ (ОВ - обработка вызова). Во время принятия вызова допускается использование таких фраз, как *принял(и) вызов*, а также им подобных.</p>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], ОВ-1 [Локация вызова], [Маркировка экипажа].</div>
+                            <div class="radio-desc">Принятие вызова</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], ОВ-2, [Маркировка экипажа] - Прибыли на вызов, обрабатываете.</div>
+                            <div class="radio-desc">Прибытие на место вызова (если вызов оказался ложным, этот доклад не используется)</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], ОВ-3, [Маркировка экипажа] - Вызов обработан.</div>
+                            <div class="radio-desc">Завершение обработки вызова</div>
+                        </div>
+                    </div>
+                    
+                    <div class="radio-category">
+                        <h3><i class="fas fa-road"></i> Доклады во время нахождения на передвижных постах</h3>
+                        <p>Во время дежурства на посту используется маркировка самого поста (номер поста, где *Х*), а также цифры, обозначающие состояние или действия сотрудника на том самом посту.</p>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], ПП-[Х]-0, [Маркировка экипажа] - Выехали на пост.</div>
+                            <div class="radio-desc">Выезд на пост</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], ПП-[X]-1, [Маркировка экипажа] - Заступили на пост.</div>
+                            <div class="radio-desc">Заступление на пост</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], ПП-[Х]-2, [Маркировка экипажа] - Состояние на посту стабильное.</div>
+                            <div class="radio-desc">Доклад о стабильной обстановке на посту</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], ПП-[Х]-3, [Маркировка экипажа] - Сдали пост.</div>
+                            <div class="radio-desc">Сдача поста</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], ПП-[Х]-4, [Маркировка экипажа], [Деятельность сотрудников] - Доклад с указанием деятельности, если таковая имеется.</div>
+                            <div class="radio-desc">Доклад о текущей деятельности (если имеется напарник, указываете его позывной в конце доклада)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="radio-category">
+                        <h3><i class="fas fa-user-secret"></i> Доклады во время отлова ООН (для ОСР)</h3>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], выехал(и) на поимку ООН. По базе данных: [Имя Фамилия нарушителя] - Начало отлова.</div>
+                            <div class="radio-desc">Начало операции по задержанию особо опасного нарушителя</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="radio-syntax">[Позывной], ООН был нейтрализован. Произвожу(дим) конвоирование задержанного в отдел - Конец отлова.</div>
+                            <div class="radio-desc">Завершение операции по задержанию</div>
+                        </div>
+                    </div>
+                    
+                    <div class="radio-category">
+                        <h3><i class="fas fa-broadcast-tower"></i> Основные положения радиообмена</h3>
+                        
+                        <div class="radio-item">
+                            <div class="label">Позывной</div>
+                            <div class="value">Специальное слово, либо сочетание букв или цифр, которое присваивают сотрудникам ОГИБДД для опознания участников переговоров, а также с целью осуществления докладов о текущей деятельности сотрудника ОГИБДД. Позывные присваиваются в индивидуальном порядке руководящим составом отдела или начальником ДПС ОГИБДД по г. Приволжск.</div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="label">Формирование позывных</div>
+                            <div class="value">
+                                <ul>
+                                    <li>Сотрудникам ОБ присваиваются позывные: ОБ-*, где * - любое натуральное число</li>
+                                    <li>Сотрудникам УК присваиваются позывные: К-*, где * - любое натуральное число</li>
+                                    <li>Сотрудникам ЦПС присваиваются позывные: И-*, где * - любое натуральное число</li>
+                                    <li>Сотрудникам ОСР присваиваются любые именные позывные, которые не ограничены правилами четвёртого пункта</li>
+                                    <li>Сотрудникам СК присваиваются позывные: С-1, С-2, С-3 - для стажёров-инспекторов ОСР; С-4, С-5, С-6 - для стажёров-инспекторов ОБ; С-7, С-8, С-9 - для стажёров-инструкторов ЦПС</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="label">Обязанности сотрудника</div>
+                            <div class="value">
+                                <ul>
+                                    <li>Сотрудник обязан использовать свой позывной в начале каждого доклада или запроса о помощи в общую рацию сотрудников ОГИБДД-П</li>
+                                    <li>Сотрудник обязан использовать тег "ОГИБДД-П" в начале докладов и/или запросов о помощи в общую рацию сотрудников МВД и общую рацию всех государственных организаций</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="radio-item">
+                            <div class="label">Запреты сотрудника</div>
+                            <div class="value">
+                                <ul>
+                                    <li>Запрещено использовать позывной, который закреплён за другим сотрудником</li>
+                                    <li>Запрещено использовать свою фамилию или фамилию напарника вместо позывного(-ых)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Jurisdiction Section -->
+                <section id="jurisdiction-section" class="content-section" style="display: none;">
+                    <div class="section-title">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h2>Юрисдикции структур МВД</h2>
+                    </div>
+                    <p>Распределение зон ответственности и юрисдикций между структурными подразделениями МВД в городах Республики Провинция.</p>
+                    
+                    <div class="jurisdiction-map">
+                        <img src="https://sun9-60.userapi.com/impg/JaNeolWVlVb2GT0NnuraXZnz8ZNwkGOm24x1Sg/yt6KDQXk-F8.jpg?size=1280x1280&quality=96&sign=0370a9a83347001d3ef0f0aacd45e9d8&type=album" alt="Карта юрисдикций МВД" class="jurisdiction-image">
+                        <p><strong>Легенда:</strong> Мирный - синий / Приволжск - Зеленый / Невский - Красный</p>
+                    </div>
+                    
+                    <div class="jurisdiction-info">
+                        <div class="jurisdiction-card mirny">
+                            <h3><i class="fas fa-city"></i> Город Мирный</h3>
+                            <div class="weapon-info">
+                                <div class="label">Цвет обозначения:</div>
+                                <div class="value" style="color: #3b82f6;">Синий</div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Ответственные подразделения:</div>
+                                <div class="value">
+                                    <ul>
+                                        <li>ОГИБДД по г. Мирный</li>
+                                        <li>Отдел полиции №1 г. Мирный</li>
+                                        <li>Патрульно-постовая служба г. Мирный</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Особенности юрисдикции:</div>
+                                <div class="value">Город Мирный является административным центром региона. Здесь расположены ключевые государственные учреждения и дипломатические представительства. Сотрудники МВД в Мирном обеспечивают безопасность важных государственных объектов и дипломатического корпуса.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="jurisdiction-card privolzhsk">
+                            <h3><i class="fas fa-industry"></i> Город Приволжск</h3>
+                            <div class="weapon-info">
+                                <div class="label">Цвет обозначения:</div>
+                                <div class="value" style="color: #10b981;">Зеленый</div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Ответственные подразделения:</div>
+                                <div class="value">
+                                    <ul>
+                                        <li>ОГИБДД по г. Приволжск</li>
+                                        <li>Отдел полиции №2 г. Приволжск</li>
+                                        <li>Отдел по борьбе с экономическими преступлениями</li>
+                                        <li>Транспортная полиция</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Особенности юрисдикции:</div>
+                                <div class="value">Приволжск - промышленный и транспортный узел региона. Основные задачи МВД в Приволжске - обеспечение безопасности на транспортных магистралях, охрана промышленных объектов и борьба с экономическими преступлениями.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="jurisdiction-card nevsky">
+                            <h3><i class="fas fa-university"></i> Город Невский</h3>
+                            <div class="weapon-info">
+                                <div class="label">Цвет обозначения:</div>
+                                <div class="value" style="color: #ef4444;">Красный</div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Ответственные подразделения:</div>
+                                <div class="value">
+                                    <ul>
+                                        <li>ОГИБДД по г. Невский</li>
+                                        <li>Отдел полиции №3 г. Невский</li>
+                                        <li>Отдел по борьбе с организованной преступностью</li>
+                                        <li>Кинологическая служба</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="weapon-info">
+                                <div class="label">Особенности юрисдикции:</div>
+                                <div class="value">Невский - культурный и исторический центр с развитой туристической инфраструктурой. Сотрудники МВД в Невском специализируются на обеспечении общественного порядка в местах массового скопления людей, охране культурных ценностей и борьбе с уличной преступностью.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="map-description" style="margin-top: 30px;">
+                        <h3><i class="fas fa-info-circle"></i> Взаимодействие между юрисдикциями</h3>
+                        <p>Все подразделения МВД работают в тесном взаимодействии согласно единому плану оперативного реагирования. В случае возникновения чрезвычайных ситуаций или проведения масштабных операций, сотрудники разных юрисдикций могут быть временно переподчинены для выполнения общих задач.</p>
+                        <p>Координацию совместных действий осуществляет Оперативный штаб МВД Республики Провинция, расположенный в г. Мирный.</p>
+                    </div>
+                </section>
                 
-<!-- Map Section -->
-<section id="map-section" class="content-section" style="display: none;">
-    <div class="section-title">
-        <i class="fas fa-map"></i>
-        <h2>Карта постов</h2>
-    </div>
-    <p>Карта с расположением всех постов для патрулирования и контроля дорожного движения.</p>
-    
-    <div class="map-container">
-        <!-- Ваша карта постов -->
-        <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXcOpJdcpV3DGQdJgU1dleoahP0emwSKqDDoaQF2dd7cB3Rg04zIwkYsxbXOEREAJBIKNzx9jvvE3LqX2jk5CC_DXFgLmlqF89loDME2Trcn2fkG5FnN67gvoThqfQpMlZw3tD5Qn-ZOfgtkFlgwGs4Q2B8?key=fuZgRRHThPhJ3hcp0pwv8g" alt="Карта постов ГИБДД" class="map-image">
-        
-        <div class="map-description">
-            <h3><i class="fas fa-info-circle"></i> Информация о постах</h3>
-            <p>Карта с расположением всех постов. Количество сотрудников на одном посту не ограничено.</p>
-            <p>На постах разрешено устанавливать специальные ограждения и заграждения, однако они должны быть установлены согласно приказу МВД.</p>
-        </div>
-    </div>
-</section>
+                <!-- Map Section -->
+                <section id="map-section" class="content-section" style="display: none;">
+                    <div class="section-title">
+                        <i class="fas fa-map"></i>
+                        <h2>Карта постов</h2>
+                    </div>
+                    <p>Карта с расположением всех постов для патрулирования и контроля дорожного движения.</p>
+                    
+                    <div class="map-container">
+                        <!-- Ваша карта постов -->
+                        <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXcOpJdcpV3DGQdJgU1dleoahP0emwSKqDDoaQF2dd7cB3Rg04zIwkYsxbXOEREAJBIKNzx9jvvE3LqX2jk5CC_DXFgLmlqF89loDME2Trcn2fkG5FnN67gvoThqfQpMlZw3tD5Qn-ZOfgtkFlgwGs4Q2B8?key=fuZgRRHThPhJ3hcp0pwv8g" alt="Карта постов ГИБДД" class="map-image">
+                        
+                        <div class="map-description">
+                            <h3><i class="fas fa-info-circle"></i> Информация о постах</h3>
+                            <p>Карта с расположением всех постов. Количество сотрудников на одном посту не ограничено.</p>
+                            <p>На постах разрешено устанавливать специальные ограждения и заграждения, однако они должны быть установлены согласно приказу МВД.</p>
+                        </div>
+                    </div>
+                </section>
                 
                 <!-- Statistics Section -->
                 <section id="statistics-section" class="content-section" style="display: none;">
@@ -2236,1450 +2846,1379 @@
     </footer>
 
     <script>
- // ==================== КОНФИГУРАЦИЯ SUPABASE ====================
-const SUPABASE_URL = 'https://vosimalhgssrwebzdtod.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZvc2ltYWxoZ3NzcndlYnpkdG9kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5ODg0NDgsImV4cCI6MjA3OTU2NDQ0OH0.ypMMMoJ6RMQHdP7DKAJX76aEjKRILPQvd3uB8mCjn28';
-
-// Инициализация Supabase
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// ==================== СИСТЕМА РОЛЕЙ ====================
-const PERMISSION_LEVELS = {
-  USER: 0,
-  HELPER: 1,
-  MODERATOR: 2,
-  ADMIN: 3,
-  SUPER_ADMIN: 4
-};
-
-const ROLES = {
-  USER: { 
-    level: 0, 
-    name: "Гражданский", 
-    permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_map'] 
-  },
-  HELPER: { 
-    level: 1, 
-    name: "Помощник", 
-    permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_map', 'view_all_stats', 'view_users'] 
-  },
-  MODERATOR: { 
-    level: 2, 
-    name: "Модератор", 
-    permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_map', 'view_all_stats', 'view_users', 'ban_users', 'edit_stats', 'view_logs'] 
-  },
-  ADMIN: { 
-    level: 3, 
-    name: "Администратор", 
-    permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_map', 'view_all_stats', 'view_users', 'ban_users', 'edit_stats', 'view_logs', 'manage_users', 'assign_roles', 'system_settings'] 
-  },
-  SUPER_ADMIN: { 
-    level: 4, 
-    name: "Главный Администратор", 
-    permissions: ['all'] 
-  }
-};
-
-const SUPER_ADMINS = [
-  { username: "Alexander_Vorobyev", email: "alexandro_vorobyev@vk.com" }
-];
-
-// Глобальные переменные
-let currentUser = null;
-let currentUserStats = null;
-let allUsers = [];
-
-// ==================== ФУНКЦИИ АВТОРИЗАЦИИ ====================
-
-// Хеширование пароля
-async function hashPassword(password) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(password);
-  const hash = await crypto.subtle.digest('SHA-256', data);
-  return Array.from(new Uint8Array(hash))
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
-}
-
-// Проверка является ли пользователь суперадмином
-function isSuperAdmin(userData) {
-  return SUPER_ADMINS.some(sa => 
-    sa.username === userData.username || 
-    sa.email === userData.email
-  );
-}
-
-// Регистрация пользователя
-async function registerUser(userData) {
-  try {
-    // Проверяем, нет ли уже пользователя с таким логином или email
-    const { data: existingUsers, error: checkError } = await supabase
-      .from('users')
-      .select('id')
-      .or(`username.eq.${userData.username},email.eq.${userData.email}`);
-
-    if (checkError) throw checkError;
-    if (existingUsers && existingUsers.length > 0) {
-      throw new Error('Пользователь с таким логином или email уже существует');
-    }
-
-    // Создаем пользователя
-    const { data: user, error } = await supabase
-      .from('users')
-      .insert([{
-        nickname: userData.nickname,
-        username: userData.username,
-        email: userData.email,
-        password_hash: await hashPassword(userData.password),
-        role: isSuperAdmin(userData) ? 'SUPER_ADMIN' : 'USER',
-        rank: 'Гражданский',
-        position: '',
-        fraction: '',
-        city: 'Приволжск'
-      }])
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    // Создаем запись статистики
-    const { error: statsError } = await supabase
-      .from('user_stats')
-      .insert([{
-        user_id: user.id,
-        fines: 0,
-        arrests: 0,
-        licenses: 0,
-        searches: 0,
-        rating: 0
-      }]);
-
-    if (statsError) throw statsError;
-
-    // Автоматически логиним пользователя после регистрации
-    const loginResult = await loginUser(userData.username, userData.password);
-    return loginResult;
-
-  } catch (error) {
-    console.error('Registration error:', error);
-    return { success: false, error: error.message };
-  }
-}
-
-// Вход пользователя
-async function loginUser(login, password) {
-  try {
-    // Ищем пользователя
-    const { data: user, error } = await supabase
-      .from('users')
-      .select('*')
-      .or(`username.eq.${login},email.eq.${login}`)
-      .single();
-
-    if (error) throw error;
-
-    // Проверяем пароль
-    const isPasswordValid = await hashPassword(password) === user.password_hash;
-    if (!isPasswordValid) throw new Error('Неверный пароль');
-
-    // Проверяем бан
-    if (user.banned && user.ban_expires && new Date(user.ban_expires) > new Date()) {
-      throw new Error(`Аккаунт заблокирован. Причина: ${user.ban_reason}. Разблокировка: ${new Date(user.ban_expires).toLocaleDateString()}`);
-    }
-
-    // Если бан истек, разблокируем
-    if (user.banned && user.ban_expires && new Date(user.ban_expires) <= new Date()) {
-      await supabase
-        .from('users')
-        .update({ 
-          banned: false, 
-          ban_reason: null, 
-          ban_expires: null, 
-          banned_by: null 
-        })
-        .eq('id', user.id);
-      user.banned = false;
-    }
-
-    // Сохраняем пользователя в localStorage
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    
-    return { success: true, user };
-  } catch (error) {
-    console.error('Login error:', error);
-    return { success: false, error: error.message };
-  }
-}
-
-// Проверка авторизации
-async function checkAuth() {
-  const storedUser = localStorage.getItem('currentUser');
-  if (!storedUser) return null;
-
-  try {
-    const user = JSON.parse(storedUser);
-    
-    // Проверяем, актуальны ли данные пользователя
-    const { data: freshUser, error } = await supabase
-      .from('users')
-      .select('*')
-      .eq('id', user.id)
-      .single();
-
-    if (error) throw error;
-
-    // Если пользователь забанен, выходим
-    if (freshUser.banned && freshUser.ban_expires && new Date(freshUser.ban_expires) > new Date()) {
-      localStorage.removeItem('currentUser');
-      return null;
-    }
-
-    return freshUser;
-  } catch (error) {
-    localStorage.removeItem('currentUser');
-    return null;
-  }
-}
-
-// Выход
-function logout() {
-  localStorage.removeItem('currentUser');
-  currentUser = null;
-  currentUserStats = null;
-  location.reload();
-}
-
-// ==================== ФУНКЦИИ СТАТИСТИКИ ====================
-
-// Получение статистики пользователя
-async function getUserStats(userId) {
-  try {
-    const { data, error } = await supabase
-      .from('user_stats')
-      .select('*')
-      .eq('user_id', userId)
-      .single();
-
-    return error ? null : data;
-  } catch (error) {
-    console.error('Get stats error:', error);
-    return null;
-  }
-}
-
-// Обновление статистики
-async function updateUserStats(userId, statType, value) {
-  try {
-    // Сначала получаем текущую статистику
-    const currentStats = await getUserStats(userId);
-    if (!currentStats) return false;
-
-    // Обновляем нужное поле
-    const updatedStats = { ...currentStats };
-    updatedStats[statType] = Math.max(0, currentStats[statType] + value);
-    updatedStats.updated_at = new Date().toISOString();
-
-    // Обновляем в базе
-    const { error } = await supabase
-      .from('user_stats')
-      .update(updatedStats)
-      .eq('user_id', userId);
-
-    if (error) throw error;
-
-    return true;
-  } catch (error) {
-    console.error('Update stats error:', error);
-    return false;
-  }
-}
-
-// Получение таблицы лидеров
-async function getLeaderboard(type = 'fines', limit = 50) {
-  try {
-    const { data, error } = await supabase
-      .from('user_stats')
-      .select(`
-        fines, arrests, licenses, searches, rating,
-        users (id, nickname, rank, fraction, city, banned)
-      `)
-      .not('users.banned', 'is', true)
-      .order(type, { ascending: false })
-      .limit(limit);
-
-    return error ? [] : data;
-  } catch (error) {
-    console.error('Leaderboard error:', error);
-    return [];
-  }
-}
-
-// ==================== АДМИНИСТРАТИВНЫЕ ФУНКЦИИ ====================
-
-// Получение всех пользователей
-async function getAllUsers() {
-  try {
-    const { data, error } = await supabase
-      .from('users')
-      .select('*, user_stats (fines, arrests, licenses, searches, rating)')
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
-    return data || [];
-  } catch (error) {
-    console.error('Get users error:', error);
-    return [];
-  }
-}
-
-// Обновление данных пользователя
-// ==================== ФИКС РЕКУРСИИ - ПОЛНАЯ ЗАМЕНА ====================
-
-// 1. Функция для обновления в базе данных
-async function updateUserInDatabase(userId, userData) {
-  try {
-    const { error } = await supabase
-      .from('users')
-      .update({
-        ...userData,
-        updated_at: new Date().toISOString()
-      })
-      .eq('id', userId);
-
-    return !error;
-  } catch (error) {
-    console.error('Update user error:', error);
-    return false;
-  }
-}
-
-// 2. Функция для обработки формы (НОВОЕ НАЗВАНИЕ)
-async function saveUserChanges() {
-  if (!requirePermission('manage_users')) return;
-  
-  const userId = parseInt(document.getElementById('editUser').value);
-  const fraction = document.getElementById('editFraction').value;
-  const city = document.getElementById('editCity').value;
-  const rank = document.getElementById('editRank').value;
-  const position = document.getElementById('editPosition').value;
-  
-  if (!userId) {
-    showError('Выберите пользователя');
-    return;
-  }
-  
-  try {
-    const success = await updateUserInDatabase(userId, {
-      fraction,
-      city,
-      rank,
-      position
-    });
-    
-    if (success) {
-      alert('✅ Данные пользователя обновлены!');
-      loadUsersForAdmin();
-      logAdminAction('update_user_data', userId, `Обновлены данные: ${fraction}, ${city}, ${rank}, ${position}`);
-    } else {
-      showError('Ошибка при обновлении данных');
-    }
-  } catch (error) {
-    console.error('Error updating user data:', error);
-    showError('Ошибка при обновлении данных');
-  }
-}
-
-// Блокировка пользователя
-async function banUserInDatabase(userId, reason, durationDays = 0, adminName) {
-  try {
-    const banExpires = durationDays > 0 ? 
-      new Date(Date.now() + durationDays * 24 * 60 * 60 * 1000).toISOString() : 
-      null;
-
-    const { error } = await supabase
-      .from('users')
-      .update({
-        banned: true,
-        ban_reason: reason,
-        ban_expires: banExpires,
-        banned_by: adminName,
-        updated_at: new Date().toISOString()
-      })
-      .eq('id', userId);
-
-    return !error;
-  } catch (error) {
-    console.error('Ban user error:', error);
-    return false;
-  }
-}
-
-// Разблокировка пользователя
-async function unbanUserInDatabase(userId) {
-  try {
-    const { error } = await supabase
-      .from('users')
-      .update({
-        banned: false,
-        ban_reason: null,
-        ban_expires: null,
-        banned_by: null,
-        updated_at: new Date().toISOString()
-      })
-      .eq('id', userId);
-
-    return !error;
-  } catch (error) {
-    console.error('Unban user error:', error);
-    return false;
-  }
-}
-
-// Логирование действий
-async function logAdminAction(action, target = null, details = '') {
-  if (!currentUser) return true;
-
-  try {
-    const { error } = await supabase
-      .from('admin_logs')
-      .insert([{
-        admin_id: currentUser.id,
-        admin_name: currentUser.nickname,
-        admin_role: currentUser.role,
-        action: action,
-        target: target,
-        details: details,
-        timestamp: new Date().toISOString()
-      }]);
-
-    return !error;
-  } catch (error) {
-    console.error('Log action error:', error);
-    return false;
-  }
-}
-
-// ==================== ПРОВЕРКА ПРАВ ====================
-
-function hasPermission(user, permission) {
-  if (!user) return false;
-  if (user.role === 'SUPER_ADMIN' || isSuperAdmin(user)) return true;
-  
-  const role = ROLES[user.role];
-  return role && (role.permissions.includes(permission) || role.permissions.includes('all'));
-}
-
-function requirePermission(permission) {
-  if (!hasPermission(currentUser, permission)) {
-    showError('Недостаточно прав для выполнения этого действия');
-    return false;
-  }
-  return true;
-}
-
-function showError(message) {
-  alert('❌ ' + message);
-}
-
-// ==================== ИНИЦИАЛИЗАЦИЯ И UI ====================
-
-let isDarkTheme = localStorage.getItem('darkTheme') === 'true';
-
-// Применение темы
-function applyTheme() {
-  if (isDarkTheme) {
-    document.body.classList.add('dark-theme');
-    document.getElementById('themeToggle').textContent = '☀️';
-  } else {
-    document.body.classList.remove('dark-theme');
-    document.getElementById('themeToggle').textContent = '🌙';
-  }
-}
-
-// Показать/скрыть модальное окно авторизации
-function showAuthModal() {
-  document.getElementById('authModal').style.display = 'flex';
-}
-
-function hideAuthModal() {
-  document.getElementById('authModal').style.display = 'none';
-}
-
-// Переключение между формами входа и регистрации
-function showAuthForm(formType) {
-  document.getElementById('loginForm').classList.remove('active');
-  document.getElementById('registerForm').classList.remove('active');
-  document.querySelectorAll('.auth-tab').forEach(tab => tab.classList.remove('active'));
-  
-  if (formType === 'login') {
-    document.getElementById('loginForm').classList.add('active');
-    document.querySelectorAll('.auth-tab')[0].classList.add('active');
-  } else {
-    document.getElementById('registerForm').classList.add('active');
-    document.querySelectorAll('.auth-tab')[1].classList.add('active');
-  }
-}
-
-// Обновление интерфейса пользователя
-async function updateUserInterface() {
-  if (!currentUser) return;
-
-  // Получаем свежую статистику
-  currentUserStats = await getUserStats(currentUser.id);
-
-  // Обновляем UI
-  document.querySelector('.user-name').textContent = currentUser.nickname;
-  
-  let displayRank = currentUser.rank;
-  let statusBadge = '';
-  
-  if (isSuperAdmin(currentUser)) {
-    statusBadge = '<span class="super-admin-badge">ГЛАВНЫЙ АДМИН</span>';
-    displayRank = 'Главный Администратор';
-  } else if (currentUser.role === 'ADMIN') {
-    statusBadge = '<span class="admin-badge">АДМИН</span>';
-  } else if (currentUser.role === 'MODERATOR') {
-    statusBadge = '<span class="admin-badge" style="background: #f59e0b;">МОДЕРАТОР</span>';
-  } else if (currentUser.role === 'HELPER') {
-    statusBadge = '<span class="admin-badge" style="background: #10b981;">ПОМОЩНИК</span>';
-  }
-  
-  document.querySelector('.user-rank').innerHTML = displayRank + statusBadge;
-  document.querySelector('.user-avatar').textContent = currentUser.nickname.charAt(0).toUpperCase();
-
-  // Обновляем статистику в сайдбаре
-  if (currentUserStats) {
-    document.getElementById('sidebar-fines').textContent = currentUserStats.fines;
-    document.getElementById('sidebar-arrests').textContent = currentUserStats.arrests;
-    document.getElementById('sidebar-licenses').textContent = currentUserStats.licenses;
-    document.getElementById('sidebar-searches').textContent = currentUserStats.searches;
-    document.getElementById('sidebar-rating').textContent = currentUserStats.rating;
-
-    document.getElementById('stat-fines').textContent = currentUserStats.fines;
-    document.getElementById('stat-arrests').textContent = currentUserStats.arrests;
-    document.getElementById('stat-licenses').textContent = currentUserStats.licenses;
-    document.getElementById('stat-searches').textContent = currentUserStats.searches;
-    document.getElementById('stat-rating').textContent = currentUserStats.rating;
-  }
-
-  // Показываем/скрываем админ-панель
-  if (hasPermission(currentUser, 'view_users')) {
-    document.getElementById('adminTab').style.display = 'block';
-  } else {
-    document.getElementById('adminTab').style.display = 'none';
-  }
-
-  document.getElementById('profileTab').style.display = 'block';
-}
-
-// Обновление информации в профиле
-function updateProfileInfo() {
-  if (!currentUser || !currentUserStats) return;
-
-  document.getElementById('profile-nickname').textContent = currentUser.nickname;
-  document.getElementById('profile-rank').textContent = currentUser.rank;
-  document.getElementById('profile-position').textContent = currentUser.position;
-  document.getElementById('profile-fraction').textContent = currentUser.fraction;
-  document.getElementById('profile-city').textContent = currentUser.city;
-  
-  let status = 'Активен';
-  if (currentUser.banned) {
-    status = 'Заблокирован';
-  } else if (isSuperAdmin(currentUser)) {
-    status = 'Главный Администратор';
-  } else if (currentUser.role === 'ADMIN') {
-    status = 'Администратор';
-  } else if (currentUser.role === 'MODERATOR') {
-    status = 'Модератор';
-  } else if (currentUser.role === 'HELPER') {
-    status = 'Помощник';
-  } else if (currentUser.role === 'USER') {
-    status = 'Гражданский';
-  }
-  document.getElementById('profile-status').textContent = status;
-  
-  document.getElementById('profile-fines').textContent = currentUserStats.fines;
-  document.getElementById('profile-arrests').textContent = currentUserStats.arrests;
-  document.getElementById('profile-licenses').textContent = currentUserStats.licenses;
-  document.getElementById('profile-searches').textContent = currentUserStats.searches;
-  document.getElementById('profile-rating').textContent = currentUserStats.rating;
-  
-  const regDate = new Date(currentUser.registration_date || currentUser.created_at);
-  document.getElementById('profile-regdate').textContent = regDate.toLocaleDateString('ru-RU');
-}
-
-// Обновление статистики
-async function updateStat(stat, value) {
-  if (!currentUser) {
-    showError('Необходимо авторизоваться');
-    return;
-  }
-
-  const success = await updateUserStats(currentUser.id, stat, value);
-  if (success) {
-    // Обновляем локальные данные
-    currentUserStats[stat] = Math.max(0, currentUserStats[stat] + value);
-    updateUserInterface();
-    updateProfileInfo();
-    
-    logAdminAction('edit_stats', currentUser.id, `Изменение статистики: ${stat} на ${value}`);
-  } else {
-    showError('Ошибка при обновлении статистики');
-  }
-}
-
-// Обновление таблицы лидеров
-async function updateLeaderboards() {
-  const finesData = await getLeaderboard('fines');
-  const arrestsData = await getLeaderboard('arrests');
-  const licensesData = await getLeaderboard('licenses');
-  const searchesData = await getLeaderboard('searches');
-
-  // Заполняем таблицу штрафов
-  const finesTable = document.getElementById('fines-leaderboard');
-  finesTable.innerHTML = '';
-  finesData.forEach((item, index) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${item.users.nickname}</td>
-      <td>${item.fines}</td>
-      <td>${item.users.rank}</td>
-      <td>${item.users.fraction}</td>
-    `;
-    finesTable.appendChild(row);
-  });
-
-  // Заполняем таблицу задержаний
-  const arrestsTable = document.getElementById('arrests-leaderboard');
-  arrestsTable.innerHTML = '';
-  arrestsData.forEach((item, index) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${item.users.nickname}</td>
-      <td>${item.arrests}</td>
-      <td>${item.users.rank}</td>
-      <td>${item.users.fraction}</td>
-    `;
-    arrestsTable.appendChild(row);
-  });
-
-  // Аналогично для остальных таблиц...
-}
-
-// ==================== ОБРАБОТЧИКИ СОБЫТИЙ ====================
-
-document.addEventListener('DOMContentLoaded', async function() {
-  // Инициализация темы
-  applyTheme();
-  
-  // Проверяем авторизацию
-  currentUser = await checkAuth();
-  
-  if (currentUser) {
-    currentUserStats = await getUserStats(currentUser.id);
-    updateUserInterface();
-    hideAuthModal();
-  } else {
-    showAuthModal();
-  }
-  
-  // Показываем главную страницу
-  showSection('dashboard');
-  
-  // Загружаем всех пользователей для админ-панели
-  allUsers = await getAllUsers();
-});
-
-// Переключение темы
-document.getElementById('themeToggle').addEventListener('click', function() {
-  isDarkTheme = !isDarkTheme;
-  localStorage.setItem('darkTheme', isDarkTheme);
-  applyTheme();
-});
-
-// Обработка формы входа
-document.getElementById('loginForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  const username = document.getElementById('loginUsername').value;
-  const password = document.getElementById('loginPassword').value;
-  
-  const result = await loginUser(username, password);
-  
-  if (result.success) {
-    currentUser = result.user;
-    currentUserStats = await getUserStats(currentUser.id);
-    updateUserInterface();
-    hideAuthModal();
-    alert('✅ Вход выполнен успешно!');
-  } else {
-    alert('❌ ' + result.error);
-  }
-});
-
-// Обработка формы регистрации
-document.getElementById('registerForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  const formData = {
-    nickname: document.getElementById('registerNickname').value,
-    username: document.getElementById('registerUsername').value,
-    email: document.getElementById('registerEmail').value,
-    password: document.getElementById('registerPassword').value
-  };
-  
-  const confirmPassword = document.getElementById('registerConfirmPassword').value;
-  
-  if (formData.password !== confirmPassword) {
-    alert('❌ Пароли не совпадают!');
-    return;
-  }
-  
-  const result = await registerUser(formData);
-  
-  if (result.success) {
-    currentUser = result.user;
-    currentUserStats = await getUserStats(currentUser.id);
-    updateUserInterface();
-    hideAuthModal();
-    
-    if (isSuperAdmin(currentUser)) {
-      alert('🎉 Регистрация успешна! Вы стали Главным Администратором системы.');
-    } else {
-      alert('🎉 Регистрация успешна! Ваша роль: Гражданский');
-    }
-  } else {
-    alert('❌ ' + result.error);
-  }
-});
-
-// Функция для переключения между разделами
-function showSection(sectionName) {
-  // Скрываем все разделы
-  document.querySelectorAll('.content-section').forEach(section => {
-    section.style.display = 'none';
-  });
-  
-  // Показываем нужный раздел
-  document.getElementById(sectionName + '-section').style.display = 'block';
-  
-  // Обновляем активную вкладку в навигации
-  document.querySelectorAll('.nav-tabs a').forEach(link => {
-    link.classList.remove('active');
-  });
-  event.target.classList.add('active');
-  
-  // Специальные действия для некоторых разделов
-  if (sectionName === 'leaderboard') {
-    updateLeaderboards();
-  }
-  
-  if (sectionName === 'profile') {
-    updateProfileInfo();
-  }
-  
-  if (sectionName === 'statistics' && currentUserStats) {
-    document.getElementById('stat-fines').textContent = currentUserStats.fines;
-    document.getElementById('stat-arrests').textContent = currentUserStats.arrests;
-    document.getElementById('stat-licenses').textContent = currentUserStats.licenses;
-    document.getElementById('stat-searches').textContent = currentUserStats.searches;
-    document.getElementById('stat-rating').textContent = currentUserStats.rating;
-  }
-}
-
-// Функция для копирования биндов (оставляем без изменений)
-function copyBind(key) {
-  const bindText = `bind ${key}`;
-  navigator.clipboard.writeText(bindText)
-    .then(() => alert(`Бинд "${bindText}" скопирован!`))
-    .catch(err => console.error('Ошибка копирования: ', err));
-}
-
-function copyBindText(text) {
-  navigator.clipboard.writeText(text)
-    .then(() => alert('Бинд скопирован!'))
-    .catch(err => console.error('Ошибка копирования: ', err));
-}
-
-// Переключение формы профиля
-function toggleProfileForm() {
-  if (currentUser) {
-    showSection('profile');
-  } else {
-    showAuthModal();
-  }
-}
-// ==================== ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ДЛЯ АДМИН-ПАНЕЛИ ====================
-
-// Показать вкладку админ-панели
-function showAdminTab(tabName) {
-    // Скрываем все вкладки
-    document.querySelectorAll('.admin-tab-content').forEach(content => {
-        content.style.display = 'none';
-    });
-    
-    // Показываем нужную вкладку
-    document.getElementById(`admin-${tabName}`).style.display = 'block';
-    
-    // Обновляем активные табы
-    document.querySelectorAll('.admin-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    event.target.classList.add('active');
-    
-    // Загружаем данные для вкладки
-    if (tabName === 'users') {
-        loadUsersForAdmin();
-    } else if (tabName === 'admins') {
-        loadAdminsForAdmin();
-    } else if (tabName === 'bans') {
-        loadBansForAdmin();
-    }
-}
-
-// Загрузка пользователей для админ-панели
-async function loadUsersForAdmin() {
-    if (!requirePermission('view_users')) return;
-    
-    try {
-        const users = await getAllUsers();
-        
-        // Заполняем выпадающие списки
-        const editUserSelect = document.getElementById('editUser');
-        const adminUserSelect = document.getElementById('adminUser');
-        const banUserSelect = document.getElementById('banUser');
-        
-        editUserSelect.innerHTML = '';
-        adminUserSelect.innerHTML = '';
-        banUserSelect.innerHTML = '';
-        
-        users.forEach(user => {
-            if (user.id !== currentUser.id && !isSuperAdmin(user)) {
-                // Для редактирования
-                const option1 = document.createElement('option');
-                option1.value = user.id;
-                option1.textContent = `${user.nickname} (${user.role})`;
-                editUserSelect.appendChild(option1);
-                
-                // Для назначения админа (только обычные пользователи)
-                if (user.role === 'USER') {
-                    const option2 = document.createElement('option');
-                    option2.value = user.id;
-                    option2.textContent = user.nickname;
-                    adminUserSelect.appendChild(option2);
-                }
-                
-                // Для бана
-                const option3 = document.createElement('option');
-                option3.value = user.id;
-                option3.textContent = user.nickname;
-                banUserSelect.appendChild(option3);
+        // ==================== КОНФИГУРАЦИЯ SUPABASE ====================
+        const SUPABASE_URL = 'https://vosimalhgssrwebzdtod.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZvc2ltYWxoZ3NzcndlYnpkdG9kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5ODg0NDgsImV4cCI6MjA3OTU2NDQ0OH0.ypMMMoJ6RMQHdP7DKAJX76aEjKRILPQvd3uB8mCjn28';
+
+        // Инициализация Supabase
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // ==================== СИСТЕМА РОЛЕЙ ====================
+        const PERMISSION_LEVELS = {
+          USER: 0,
+          HELPER: 1,
+          MODERATOR: 2,
+          ADMIN: 3,
+          SUPER_ADMIN: 4
+        };
+
+        const ROLES = {
+          USER: { 
+            level: 0, 
+            name: "Гражданский", 
+            permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_map'] 
+          },
+          HELPER: { 
+            level: 1, 
+            name: "Помощник", 
+            permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_map', 'view_all_stats', 'view_users'] 
+          },
+          MODERATOR: { 
+            level: 2, 
+            name: "Модератор", 
+            permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_map', 'view_all_stats', 'view_users', 'ban_users', 'edit_stats', 'view_logs'] 
+          },
+          ADMIN: { 
+            level: 3, 
+            name: "Администратор", 
+            permissions: ['view_own_stats', 'edit_own_stats', 'view_binds', 'view_commands', 'view_documents', 'view_map', 'view_all_stats', 'view_users', 'ban_users', 'edit_stats', 'view_logs', 'manage_users', 'assign_roles', 'system_settings'] 
+          },
+          SUPER_ADMIN: { 
+            level: 4, 
+            name: "Главный Администратор", 
+            permissions: ['all'] 
+          }
+        };
+
+        const SUPER_ADMINS = [
+          { username: "Alexander_Vorobyev", email: "alexandro_vorobyev@vk.com" }
+        ];
+
+        // Глобальные переменные
+        let currentUser = null;
+        let currentUserStats = null;
+        let allUsers = [];
+
+        // ==================== ФУНКЦИИ АВТОРИЗАЦИИ ====================
+
+        // Хеширование пароля
+        async function hashPassword(password) {
+          const encoder = new TextEncoder();
+          const data = encoder.encode(password);
+          const hash = await crypto.subtle.digest('SHA-256', data);
+          return Array.from(new Uint8Array(hash))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
+        }
+
+        // Проверка является ли пользователь суперадмином
+        function isSuperAdmin(userData) {
+          return SUPER_ADMINS.some(sa => 
+            sa.username === userData.username || 
+            sa.email === userData.email
+          );
+        }
+
+        // Регистрация пользователя
+        async function registerUser(userData) {
+          try {
+            // Проверяем, нет ли уже пользователя с таким логином или email
+            const { data: existingUsers, error: checkError } = await supabase
+              .from('users')
+              .select('id')
+              .or(`username.eq.${userData.username},email.eq.${userData.email}`);
+
+            if (checkError) throw checkError;
+            if (existingUsers && existingUsers.length > 0) {
+              throw new Error('Пользователь с таким логином или email уже существует');
             }
-        });
-        
-        // Заполняем таблицу пользователей
-        const usersTable = document.getElementById('usersTable');
-        usersTable.innerHTML = '';
-        
-        users.forEach(user => {
-            const row = document.createElement('tr');
-            
-            let roleBadge = '';
-            if (isSuperAdmin(user)) {
-                roleBadge = '<span style="color: gold;">Главный Админ</span>';
-            } else if (user.role === 'ADMIN') {
-                roleBadge = '<span style="color: var(--accent);">Админ</span>';
-            } else if (user.role === 'MODERATOR') {
-                roleBadge = '<span style="color: #f59e0b;">Модератор</span>';
-            } else if (user.role === 'HELPER') {
-                roleBadge = '<span style="color: #10b981;">Помощник</span>';
-            } else {
-                roleBadge = 'Гражданский';
+
+            // Создаем пользователя
+            const { data: user, error } = await supabase
+              .from('users')
+              .insert([{
+                nickname: userData.nickname,
+                username: userData.username,
+                email: userData.email,
+                password_hash: await hashPassword(userData.password),
+                role: isSuperAdmin(userData) ? 'SUPER_ADMIN' : 'USER',
+                rank: 'Гражданский',
+                position: '',
+                fraction: '',
+                city: 'Приволжск'
+              }])
+              .select()
+              .single();
+
+            if (error) throw error;
+
+            // Создаем запись статистики
+            const { error: statsError } = await supabase
+              .from('user_stats')
+              .insert([{
+                user_id: user.id,
+                fines: 0,
+                arrests: 0,
+                licenses: 0,
+                searches: 0,
+                rating: 0
+              }]);
+
+            if (statsError) throw statsError;
+
+            // Автоматически логиним пользователя после регистрации
+            const loginResult = await loginUser(userData.username, userData.password);
+            return loginResult;
+
+          } catch (error) {
+            console.error('Registration error:', error);
+            return { success: false, error: error.message };
+          }
+        }
+
+        // Вход пользователя
+        async function loginUser(login, password) {
+          try {
+            // Ищем пользователя
+            const { data: user, error } = await supabase
+              .from('users')
+              .select('*')
+              .or(`username.eq.${login},email.eq.${login}`)
+              .single();
+
+            if (error) throw error;
+
+            // Проверяем пароль
+            const isPasswordValid = await hashPassword(password) === user.password_hash;
+            if (!isPasswordValid) throw new Error('Неверный пароль');
+
+            // Проверяем бан
+            if (user.banned && user.ban_expires && new Date(user.ban_expires) > new Date()) {
+              throw new Error(`Аккаунт заблокирован. Причина: ${user.ban_reason}. Разблокировка: ${new Date(user.ban_expires).toLocaleDateString()}`);
             }
+
+            // Если бан истек, разблокируем
+            if (user.banned && user.ban_expires && new Date(user.ban_expires) <= new Date()) {
+              await supabase
+                .from('users')
+                .update({ 
+                  banned: false, 
+                  ban_reason: null, 
+                  ban_expires: null, 
+                  banned_by: null 
+                })
+                .eq('id', user.id);
+              user.banned = false;
+            }
+
+            // Сохраняем пользователя в localStorage
+            localStorage.setItem('currentUser', JSON.stringify(user));
             
-            row.innerHTML = `
-                <td>${user.id}</td>
-                <td>${user.nickname}</td>
-                <td>${user.rank}</td>
-                <td>${user.position}</td>
-                <td>${user.fraction}</td>
-                <td>${user.city}</td>
-                <td>${user.banned ? '<span style="color: var(--danger);">Заблокирован</span>' : roleBadge}</td>
-                <td>
-                    ${hasPermission(currentUser, 'manage_users') ? 
-                      `<button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem;" onclick="selectUserForEdit(${user.id})">Изменить</button>` : ''}
-                    ${hasPermission(currentUser, 'assign_roles') && user.role === 'USER' ? 
-                      `<button class="btn btn-warning" style="padding: 5px 10px; font-size: 0.8rem;" onclick="assignAdminPrompt(${user.id})">Сделать админом</button>` : ''}
-                </td>
-            `;
-            usersTable.appendChild(row);
-        });
-        
-    } catch (error) {
-        console.error('Error loading users for admin:', error);
-        showError('Ошибка загрузки пользователей');
-    }
-}
-
-// Загрузка администраторов
-async function loadAdminsForAdmin() {
-    if (!requirePermission('view_users')) return;
-    
-    try {
-        const users = await getAllUsers();
-        const admins = users.filter(user => 
-            user.role !== 'USER' && user.role !== 'HELPER' && !isSuperAdmin(user)
-        );
-        
-        // Заполняем выпадающий список для снятия прав
-        const removeAdminSelect = document.getElementById('removeAdminUser');
-        removeAdminSelect.innerHTML = '';
-        
-        admins.forEach(admin => {
-            const option = document.createElement('option');
-            option.value = admin.id;
-            option.textContent = `${admin.nickname} (${admin.role})`;
-            removeAdminSelect.appendChild(option);
-        });
-        
-        // Заполняем таблицу администраторов
-        const adminsTable = document.getElementById('adminsTable');
-        adminsTable.innerHTML = '';
-        
-        admins.forEach(admin => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${admin.id}</td>
-                <td>${admin.nickname}</td>
-                <td>${admin.rank}</td>
-                <td>${admin.position}</td>
-                <td>${admin.fraction}</td>
-                <td>${admin.city}</td>
-                <td>${admin.role === 'ADMIN' ? 'Администратор' : 'Модератор'}</td>
-                <td>
-                    <button class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;" onclick="removeAdminPrompt(${admin.id})">Снять права</button>
-                </td>
-            `;
-            adminsTable.appendChild(row);
-        });
-        
-    } catch (error) {
-        console.error('Error loading admins:', error);
-        showError('Ошибка загрузки администраторов');
-    }
-}
-
-// Загрузка банов
-async function loadBansForAdmin() {
-    if (!requirePermission('view_logs')) return;
-    
-    try {
-        const users = await getAllUsers();
-        const bannedUsers = users.filter(user => user.banned);
-        
-        // Заполняем выпадающий список для разбана
-        const unbanSelect = document.getElementById('unbanUser');
-        unbanSelect.innerHTML = '';
-        
-        bannedUsers.forEach(user => {
-            const option = document.createElement('option');
-            option.value = user.id;
-            option.textContent = user.nickname;
-            unbanSelect.appendChild(option);
-        });
-        
-        // Заполняем таблицу банов
-        const bansTable = document.getElementById('bansTable');
-        bansTable.innerHTML = '';
-        
-        bannedUsers.forEach(user => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${user.id}</td>
-                <td>${user.nickname}</td>
-                <td>${user.ban_reason || 'Не указана'}</td>
-                <td>${user.ban_date ? new Date(user.ban_date).toLocaleDateString('ru-RU') : 'Неизвестно'}</td>
-                <td>${user.ban_expires ? new Date(user.ban_expires).toLocaleDateString('ru-RU') : 'Перманентно'}</td>
-                <td>${user.banned_by || 'Система'}</td>
-                <td>
-                    <button class="btn btn-success" style="padding: 5px 10px; font-size: 0.8rem;" onclick="unbanUserPrompt(${user.id})">Разблокировать</button>
-                </td>
-            `;
-            bansTable.appendChild(row);
-        });
-        
-    } catch (error) {
-        console.error('Error loading bans:', error);
-        showError('Ошибка загрузки списка банов');
-    }
-}
-
-// ==================== ФУНКЦИИ ДЛЯ ТАБЛИЦЫ ЛИДЕРОВ ====================
-
-// Показать определенную таблицу лидеров
-function showLeaderboard(type) {
-    // Скрываем все таблицы
-    document.querySelectorAll('.leaderboard-content').forEach(content => {
-        content.style.display = 'none';
-    });
-    
-    // Показываем нужную таблицу
-    document.getElementById(`leaderboard-${type}`).style.display = 'block';
-    
-    // Обновляем активные табы
-    document.querySelectorAll('.leaderboard-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    event.target.classList.add('active');
-    
-    // Обновляем данные для этой таблицы
-    updateLeaderboardTable(type);
-}
-
-// Обновление конкретной таблицы лидеров
-async function updateLeaderboardTable(type) {
-    try {
-        const data = await getLeaderboard(type);
-        const tableId = `${type}-leaderboard`;
-        const table = document.getElementById(tableId);
-        
-        if (!table) return;
-        
-        table.innerHTML = '';
-        
-        data.forEach((item, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${item.users.nickname}</td>
-                <td>${item[type]}</td>
-                <td>${item.users.rank}</td>
-                <td>${item.users.fraction}</td>
-            `;
-            table.appendChild(row);
-        });
-        
-    } catch (error) {
-        console.error(`Error updating ${type} leaderboard:`, error);
-    }
-}
-
-// ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ АДМИН-ПАНЕЛИ ====================
-
-// Подсказка для редактирования пользователя
-function selectUserForEdit(userId) {
-    document.getElementById('editUser').value = userId;
-    
-    // Находим пользователя и заполняем форму его данными
-    const user = allUsers.find(u => u.id === userId);
-    if (user) {
-        document.getElementById('editFraction').value = user.fraction || '';
-        document.getElementById('editCity').value = user.city || 'Приволжск';
-        document.getElementById('editRank').value = user.rank || 'Гражданский';
-        document.getElementById('editPosition').value = user.position || '';
-    }
-}
-
-// Подсказка для назначения админа
-function assignAdminPrompt(userId) {
-    document.getElementById('adminUser').value = userId;
-}
-
-// Подсказка для снятия прав админа
-function removeAdminPrompt(userId) {
-    document.getElementById('removeAdminUser').value = userId;
-}
-
-// Подсказка для разбана
-function unbanUserPrompt(userId) {
-    document.getElementById('unbanUser').value = userId;
-}
-
-// Назначение администратора
-async function assignAdmin() {
-    if (!requirePermission('assign_roles')) return;
-    
-    const userId = parseInt(document.getElementById('adminUser').value);
-    
-    if (!userId) {
-        showError('Выберите пользователя');
-        return;
-    }
-    
-    try {
-        const success = await updateUserInDatabase(userId, {
-            role: 'ADMIN'
-        });
-        
-        if (success) {
-            alert('✅ Пользователь назначен администратором!');
-            loadUsersForAdmin();
-            loadAdminsForAdmin();
-            logAdminAction('assign_admin', userId, 'Назначение администратором');
-        } else {
-            showError('Ошибка при назначении администратора');
+            return { success: true, user };
+          } catch (error) {
+            console.error('Login error:', error);
+            return { success: false, error: error.message };
+          }
         }
-    } catch (error) {
-        console.error('Error assigning admin:', error);
-        showError('Ошибка при назначении администратора');
-    }
-}
 
-// Снятие прав администратора
-async function removeAdmin() {
-    if (!requirePermission('assign_roles')) return;
-    
-    const userId = parseInt(document.getElementById('removeAdminUser').value);
-    
-    if (!userId) {
-        showError('Выберите администратора');
-        return;
-    }
-    
-    try {
-        const success = await updateUserInDatabase(userId, {
-            role: 'USER'
-        });
-        
-        if (success) {
-            alert('✅ Права администратора сняты!');
-            loadUsersForAdmin();
-            loadAdminsForAdmin();
-            logAdminAction('remove_admin', userId, 'Снятие прав администратора');
-        } else {
-            showError('Ошибка при снятии прав');
+        // Проверка авторизации
+        async function checkAuth() {
+          const storedUser = localStorage.getItem('currentUser');
+          if (!storedUser) return null;
+
+          try {
+            const user = JSON.parse(storedUser);
+            
+            // Проверяем, актуальны ли данные пользователя
+            const { data: freshUser, error } = await supabase
+              .from('users')
+              .select('*')
+              .eq('id', user.id)
+              .single();
+
+            if (error) throw error;
+
+            // Если пользователь забанен, выходим
+            if (freshUser.banned && freshUser.ban_expires && new Date(freshUser.ban_expires) > new Date()) {
+              localStorage.removeItem('currentUser');
+              return null;
+            }
+
+            return freshUser;
+          } catch (error) {
+            localStorage.removeItem('currentUser');
+            return null;
+          }
         }
-    } catch (error) {
-        console.error('Error removing admin:', error);
-        showError('Ошибка при снятии прав');
-    }
-}
 
-// Блокировка пользователя
-async function banUser() {
-    if (!requirePermission('ban_users')) return;
-    
-    const userId = parseInt(document.getElementById('banUser').value);
-    const reason = document.getElementById('banReason').value;
-    const duration = parseInt(document.getElementById('banDuration').value) || 0;
-    
-    if (!userId) {
-        showError('Выберите пользователя');
-        return;
-    }
-    
-    if (!reason) {
-        showError('Введите причину блокировки');
-        return;
-    }
-    
-    try {
-        const success = await banUserInDatabase(userId, reason, duration, currentUser.nickname);
-        
-        if (success) {
-            alert('✅ Пользователь заблокирован!');
-            document.getElementById('banReason').value = '';
-            document.getElementById('banDuration').value = '';
-            loadUsersForAdmin();
-            loadBansForAdmin();
-            logAdminAction('ban_user', userId, `Блокировка. Причина: ${reason}, срок: ${duration} дней`);
-        } else {
-            showError('Ошибка при блокировке пользователя');
+        // Выход
+        function logout() {
+          localStorage.removeItem('currentUser');
+          currentUser = null;
+          currentUserStats = null;
+          location.reload();
         }
-    } catch (error) {
-        console.error('Error banning user:', error);
-        showError('Ошибка при блокировке пользователя');
-    }
-}
 
-// Разблокировка пользователя
-async function unbanUser() {
-    if (!requirePermission('ban_users')) return;
-    
-    const userId = parseInt(document.getElementById('unbanUser').value);
-    
-    if (!userId) {
-        showError('Выберите пользователя');
-        return;
-    }
-    
-    try {
-        const success = await unbanUserInDatabase(userId);
-        
-        if (success) {
-            alert('✅ Пользователь разблокирован!');
-            loadUsersForAdmin();
-            loadBansForAdmin();
-            logAdminAction('unban_user', userId, 'Разблокировка пользователя');
-        } else {
-            showError('Ошибка при разблокировке пользователя');
+        // ==================== ФУНКЦИИ СТАТИСТИКИ ====================
+
+        // Получение статистики пользователя
+        async function getUserStats(userId) {
+          try {
+            const { data, error } = await supabase
+              .from('user_stats')
+              .select('*')
+              .eq('user_id', userId)
+              .single();
+
+            return error ? null : data;
+          } catch (error) {
+            console.error('Get stats error:', error);
+            return null;
+          }
         }
-    } catch (error) {
-        console.error('Error unbanning user:', error);
-        showError('Ошибка при разблокировке пользователя');
-    }
-}
 
-// ==================== ОБНОВЛЕНИЕ ФУНКЦИИ ПОКАЗА РАЗДЕЛОВ ====================
+        // Обновление статистики
+        async function updateUserStats(userId, statType, value) {
+          try {
+            // Сначала получаем текущую статистику
+            const currentStats = await getUserStats(userId);
+            if (!currentStats) return false;
 
-// Обновленная функция showSection
-function showSection(sectionName) {
-    // Скрываем все разделы
-    document.querySelectorAll('.content-section').forEach(section => {
-        section.style.display = 'none';
-    });
-    
-    // Показываем нужный раздел
-    const targetSection = document.getElementById(sectionName + '-section');
-    if (targetSection) {
-        targetSection.style.display = 'block';
-    }
-    
-    // Обновляем активную вкладку в навигации
-    document.querySelectorAll('.nav-tabs a').forEach(link => {
-        link.classList.remove('active');
-    });
-    
-    // Находим и активируем соответствующую ссылку
-    const activeLink = Array.from(document.querySelectorAll('.nav-tabs a')).find(link => 
-        link.getAttribute('onclick')?.includes(sectionName)
-    );
-    if (activeLink) {
-        activeLink.classList.add('active');
-    }
-    
-    // Специальные действия для некоторых разделов
-    if (sectionName === 'leaderboard') {
-        updateLeaderboards();
-    } else if (sectionName === 'profile') {
-        updateProfileInfo();
-    } else if (sectionName === 'admin' && hasPermission(currentUser, 'view_users')) {
-        showAdminTab('users'); // Показываем первую вкладку по умолчанию
-    } else if (sectionName === 'statistics' && currentUserStats) {
-        document.getElementById('stat-fines').textContent = currentUserStats.fines;
-        document.getElementById('stat-arrests').textContent = currentUserStats.arrests;
-        document.getElementById('stat-licenses').textContent = currentUserStats.licenses;
-        document.getElementById('stat-searches').textContent = currentUserStats.searches;
-        document.getElementById('stat-rating').textContent = currentUserStats.rating;
-    }
-}
+            // Обновляем нужное поле
+            const updatedStats = { ...currentStats };
+            updatedStats[statType] = Math.max(0, currentStats[statType] + value);
+            updatedStats.updated_at = new Date().toISOString();
 
-// ==================== ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ====================
+            // Обновляем в базе
+            const { error } = await supabase
+              .from('user_stats')
+              .update(updatedStats)
+              .eq('user_id', userId);
 
-// Обновленный обработчик загрузки страницы
-document.addEventListener('DOMContentLoaded', async function() {
-    // Инициализация темы
-    applyTheme();
-    
-    // Проверяем авторизацию
-    currentUser = await checkAuth();
-    
-    if (currentUser) {
-        currentUserStats = await getUserStats(currentUser.id);
-        allUsers = await getAllUsers();
-        updateUserInterface();
-        hideAuthModal();
-    } else {
-        showAuthModal();
-    }
-    
-    // Показываем главную страницу
-    showSection('dashboard');
-});
-// ==================== ФИКС КЭША CLOUDFLARE ====================
+            if (error) throw error;
 
-// Принудительное обновление кэша при каждой загрузке
-const CACHE_BUSTER = 'v=' + Date.now();
-
-// Добавляем параметр версии ко всем запросам
-function bustCache() {
-    const links = document.querySelectorAll('link[rel="stylesheet"]');
-    const scripts = document.querySelectorAll('script[src]');
-    
-    links.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && !href.includes('?')) {
-            link.setAttribute('href', href + '?' + CACHE_BUSTER);
+            return true;
+          } catch (error) {
+            console.error('Update stats error:', error);
+            return false;
+          }
         }
-    });
-    
-    console.log('🔄 Cache buster activated:', CACHE_BUSTER);
-}
 
-// Вызываем при загрузке
-bustCache();
+        // Получение таблицы лидеров
+        async function getLeaderboard(type = 'fines', limit = 50) {
+          try {
+            const { data, error } = await supabase
+              .from('user_stats')
+              .select(`
+                fines, arrests, licenses, searches, rating,
+                users (id, nickname, rank, fraction, city, banned)
+              `)
+              .not('users.banned', 'is', true)
+              .order(type, { ascending: false })
+              .limit(limit);
 
-// ==================== ЗАГРУЗКА ПОЛЬЗОВАТЕЛЕЙ В АДМИН-ПАНЕЛЬ ====================
+            return error ? [] : data;
+          } catch (error) {
+            console.error('Leaderboard error:', error);
+            return [];
+          }
+        }
 
-// Основная функция загрузки пользователей для админ-панели
-window.loadUsersForAdmin = async function() {
-    console.log('🔄 Загрузка пользователей для админки');
-    
-    try {
-        // Получаем всех пользователей из базы
-        const { data: users, error } = await supabase
-            .from('users')
-            .select('*')
-            .order('created_at', { ascending: false });
+        // ==================== АДМИНИСТРАТИВНЫЕ ФУНКЦИИ ====================
 
-        if (error) {
-            console.error('❌ Ошибка загрузки пользователей:', error);
+        // Получение всех пользователей
+        async function getAllUsers() {
+          try {
+            const { data, error } = await supabase
+              .from('users')
+              .select('*, user_stats (fines, arrests, licenses, searches, rating)')
+              .order('created_at', { ascending: false });
+
+            if (error) throw error;
+            return data || [];
+          } catch (error) {
+            console.error('Get users error:', error);
+            return [];
+          }
+        }
+
+        // Обновление данных пользователя
+        async function updateUserInDatabase(userId, userData) {
+          try {
+            const { error } = await supabase
+              .from('users')
+              .update({
+                ...userData,
+                updated_at: new Date().toISOString()
+              })
+              .eq('id', userId);
+
+            return !error;
+          } catch (error) {
+            console.error('Update user error:', error);
+            return false;
+          }
+        }
+
+        // Функция для обработки формы
+        async function saveUserChanges() {
+          if (!requirePermission('manage_users')) return;
+          
+          const userId = parseInt(document.getElementById('editUser').value);
+          const fraction = document.getElementById('editFraction').value;
+          const city = document.getElementById('editCity').value;
+          const rank = document.getElementById('editRank').value;
+          const position = document.getElementById('editPosition').value;
+          
+          if (!userId) {
+            showError('Выберите пользователя');
             return;
+          }
+          
+          try {
+            const success = await updateUserInDatabase(userId, {
+              fraction,
+              city,
+              rank,
+              position
+            });
+            
+            if (success) {
+              alert('✅ Данные пользователя обновлены!');
+              loadUsersForAdmin();
+              logAdminAction('update_user_data', userId, `Обновлены данные: ${fraction}, ${city}, ${rank}, ${position}`);
+            } else {
+              showError('Ошибка при обновлении данных');
+            }
+          } catch (error) {
+            console.error('Error updating user data:', error);
+            showError('Ошибка при обновлении данных');
+          }
         }
 
-        console.log('✅ Пользователи загружены:', users);
-        allUsers = users; // Сохраняем пользователей в глобальную переменную
+        // Блокировка пользователя
+        async function banUserInDatabase(userId, reason, durationDays = 0, adminName) {
+          try {
+            const banExpires = durationDays > 0 ? 
+              new Date(Date.now() + durationDays * 24 * 60 * 60 * 1000).toISOString() : 
+              null;
 
-        // Заполняем выпадающий список для редактирования
-        const editUserSelect = document.getElementById('editUser');
-        const adminUserSelect = document.getElementById('adminUser');
-        const banUserSelect = document.getElementById('banUser');
-        const removeAdminSelect = document.getElementById('removeAdminUser');
-        const unbanSelect = document.getElementById('unbanUser');
+            const { error } = await supabase
+              .from('users')
+              .update({
+                banned: true,
+                ban_reason: reason,
+                ban_expires: banExpires,
+                banned_by: adminName,
+                updated_at: new Date().toISOString()
+              })
+              .eq('id', userId);
 
-        // Очищаем списки
-        editUserSelect.innerHTML = '<option value="">Выберите пользователя</option>';
-        adminUserSelect.innerHTML = '<option value="">Выберите пользователя</option>';
-        banUserSelect.innerHTML = '<option value="">Выберите пользователя</option>';
-        removeAdminSelect.innerHTML = '<option value="">Выберите администратора</option>';
-        unbanSelect.innerHTML = '<option value="">Выберите пользователя</option>';
+            return !error;
+          } catch (error) {
+            console.error('Ban user error:', error);
+            return false;
+          }
+        }
 
-        // Заполняем списки
-        users.forEach(user => {
-            if (user.id === currentUser.id) return; // Пропускаем текущего пользователя
+        // Разблокировка пользователя
+        async function unbanUserInDatabase(userId) {
+          try {
+            const { error } = await supabase
+              .from('users')
+              .update({
+                banned: false,
+                ban_reason: null,
+                ban_expires: null,
+                banned_by: null,
+                updated_at: new Date().toISOString()
+              })
+              .eq('id', userId);
 
-            const optionText = `${user.nickname} (${user.role})`;
+            return !error;
+          } catch (error) {
+            console.error('Unban user error:', error);
+            return false;
+          }
+        }
 
-            // Для редактирования - все пользователи
-            const editOption = document.createElement('option');
-            editOption.value = user.id;
-            editOption.textContent = optionText;
-            editUserSelect.appendChild(editOption);
+        // Логирование действий
+        async function logAdminAction(action, target = null, details = '') {
+          if (!currentUser) return true;
 
-            // Для назначения админа - только обычные пользователи
-            if (user.role === 'USER') {
-                const adminOption = document.createElement('option');
-                adminOption.value = user.id;
-                adminOption.textContent = user.nickname;
-                adminUserSelect.appendChild(adminOption);
-            }
+          try {
+            const { error } = await supabase
+              .from('admin_logs')
+              .insert([{
+                admin_id: currentUser.id,
+                admin_name: currentUser.nickname,
+                admin_role: currentUser.role,
+                action: action,
+                target: target,
+                details: details,
+                timestamp: new Date().toISOString()
+              }]);
 
-            // Для бана - все пользователи кроме суперадминов
-            if (!isSuperAdmin(user)) {
-                const banOption = document.createElement('option');
-                banOption.value = user.id;
-                banOption.textContent = user.nickname + (user.banned ? ' ⛔' : '');
-                banUserSelect.appendChild(banOption);
-            }
+            return !error;
+          } catch (error) {
+            console.error('Log action error:', error);
+            return false;
+          }
+        }
 
-            // Для снятия прав - только админы и модераторы
-            if (user.role === 'ADMIN' || user.role === 'MODERATOR') {
-                const removeAdminOption = document.createElement('option');
-                removeAdminOption.value = user.id;
-                removeAdminOption.textContent = user.nickname;
-                removeAdminSelect.appendChild(removeAdminOption);
-            }
+        // ==================== ПРОВЕРКА ПРАВ ====================
 
-            // Для разбана - только заблокированные
-            if (user.banned) {
-                const unbanOption = document.createElement('option');
-                unbanOption.value = user.id;
-                unbanOption.textContent = user.nickname;
-                unbanSelect.appendChild(unbanOption);
-            }
+        function hasPermission(user, permission) {
+          if (!user) return false;
+          if (user.role === 'SUPER_ADMIN' || isSuperAdmin(user)) return true;
+          
+          const role = ROLES[user.role];
+          return role && (role.permissions.includes(permission) || role.permissions.includes('all'));
+        }
+
+        function requirePermission(permission) {
+          if (!hasPermission(currentUser, permission)) {
+            showError('Недостаточно прав для выполнения этого действия');
+            return false;
+          }
+          return true;
+        }
+
+        function showError(message) {
+          alert('❌ ' + message);
+        }
+
+        // ==================== ИНИЦИАЛИЗАЦИЯ И UI ====================
+
+        let isDarkTheme = localStorage.getItem('darkTheme') === 'true';
+
+        // Применение темы
+        function applyTheme() {
+          if (isDarkTheme) {
+            document.body.classList.add('dark-theme');
+            document.getElementById('themeToggle').textContent = '☀️';
+          } else {
+            document.body.classList.remove('dark-theme');
+            document.getElementById('themeToggle').textContent = '🌙';
+          }
+        }
+
+        // Показать/скрыть модальное окно авторизации
+        function showAuthModal() {
+          document.getElementById('authModal').style.display = 'flex';
+        }
+
+        function hideAuthModal() {
+          document.getElementById('authModal').style.display = 'none';
+        }
+
+        // Переключение между формами входа и регистрации
+        function showAuthForm(formType) {
+          document.getElementById('loginForm').classList.remove('active');
+          document.getElementById('registerForm').classList.remove('active');
+          document.querySelectorAll('.auth-tab').forEach(tab => tab.classList.remove('active'));
+          
+          if (formType === 'login') {
+            document.getElementById('loginForm').classList.add('active');
+            document.querySelectorAll('.auth-tab')[0].classList.add('active');
+          } else {
+            document.getElementById('registerForm').classList.add('active');
+            document.querySelectorAll('.auth-tab')[1].classList.add('active');
+          }
+        }
+
+        // Обновление интерфейса пользователя
+        async function updateUserInterface() {
+          if (!currentUser) return;
+
+          // Получаем свежую статистику
+          currentUserStats = await getUserStats(currentUser.id);
+
+          // Обновляем UI
+          document.querySelector('.user-name').textContent = currentUser.nickname;
+          
+          let displayRank = currentUser.rank;
+          let statusBadge = '';
+          
+          if (isSuperAdmin(currentUser)) {
+            statusBadge = '<span class="super-admin-badge">ГЛАВНЫЙ АДМИН</span>';
+            displayRank = 'Главный Администратор';
+          } else if (currentUser.role === 'ADMIN') {
+            statusBadge = '<span class="admin-badge">АДМИН</span>';
+          } else if (currentUser.role === 'MODERATOR') {
+            statusBadge = '<span class="admin-badge" style="background: #f59e0b;">МОДЕРАТОР</span>';
+          } else if (currentUser.role === 'HELPER') {
+            statusBadge = '<span class="admin-badge" style="background: #10b981;">ПОМОЩНИК</span>';
+          }
+          
+          document.querySelector('.user-rank').innerHTML = displayRank + statusBadge;
+          document.querySelector('.user-avatar').textContent = currentUser.nickname.charAt(0).toUpperCase();
+
+          // Обновляем статистику в сайдбаре
+          if (currentUserStats) {
+            document.getElementById('sidebar-fines').textContent = currentUserStats.fines;
+            document.getElementById('sidebar-arrests').textContent = currentUserStats.arrests;
+            document.getElementById('sidebar-licenses').textContent = currentUserStats.licenses;
+            document.getElementById('sidebar-searches').textContent = currentUserStats.searches;
+            document.getElementById('sidebar-rating').textContent = currentUserStats.rating;
+
+            document.getElementById('stat-fines').textContent = currentUserStats.fines;
+            document.getElementById('stat-arrests').textContent = currentUserStats.arrests;
+            document.getElementById('stat-licenses').textContent = currentUserStats.licenses;
+            document.getElementById('stat-searches').textContent = currentUserStats.searches;
+            document.getElementById('stat-rating').textContent = currentUserStats.rating;
+          }
+
+          // Показываем/скрываем админ-панель
+          if (hasPermission(currentUser, 'view_users')) {
+            document.getElementById('adminTab').style.display = 'block';
+          } else {
+            document.getElementById('adminTab').style.display = 'none';
+          }
+
+          document.getElementById('profileTab').style.display = 'block';
+        }
+
+        // Обновление информации в профиле
+        function updateProfileInfo() {
+          if (!currentUser || !currentUserStats) return;
+
+          document.getElementById('profile-nickname').textContent = currentUser.nickname;
+          document.getElementById('profile-rank').textContent = currentUser.rank;
+          document.getElementById('profile-position').textContent = currentUser.position;
+          document.getElementById('profile-fraction').textContent = currentUser.fraction;
+          document.getElementById('profile-city').textContent = currentUser.city;
+          
+          let status = 'Активен';
+          if (currentUser.banned) {
+            status = 'Заблокирован';
+          } else if (isSuperAdmin(currentUser)) {
+            status = 'Главный Администратор';
+          } else if (currentUser.role === 'ADMIN') {
+            status = 'Администратор';
+          } else if (currentUser.role === 'MODERATOR') {
+            status = 'Модератор';
+          } else if (currentUser.role === 'HELPER') {
+            status = 'Помощник';
+          } else if (currentUser.role === 'USER') {
+            status = 'Гражданский';
+          }
+          document.getElementById('profile-status').textContent = status;
+          
+          document.getElementById('profile-fines').textContent = currentUserStats.fines;
+          document.getElementById('profile-arrests').textContent = currentUserStats.arrests;
+          document.getElementById('profile-licenses').textContent = currentUserStats.licenses;
+          document.getElementById('profile-searches').textContent = currentUserStats.searches;
+          document.getElementById('profile-rating').textContent = currentUserStats.rating;
+          
+          const regDate = new Date(currentUser.registration_date || currentUser.created_at);
+          document.getElementById('profile-regdate').textContent = regDate.toLocaleDateString('ru-RU');
+        }
+
+        // Обновление статистики
+        async function updateStat(stat, value) {
+          if (!currentUser) {
+            showError('Необходимо авторизоваться');
+            return;
+          }
+
+          const success = await updateUserStats(currentUser.id, stat, value);
+          if (success) {
+            // Обновляем локальные данные
+            currentUserStats[stat] = Math.max(0, currentUserStats[stat] + value);
+            updateUserInterface();
+            updateProfileInfo();
+            
+            logAdminAction('edit_stats', currentUser.id, `Изменение статистики: ${stat} на ${value}`);
+          } else {
+            showError('Ошибка при обновлении статистики');
+          }
+        }
+
+        // Обновление таблицы лидеров
+        async function updateLeaderboards() {
+          const finesData = await getLeaderboard('fines');
+          const arrestsData = await getLeaderboard('arrests');
+          const licensesData = await getLeaderboard('licenses');
+          const searchesData = await getLeaderboard('searches');
+
+          // Заполняем таблицу штрафов
+          const finesTable = document.getElementById('fines-leaderboard');
+          finesTable.innerHTML = '';
+          finesData.forEach((item, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${index + 1}</td>
+              <td>${item.users.nickname}</td>
+              <td>${item.fines}</td>
+              <td>${item.users.rank}</td>
+              <td>${item.users.fraction}</td>
+            `;
+            finesTable.appendChild(row);
+          });
+
+          // Заполняем таблицу задержаний
+          const arrestsTable = document.getElementById('arrests-leaderboard');
+          arrestsTable.innerHTML = '';
+          arrestsData.forEach((item, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${index + 1}</td>
+              <td>${item.users.nickname}</td>
+              <td>${item.arrests}</td>
+              <td>${item.users.rank}</td>
+              <td>${item.users.fraction}</td>
+            `;
+            arrestsTable.appendChild(row);
+          });
+
+          // Аналогично для остальных таблиц...
+        }
+
+        // ==================== ОБРАБОТЧИКИ СОБЫТИЙ ====================
+
+        document.addEventListener('DOMContentLoaded', async function() {
+          // Инициализация темы
+          applyTheme();
+          
+          // Проверяем авторизацию
+          currentUser = await checkAuth();
+          
+          if (currentUser) {
+            currentUserStats = await getUserStats(currentUser.id);
+            updateUserInterface();
+            hideAuthModal();
+          } else {
+            showAuthModal();
+          }
+          
+          // Показываем главную страницу
+          showSection('dashboard');
+          
+          // Загружаем всех пользователей для админ-панели
+          allUsers = await getAllUsers();
         });
 
-        // Заполняем таблицу пользователей
-        const usersTable = document.getElementById('usersTable');
-        if (usersTable) {
-            usersTable.innerHTML = '';
+        // Переключение темы
+        document.getElementById('themeToggle').addEventListener('click', function() {
+          isDarkTheme = !isDarkTheme;
+          localStorage.setItem('darkTheme', isDarkTheme);
+          applyTheme();
+        });
+
+        // Обработка формы входа
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          const username = document.getElementById('loginUsername').value;
+          const password = document.getElementById('loginPassword').value;
+          
+          const result = await loginUser(username, password);
+          
+          if (result.success) {
+            currentUser = result.user;
+            currentUserStats = await getUserStats(currentUser.id);
+            updateUserInterface();
+            hideAuthModal();
+            alert('✅ Вход выполнен успешно!');
+          } else {
+            alert('❌ ' + result.error);
+          }
+        });
+
+        // Обработка формы регистрации
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          const formData = {
+            nickname: document.getElementById('registerNickname').value,
+            username: document.getElementById('registerUsername').value,
+            email: document.getElementById('registerEmail').value,
+            password: document.getElementById('registerPassword').value
+          };
+          
+          const confirmPassword = document.getElementById('registerConfirmPassword').value;
+          
+          if (formData.password !== confirmPassword) {
+            alert('❌ Пароли не совпадают!');
+            return;
+          }
+          
+          const result = await registerUser(formData);
+          
+          if (result.success) {
+            currentUser = result.user;
+            currentUserStats = await getUserStats(currentUser.id);
+            updateUserInterface();
+            hideAuthModal();
             
-            users.forEach(user => {
-                const row = document.createElement('tr');
+            if (isSuperAdmin(currentUser)) {
+              alert('🎉 Регистрация успешна! Вы стали Главным Администратором системы.');
+            } else {
+              alert('🎉 Регистрация успешна! Ваша роль: Гражданский');
+            }
+          } else {
+            alert('❌ ' + result.error);
+          }
+        });
+
+        // Функция для переключения между разделами
+        function showSection(sectionName) {
+          // Скрываем все разделы
+          document.querySelectorAll('.content-section').forEach(section => {
+            section.style.display = 'none';
+          });
+          
+          // Показываем нужный раздел
+          document.getElementById(sectionName + '-section').style.display = 'block';
+          
+          // Обновляем активную вкладку в навигации
+          document.querySelectorAll('.nav-tabs a').forEach(link => {
+            link.classList.remove('active');
+          });
+          
+          // Находим и активируем соответствующую ссылку
+          const activeLink = Array.from(document.querySelectorAll('.nav-tabs a')).find(link => 
+            link.getAttribute('onclick')?.includes(sectionName)
+          );
+          if (activeLink) {
+            activeLink.classList.add('active');
+          }
+          
+          // Специальные действия для некоторых разделов
+          if (sectionName === 'leaderboard') {
+            updateLeaderboards();
+          } else if (sectionName === 'profile') {
+            updateProfileInfo();
+          } else if (sectionName === 'admin' && hasPermission(currentUser, 'view_users')) {
+            showAdminTab('users'); // Показываем первую вкладку по умолчанию
+          } else if (sectionName === 'statistics' && currentUserStats) {
+            document.getElementById('stat-fines').textContent = currentUserStats.fines;
+            document.getElementById('stat-arrests').textContent = currentUserStats.arrests;
+            document.getElementById('stat-licenses').textContent = currentUserStats.licenses;
+            document.getElementById('stat-searches').textContent = currentUserStats.searches;
+            document.getElementById('stat-rating').textContent = currentUserStats.rating;
+          }
+        }
+
+        // Функция для копирования биндов
+        function copyBind(key) {
+          const bindText = `bind ${key}`;
+          navigator.clipboard.writeText(bindText)
+            .then(() => alert(`Бинд "${bindText}" скопирован!`))
+            .catch(err => console.error('Ошибка копирования: ', err));
+        }
+
+        function copyBindText(text) {
+          navigator.clipboard.writeText(text)
+            .then(() => alert('Бинд скопирован!'))
+            .catch(err => console.error('Ошибка копирования: ', err));
+        }
+
+        // Переключение формы профиля
+        function toggleProfileForm() {
+          if (currentUser) {
+            showSection('profile');
+          } else {
+            showAuthModal();
+          }
+        }
+
+        // ==================== ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ДЛЯ АДМИН-ПАНЕЛИ ====================
+
+        // Показать вкладку админ-панели
+        function showAdminTab(tabName) {
+            // Скрываем все вкладки
+            document.querySelectorAll('.admin-tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // Показываем нужную вкладку
+            document.getElementById(`admin-${tabName}`).style.display = 'block';
+            
+            // Обновляем активные табы
+            document.querySelectorAll('.admin-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Загружаем данные для вкладки
+            if (tabName === 'users') {
+                loadUsersForAdmin();
+            } else if (tabName === 'admins') {
+                loadAdminsForAdmin();
+            } else if (tabName === 'bans') {
+                loadBansForAdmin();
+            }
+        }
+
+        // Загрузка пользователей для админ-панели
+        async function loadUsersForAdmin() {
+            if (!requirePermission('view_users')) return;
+            
+            try {
+                const users = await getAllUsers();
                 
-                let roleBadge = '';
-                if (isSuperAdmin(user)) {
-                    roleBadge = '<span style="color: gold;">Главный Админ</span>';
-                } else if (user.role === 'ADMIN') {
-                    roleBadge = '<span style="color: var(--accent);">Админ</span>';
-                } else if (user.role === 'MODERATOR') {
-                    roleBadge = '<span style="color: #f59e0b;">Модератор</span>';
-                } else if (user.role === 'HELPER') {
-                    roleBadge = '<span style="color: #10b981;">Помощник</span>';
+                // Заполняем выпадающие списки
+                const editUserSelect = document.getElementById('editUser');
+                const adminUserSelect = document.getElementById('adminUser');
+                const banUserSelect = document.getElementById('banUser');
+                
+                editUserSelect.innerHTML = '';
+                adminUserSelect.innerHTML = '';
+                banUserSelect.innerHTML = '';
+                
+                users.forEach(user => {
+                    if (user.id !== currentUser.id && !isSuperAdmin(user)) {
+                        // Для редактирования
+                        const option1 = document.createElement('option');
+                        option1.value = user.id;
+                        option1.textContent = `${user.nickname} (${user.role})`;
+                        editUserSelect.appendChild(option1);
+                        
+                        // Для назначения админа (только обычные пользователи)
+                        if (user.role === 'USER') {
+                            const option2 = document.createElement('option');
+                            option2.value = user.id;
+                            option2.textContent = user.nickname;
+                            adminUserSelect.appendChild(option2);
+                        }
+                        
+                        // Для бана
+                        const option3 = document.createElement('option');
+                        option3.value = user.id;
+                        option3.textContent = user.nickname;
+                        banUserSelect.appendChild(option3);
+                    }
+                });
+                
+                // Заполняем таблицу пользователей
+                const usersTable = document.getElementById('usersTable');
+                usersTable.innerHTML = '';
+                
+                users.forEach(user => {
+                    const row = document.createElement('tr');
+                    
+                    let roleBadge = '';
+                    if (isSuperAdmin(user)) {
+                        roleBadge = '<span style="color: gold;">Главный Админ</span>';
+                    } else if (user.role === 'ADMIN') {
+                        roleBadge = '<span style="color: var(--accent);">Админ</span>';
+                    } else if (user.role === 'MODERATOR') {
+                        roleBadge = '<span style="color: #f59e0b;">Модератор</span>';
+                    } else if (user.role === 'HELPER') {
+                        roleBadge = '<span style="color: #10b981;">Помощник</span>';
+                    } else {
+                        roleBadge = 'Гражданский';
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.nickname}</td>
+                        <td>${user.rank}</td>
+                        <td>${user.position}</td>
+                        <td>${user.fraction}</td>
+                        <td>${user.city}</td>
+                        <td>${user.banned ? '<span style="color: var(--danger);">Заблокирован</span>' : roleBadge}</td>
+                        <td>
+                            ${hasPermission(currentUser, 'manage_users') ? 
+                              `<button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem;" onclick="selectUserForEdit(${user.id})">Изменить</button>` : ''}
+                            ${hasPermission(currentUser, 'assign_roles') && user.role === 'USER' ? 
+                              `<button class="btn btn-warning" style="padding: 5px 10px; font-size: 0.8rem;" onclick="assignAdminPrompt(${user.id})">Сделать админом</button>` : ''}
+                        </td>
+                    `;
+                    usersTable.appendChild(row);
+                });
+                
+            } catch (error) {
+                console.error('Error loading users for admin:', error);
+                showError('Ошибка загрузки пользователей');
+            }
+        }
+
+        // Загрузка администраторов
+        async function loadAdminsForAdmin() {
+            if (!requirePermission('view_users')) return;
+            
+            try {
+                const users = await getAllUsers();
+                const admins = users.filter(user => 
+                    user.role !== 'USER' && user.role !== 'HELPER' && !isSuperAdmin(user)
+                );
+                
+                // Заполняем выпадающий список для снятия прав
+                const removeAdminSelect = document.getElementById('removeAdminUser');
+                removeAdminSelect.innerHTML = '';
+                
+                admins.forEach(admin => {
+                    const option = document.createElement('option');
+                    option.value = admin.id;
+                    option.textContent = `${admin.nickname} (${admin.role})`;
+                    removeAdminSelect.appendChild(option);
+                });
+                
+                // Заполняем таблицу администраторов
+                const adminsTable = document.getElementById('adminsTable');
+                adminsTable.innerHTML = '';
+                
+                admins.forEach(admin => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${admin.id}</td>
+                        <td>${admin.nickname}</td>
+                        <td>${admin.rank}</td>
+                        <td>${admin.position}</td>
+                        <td>${admin.fraction}</td>
+                        <td>${admin.city}</td>
+                        <td>${admin.role === 'ADMIN' ? 'Администратор' : 'Модератор'}</td>
+                        <td>
+                            <button class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;" onclick="removeAdminPrompt(${admin.id})">Снять права</button>
+                        </td>
+                    `;
+                    adminsTable.appendChild(row);
+                });
+                
+            } catch (error) {
+                console.error('Error loading admins:', error);
+                showError('Ошибка загрузки администраторов');
+            }
+        }
+
+        // Загрузка банов
+        async function loadBansForAdmin() {
+            if (!requirePermission('view_logs')) return;
+            
+            try {
+                const users = await getAllUsers();
+                const bannedUsers = users.filter(user => user.banned);
+                
+                // Заполняем выпадающий список для разбана
+                const unbanSelect = document.getElementById('unbanUser');
+                unbanSelect.innerHTML = '';
+                
+                bannedUsers.forEach(user => {
+                    const option = document.createElement('option');
+                    option.value = user.id;
+                    option.textContent = user.nickname;
+                    unbanSelect.appendChild(option);
+                });
+                
+                // Заполняем таблицу банов
+                const bansTable = document.getElementById('bansTable');
+                bansTable.innerHTML = '';
+                
+                bannedUsers.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.nickname}</td>
+                        <td>${user.ban_reason || 'Не указана'}</td>
+                        <td>${user.ban_date ? new Date(user.ban_date).toLocaleDateString('ru-RU') : 'Неизвестно'}</td>
+                        <td>${user.ban_expires ? new Date(user.ban_expires).toLocaleDateString('ru-RU') : 'Перманентно'}</td>
+                        <td>${user.banned_by || 'Система'}</td>
+                        <td>
+                            <button class="btn btn-success" style="padding: 5px 10px; font-size: 0.8rem;" onclick="unbanUserPrompt(${user.id})">Разблокировать</button>
+                        </td>
+                    `;
+                    bansTable.appendChild(row);
+                });
+                
+            } catch (error) {
+                console.error('Error loading bans:', error);
+                showError('Ошибка загрузки списка банов');
+            }
+        }
+
+        // ==================== ФУНКЦИИ ДЛЯ ТАБЛИЦЫ ЛИДЕРОВ ====================
+
+        // Показать определенную таблицу лидеров
+        function showLeaderboard(type) {
+            // Скрываем все таблицы
+            document.querySelectorAll('.leaderboard-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // Показываем нужную таблицу
+            document.getElementById(`leaderboard-${type}`).style.display = 'block';
+            
+            // Обновляем активные табы
+            document.querySelectorAll('.leaderboard-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Обновляем данные для этой таблицы
+            updateLeaderboardTable(type);
+        }
+
+        // Обновление конкретной таблицы лидеров
+        async function updateLeaderboardTable(type) {
+            try {
+                const data = await getLeaderboard(type);
+                const tableId = `${type}-leaderboard`;
+                const table = document.getElementById(tableId);
+                
+                if (!table) return;
+                
+                table.innerHTML = '';
+                
+                data.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.users.nickname}</td>
+                        <td>${item[type]}</td>
+                        <td>${item.users.rank}</td>
+                        <td>${item.users.fraction}</td>
+                    `;
+                    table.appendChild(row);
+                });
+                
+            } catch (error) {
+                console.error(`Error updating ${type} leaderboard:`, error);
+            }
+        }
+
+        // ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ АДМИН-ПАНЕЛИ ====================
+
+        // Подсказка для редактирования пользователя
+        function selectUserForEdit(userId) {
+            document.getElementById('editUser').value = userId;
+            
+            // Находим пользователя и заполняем форму его данными
+            const user = allUsers.find(u => u.id === userId);
+            if (user) {
+                document.getElementById('editFraction').value = user.fraction || '';
+                document.getElementById('editCity').value = user.city || 'Приволжск';
+                document.getElementById('editRank').value = user.rank || 'Гражданский';
+                document.getElementById('editPosition').value = user.position || '';
+            }
+        }
+
+        // Подсказка для назначения админа
+        function assignAdminPrompt(userId) {
+            document.getElementById('adminUser').value = userId;
+        }
+
+        // Подсказка для снятия прав админа
+        function removeAdminPrompt(userId) {
+            document.getElementById('removeAdminUser').value = userId;
+        }
+
+        // Подсказка для разбана
+        function unbanUserPrompt(userId) {
+            document.getElementById('unbanUser').value = userId;
+        }
+
+        // Назначение администратора
+        async function assignAdmin() {
+            if (!requirePermission('assign_roles')) return;
+            
+            const userId = parseInt(document.getElementById('adminUser').value);
+            
+            if (!userId) {
+                showError('Выберите пользователя');
+                return;
+            }
+            
+            try {
+                const success = await updateUserInDatabase(userId, {
+                    role: 'ADMIN'
+                });
+                
+                if (success) {
+                    alert('✅ Пользователь назначен администратором!');
+                    loadUsersForAdmin();
+                    loadAdminsForAdmin();
+                    logAdminAction('assign_admin', userId, 'Назначение администратором');
                 } else {
-                    roleBadge = 'Гражданский';
+                    showError('Ошибка при назначении администратора');
+                }
+            } catch (error) {
+                console.error('Error assigning admin:', error);
+                showError('Ошибка при назначении администратора');
+            }
+        }
+
+        // Снятие прав администратора
+        async function removeAdmin() {
+            if (!requirePermission('assign_roles')) return;
+            
+            const userId = parseInt(document.getElementById('removeAdminUser').value);
+            
+            if (!userId) {
+                showError('Выберите администратора');
+                return;
+            }
+            
+            try {
+                const success = await updateUserInDatabase(userId, {
+                    role: 'USER'
+                });
+                
+                if (success) {
+                    alert('✅ Права администратора сняты!');
+                    loadUsersForAdmin();
+                    loadAdminsForAdmin();
+                    logAdminAction('remove_admin', userId, 'Снятие прав администратора');
+                } else {
+                    showError('Ошибка при снятии прав');
+                }
+            } catch (error) {
+                console.error('Error removing admin:', error);
+                showError('Ошибка при снятии прав');
+            }
+        }
+
+        // Блокировка пользователя
+        async function banUser() {
+            if (!requirePermission('ban_users')) return;
+            
+            const userId = parseInt(document.getElementById('banUser').value);
+            const reason = document.getElementById('banReason').value;
+            const duration = parseInt(document.getElementById('banDuration').value) || 0;
+            
+            if (!userId) {
+                showError('Выберите пользователя');
+                return;
+            }
+            
+            if (!reason) {
+                showError('Введите причину блокировки');
+                return;
+            }
+            
+            try {
+                const success = await banUserInDatabase(userId, reason, duration, currentUser.nickname);
+                
+                if (success) {
+                    alert('✅ Пользователь заблокирован!');
+                    document.getElementById('banReason').value = '';
+                    document.getElementById('banDuration').value = '';
+                    loadUsersForAdmin();
+                    loadBansForAdmin();
+                    logAdminAction('ban_user', userId, `Блокировка. Причина: ${reason}, срок: ${duration} дней`);
+                } else {
+                    showError('Ошибка при блокировке пользователя');
+                }
+            } catch (error) {
+                console.error('Error banning user:', error);
+                showError('Ошибка при блокировке пользователя');
+            }
+        }
+
+        // Разблокировка пользователя
+        async function unbanUser() {
+            if (!requirePermission('ban_users')) return;
+            
+            const userId = parseInt(document.getElementById('unbanUser').value);
+            
+            if (!userId) {
+                showError('Выберите пользователя');
+                return;
+            }
+            
+            try {
+                const success = await unbanUserInDatabase(userId);
+                
+                if (success) {
+                    alert('✅ Пользователь разблокирован!');
+                    loadUsersForAdmin();
+                    loadBansForAdmin();
+                    logAdminAction('unban_user', userId, 'Разблокировка пользователя');
+                } else {
+                    showError('Ошибка при разблокировке пользователя');
+                }
+            } catch (error) {
+                console.error('Error unbanning user:', error);
+                showError('Ошибка при разблокировке пользователя');
+            }
+        }
+
+        // ==================== ФИКС КЭША CLOUDFLARE ====================
+
+        // Принудительное обновление кэша при каждой загрузке
+        const CACHE_BUSTER = 'v=' + Date.now();
+
+        // Добавляем параметр версии ко всем запросам
+        function bustCache() {
+            const links = document.querySelectorAll('link[rel="stylesheet"]');
+            const scripts = document.querySelectorAll('script[src]');
+            
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.includes('?')) {
+                    link.setAttribute('href', href + '?' + CACHE_BUSTER);
+                }
+            });
+            
+            console.log('🔄 Cache buster activated:', CACHE_BUSTER);
+        }
+
+        // Вызываем при загрузке
+        bustCache();
+
+        // ==================== ЗАГРУЗКА ПОЛЬЗОВАТЕЛЕЙ В АДМИН-ПАНЕЛЬ ====================
+
+        // Основная функция загрузки пользователей для админ-панели
+        window.loadUsersForAdmin = async function() {
+            console.log('🔄 Загрузка пользователей для админки');
+            
+            try {
+                // Получаем всех пользователей из базы
+                const { data: users, error } = await supabase
+                    .from('users')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    console.error('❌ Ошибка загрузки пользователей:', error);
+                    return;
                 }
 
-                row.innerHTML = `
-                    <td>${user.id}</td>
-                    <td>${user.nickname}</td>
-                    <td>${user.rank}</td>
-                    <td>${user.position}</td>
-                    <td>${user.fraction}</td>
-                    <td>${user.city}</td>
-                    <td>${user.banned ? '<span style="color: var(--danger);">⛔ Заблокирован</span>' : roleBadge}</td>
-                    <td>
-                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem;" onclick="selectUserForEdit(${user.id})">Изменить</button>
-                    </td>
-                `;
-                usersTable.appendChild(row);
-            });
-        }
+                console.log('✅ Пользователи загружены:', users);
+                allUsers = users; // Сохраняем пользователей в глобальную переменную
 
-    } catch (error) {
-        console.error('❌ Ошибка загрузки пользователей:', error);
-    }
-};
+                // Заполняем выпадающий список для редактирования
+                const editUserSelect = document.getElementById('editUser');
+                const adminUserSelect = document.getElementById('adminUser');
+                const banUserSelect = document.getElementById('banUser');
+                const removeAdminSelect = document.getElementById('removeAdminUser');
+                const unbanSelect = document.getElementById('unbanUser');
 
-// Функция для выбора пользователя в форме редактирования
-window.selectUserForEdit = function(userId) {
-    document.getElementById('editUser').value = userId;
-    
-    // Находим пользователя и заполняем форму его данными
-    const user = allUsers.find(u => u.id === userId);
-    if (user) {
-        document.getElementById('editFraction').value = user.fraction || '';
-        document.getElementById('editCity').value = user.city || 'Приволжск';
-        document.getElementById('editRank').value = user.rank || 'Гражданский';
-        document.getElementById('editPosition').value = user.position || '';
-    }
-};
+                // Очищаем списки
+                editUserSelect.innerHTML = '<option value="">Выберите пользователя</option>';
+                adminUserSelect.innerHTML = '<option value="">Выберите пользователя</option>';
+                banUserSelect.innerHTML = '<option value="">Выберите пользователя</option>';
+                removeAdminSelect.innerHTML = '<option value="">Выберите администратора</option>';
+                unbanSelect.innerHTML = '<option value="">Выберите пользователя</option>';
 
-// Функция для проверки суперадмина
-function isSuperAdmin(user) {
-    return SUPER_ADMINS.some(sa => 
-        sa.username === user.username || 
-        sa.email === user.email
-    );
-}
+                // Заполняем списки
+                users.forEach(user => {
+                    if (user.id === currentUser.id) return; // Пропускаем текущего пользователя
 
-// Загружаем пользователей при открытии админ-панели
-document.addEventListener('DOMContentLoaded', function() {
-    // Ждем немного перед загрузкой пользователей
-    setTimeout(() => {
-        if (currentUser && hasPermission(currentUser, 'view_users')) {
-            loadUsersForAdmin();
-        }
-    }, 1000);
-});
+                    const optionText = `${user.nickname} (${user.role})`;
 
-// Также обновляем функцию showAdminTab чтобы загружать данные при переходе
-const originalShowAdminTab = window.showAdminTab;
-window.showAdminTab = function(tabName) {
-    // Вызываем оригинальную функцию
-    if (originalShowAdminTab) {
-        originalShowAdminTab(tabName);
-    }
-    
-    // Загружаем данные для вкладки
-    if (tabName === 'users') {
-        loadUsersForAdmin();
-    }
-};
+                    // Для редактирования - все пользователи
+                    const editOption = document.createElement('option');
+                    editOption.value = user.id;
+                    editOption.textContent = optionText;
+                    editUserSelect.appendChild(editOption);
 
-console.log('🎯 Функции загрузки пользователей загружены');
+                    // Для назначения админа - только обычные пользователи
+                    if (user.role === 'USER') {
+                        const adminOption = document.createElement('option');
+                        adminOption.value = user.id;
+                        adminOption.textContent = user.nickname;
+                        adminUserSelect.appendChild(adminOption);
+                    }
+
+                    // Для бана - все пользователи кроме суперадминов
+                    if (!isSuperAdmin(user)) {
+                        const banOption = document.createElement('option');
+                        banOption.value = user.id;
+                        banOption.textContent = user.nickname + (user.banned ? ' ⛔' : '');
+                        banUserSelect.appendChild(banOption);
+                    }
+
+                    // Для снятия прав - только админы и модераторы
+                    if (user.role === 'ADMIN' || user.role === 'MODERATOR') {
+                        const removeAdminOption = document.createElement('option');
+                        removeAdminOption.value = user.id;
+                        removeAdminOption.textContent = user.nickname;
+                        removeAdminSelect.appendChild(removeAdminOption);
+                    }
+
+                    // Для разбана - только заблокированные
+                    if (user.banned) {
+                        const unbanOption = document.createElement('option');
+                        unbanOption.value = user.id;
+                        unbanOption.textContent = user.nickname;
+                        unbanSelect.appendChild(unbanOption);
+                    }
+                });
+
+                // Заполняем таблицу пользователей
+                const usersTable = document.getElementById('usersTable');
+                if (usersTable) {
+                    usersTable.innerHTML = '';
+                    
+                    users.forEach(user => {
+                        const row = document.createElement('tr');
+                        
+                        let roleBadge = '';
+                        if (isSuperAdmin(user)) {
+                            roleBadge = '<span style="color: gold;">Главный Админ</span>';
+                        } else if (user.role === 'ADMIN') {
+                            roleBadge = '<span style="color: var(--accent);">Админ</span>';
+                        } else if (user.role === 'MODERATOR') {
+                            roleBadge = '<span style="color: #f59e0b;">Модератор</span>';
+                        } else if (user.role === 'HELPER') {
+                            roleBadge = '<span style="color: #10b981;">Помощник</span>';
+                        } else {
+                            roleBadge = 'Гражданский';
+                        }
+
+                        row.innerHTML = `
+                            <td>${user.id}</td>
+                            <td>${user.nickname}</td>
+                            <td>${user.rank}</td>
+                            <td>${user.position}</td>
+                            <td>${user.fraction}</td>
+                            <td>${user.city}</td>
+                            <td>${user.banned ? '<span style="color: var(--danger);">⛔ Заблокирован</span>' : roleBadge}</td>
+                            <td>
+                                <button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem;" onclick="selectUserForEdit(${user.id})">Изменить</button>
+                            </td>
+                        `;
+                        usersTable.appendChild(row);
+                    });
+                }
+
+            } catch (error) {
+                console.error('❌ Ошибка загрузки пользователей:', error);
+            }
+        };
+
+        // Функция для выбора пользователя в форме редактирования
+        window.selectUserForEdit = function(userId) {
+            document.getElementById('editUser').value = userId;
+            
+            // Находим пользователя и заполняем форму его данными
+            const user = allUsers.find(u => u.id === userId);
+            if (user) {
+                document.getElementById('editFraction').value = user.fraction || '';
+                document.getElementById('editCity').value = user.city || 'Приволжск';
+                document.getElementById('editRank').value = user.rank || 'Гражданский';
+                document.getElementById('editPosition').value = user.position || '';
+            }
+        };
+
+        // Загружаем пользователей при открытии админ-панели
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ждем немного перед загрузкой пользователей
+            setTimeout(() => {
+                if (currentUser && hasPermission(currentUser, 'view_users')) {
+                    loadUsersForAdmin();
+                }
+            }, 1000);
+        });
+
+        // Также обновляем функцию showAdminTab чтобы загружать данные при переходе
+        const originalShowAdminTab = window.showAdminTab;
+        window.showAdminTab = function(tabName) {
+            // Вызываем оригинальную функцию
+            if (originalShowAdminTab) {
+                originalShowAdminTab(tabName);
+            }
+            
+            // Загружаем данные для вкладки
+            if (tabName === 'users') {
+                loadUsersForAdmin();
+            }
+        };
+
+        console.log('🎯 Функции загрузки пользователей загружены');
     </script>
 </body>
 </html>
