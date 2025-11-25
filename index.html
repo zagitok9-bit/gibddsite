@@ -1298,6 +1298,171 @@
         .jurisdiction-card.privolzhsk h3 {
             color: #10b981;
         }
+
+        /* Новые стили для настроек */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+        
+        .setting-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 24px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .setting-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .setting-card h3 {
+            margin-bottom: 18px;
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .setting-option {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .setting-option:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .setting-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .setting-description {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 12px;
+        }
+        
+        /* Стили для модальных окон */
+        .modal-small {
+            max-width: 400px;
+        }
+        
+        .modal-medium {
+            max-width: 500px;
+        }
+        
+        .modal-large {
+            max-width: 600px;
+        }
+        
+        .danger-zone {
+            border: 2px solid var(--danger);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            background: rgba(239, 68, 68, 0.05);
+        }
+        
+        .danger-zone h4 {
+            color: var(--danger);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Стили для выбора званий и должностей */
+        .rank-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .rank-option {
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .rank-option:hover {
+            border-color: var(--primary);
+            background: rgba(30, 58, 138, 0.05);
+        }
+        
+        .rank-option.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+        
+        .rank-option.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--border-color);
+        }
+
+        /* Switch toggle */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-color);
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
     </style>
 </head>
 <body>
@@ -1351,7 +1516,160 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- Модальное окно смены пароля -->
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2><i class="fas fa-lock"></i> Смена пароля</h2>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <div class="form-group">
+                        <label for="currentPassword"><i class="fas fa-lock"></i> Текущий пароль</label>
+                        <input type="password" id="currentPassword" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword"><i class="fas fa-key"></i> Новый пароль</label>
+                        <input type="password" id="newPassword" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmNewPassword"><i class="fas fa-key"></i> Подтвердите новый пароль</label>
+                        <input type="password" id="confirmNewPassword" class="form-control" required>
+                    </div>
+                    <div class="form-group" style="display: flex; gap: 10px;">
+                        <button type="submit" class="btn btn-success" style="flex: 1;"><i class="fas fa-save"></i> Сохранить</button>
+                        <button type="button" class="btn btn-outline" style="flex: 1;" onclick="hideModal('changePasswordModal')"><i class="fas fa-times"></i> Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно смены никнейма -->
+    <div id="changeNicknameModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-edit"></i> Смена никнейма</h2>
+            </div>
+            <div class="modal-body">
+                <form id="changeNicknameForm">
+                    <div class="form-group">
+                        <label for="newNickname"><i class="fas fa-signature"></i> Новый никнейм</label>
+                        <input type="text" id="newNickname" class="form-control" required>
+                    </div>
+                    <div id="nicknameTarget" style="display: none;">
+                        <div class="form-group">
+                            <label for="targetUser">Для пользователя</label>
+                            <select id="targetUser" class="form-control">
+                                <!-- Заполнится JavaScript -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" style="display: flex; gap: 10px;">
+                        <button type="submit" class="btn btn-success" style="flex: 1;"><i class="fas fa-save"></i> Сохранить</button>
+                        <button type="button" class="btn btn-outline" style="flex: 1;" onclick="hideModal('changeNicknameModal')"><i class="fas fa-times"></i> Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно выбора звания и должности -->
+    <div id="rankPositionModal" class="modal">
+        <div class="modal-content modal-medium">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-tie"></i> Выбор звания и должности</h2>
+            </div>
+            <div class="modal-body">
+                <form id="rankPositionForm">
+                    <div id="rankPositionTarget" style="display: none;">
+                        <div class="form-group">
+                            <label for="targetUserRank">Для пользователя</label>
+                            <select id="targetUserRank" class="form-control">
+                                <!-- Заполнится JavaScript -->
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="selectedRank"><i class="fas fa-star"></i> Звание</label>
+                        <div class="rank-grid">
+                            <div class="rank-option" data-rank="Рядовой" onclick="selectRank('Рядовой')">Рядовой</div>
+                            <div class="rank-option" data-rank="Сержант" onclick="selectRank('Сержант')">Сержант</div>
+                            <div class="rank-option" data-rank="Старшина" onclick="selectRank('Старшина')">Старшина</div>
+                            <div class="rank-option" data-rank="Прапорщик" onclick="selectRank('Прапорщик')">Прапорщик</div>
+                            <div class="rank-option" data-rank="Лейтенант" onclick="selectRank('Лейтенант')">Лейтенант</div>
+                            <div class="rank-option" data-rank="Старший лейтенант" onclick="selectRank('Старший лейтенант')">Ст. лейтенант</div>
+                            <div class="rank-option" data-rank="Капитан" onclick="selectRank('Капитан')">Капитан</div>
+                            <div class="rank-option" data-rank="Майор" onclick="selectRank('Майор')">Майор</div>
+                        </div>
+                        <input type="hidden" id="selectedRank" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="positionInput"><i class="fas fa-briefcase"></i> Должность</label>
+                        <input type="text" id="positionInput" class="form-control" placeholder="Например: Инспектор ДПС" required>
+                    </div>
+                    
+                    <div class="form-group" style="display: flex; gap: 10px;">
+                        <button type="submit" class="btn btn-success" style="flex: 1;"><i class="fas fa-save"></i> Сохранить</button>
+                        <button type="button" class="btn btn-outline" style="flex: 1;" onclick="hideModal('rankPositionModal')"><i class="fas fa-times"></i> Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно редактирования статистики -->
+    <div id="editStatsModal" class="modal">
+        <div class="modal-content modal-medium">
+            <div class="modal-header">
+                <h2><i class="fas fa-chart-bar"></i> Редактирование статистики</h2>
+            </div>
+            <div class="modal-body">
+                <form id="editStatsForm">
+                    <div class="form-group">
+                        <label for="statsUser">Пользователь</label>
+                        <select id="statsUser" class="form-control" required>
+                            <!-- Заполнится JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editFines">Выдано штрафов</label>
+                        <input type="number" id="editFines" class="form-control" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editArrests">Задержано преступников</label>
+                        <input type="number" id="editArrests" class="form-control" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editLicenses">Изъято прав</label>
+                        <input type="number" id="editLicenses" class="form-control" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editSearches">Проведено досмотров</label>
+                        <input type="number" id="editSearches" class="form-control" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editRating">Общий рейтинг</label>
+                        <input type="number" id="editRating" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group" style="display: flex; gap: 10px;">
+                        <button type="submit" class="btn btn-success" style="flex: 1;"><i class="fas fa-save"></i> Сохранить</button>
+                        <button type="button" class="btn btn-outline" style="flex: 1;" onclick="hideModal('editStatsModal')"><i class="fas fa-times"></i> Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -1392,6 +1710,7 @@
                 <li><a href="#" onclick="showSection('statistics')"><i class="fas fa-chart-bar"></i> Статистика</a></li>
                 <li><a href="#" onclick="showSection('leaderboard')"><i class="fas fa-trophy"></i> Таблица лидеров</a></li>
                 <li><a href="#" onclick="showSection('profile')" id="profileTab"><i class="fas fa-user"></i> Профиль</a></li>
+                <li><a href="#" onclick="showSection('settings')" id="settingsTab"><i class="fas fa-cog"></i> Настройки</a></li>
                 <li><a href="#" onclick="showSection('admin')" id="adminTab" style="display:none;"><i class="fas fa-cogs"></i> Админ-панель</a></li>
             </ul>
         </div>
@@ -2573,6 +2892,166 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- Settings Section -->
+                <section id="settings-section" class="content-section" style="display: none;">
+                    <div class="section-title">
+                        <i class="fas fa-cog"></i>
+                        <h2>Настройки и кастомизация</h2>
+                    </div>
+                    <p>Настройте внешний вид и параметры вашего аккаунта.</p>
+                    
+                    <div class="settings-grid">
+                        <div class="setting-card">
+                            <h3><i class="fas fa-user-cog"></i> Настройки аккаунта</h3>
+                            
+                            <div class="setting-option">
+                                <div class="setting-label">Смена пароля</div>
+                                <div class="setting-description">Измените пароль для входа в систему</div>
+                                <button class="btn btn-outline" onclick="showChangePasswordModal()"><i class="fas fa-lock"></i> Сменить пароль</button>
+                            </div>
+                            
+                            <div class="setting-option">
+                                <div class="setting-label">Смена никнейма</div>
+                                <div class="setting-description">Измените отображаемое имя</div>
+                                <button class="btn btn-outline" onclick="showChangeNicknameModal(false)"><i class="fas fa-user-edit"></i> Сменить никнейм</button>
+                            </div>
+                            
+                            <div class="setting-option">
+                                <div class="setting-label">Звание и должность</div>
+                                <div class="setting-description">Выберите ваше звание и должность в организации</div>
+                                <button class="btn btn-outline" onclick="showRankPositionModal(false)"><i class="fas fa-user-tie"></i> Выбрать звание/должность</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-card">
+                            <h3><i class="fas fa-palette"></i> Внешний вид</h3>
+                            
+                            <div class="setting-option">
+                                <div class="setting-label">Тема оформления</div>
+                                <div class="setting-description">Выберите светлую или темную тему</div>
+                                <div style="display: flex; gap: 10px;">
+                                    <button class="btn btn-outline" onclick="setTheme(false)" id="lightThemeBtn"><i class="fas fa-sun"></i> Светлая</button>
+                                    <button class="btn btn-outline" onclick="setTheme(true)" id="darkThemeBtn"><i class="fas fa-moon"></i> Темная</button>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-option">
+                                <div class="setting-label">Размер шрифта</div>
+                                <div class="setting-description">Настройте размер текста для комфортного чтения</div>
+                                <select id="fontSize" class="form-control" onchange="updateFontSize(this.value)">
+                                    <option value="small">Маленький</option>
+                                    <option value="medium" selected>Средний</option>
+                                    <option value="large">Большой</option>
+                                </select>
+                            </div>
+                            
+                            <div class="setting-option">
+                                <div class="setting-label">Компактный режим</div>
+                                <div class="setting-description">Уменьшите отступы для большего количества информации на экране</div>
+                                <label class="switch">
+                                    <input type="checkbox" id="compactMode" onchange="toggleCompactMode(this.checked)">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-card">
+                            <h3><i class="fas fa-bell"></i> Уведомления</h3>
+                            
+                            <div class="setting-option">
+                                <div class="setting-label">Email уведомления</div>
+                                <div class="setting-description">Получать уведомления на электронную почту</div>
+                                <label class="switch">
+                                    <input type="checkbox" id="emailNotifications" onchange="updateNotificationSettings()">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-option">
+                                <div class="setting-label">Обновления системы</div>
+                                <div class="setting-description">Уведомлять о новых функциях и обновлениях</div>
+                                <label class="switch">
+                                    <input type="checkbox" id="systemUpdates" onchange="updateNotificationSettings()">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-option">
+                                <div class="setting-label">Статистика активности</div>
+                                <div class="setting-description">Еженедельный отчет о вашей активности</div>
+                                <label class="switch">
+                                    <input type="checkbox" id="weeklyReports" onchange="updateNotificationSettings()">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-card">
+                            <h3><i class="fas fa-shield-alt"></i> Безопасность</h3>
+                            
+                            <div class="setting-option">
+                                <div class="setting-label">Двухфакторная аутентификация</div>
+                                <div class="setting-description">Дополнительная защита вашего аккаунта</div>
+                                <button class="btn btn-outline" onclick="enableTwoFactorAuth()"><i class="fas fa-mobile-alt"></i> Включить 2FA</button>
+                            </div>
+                            
+                            <div class="setting-option">
+                                <div class="setting-label">История входов</div>
+                                <div class="setting-description">Просмотр последних активностей вашего аккаунта</div>
+                                <button class="btn btn-outline" onclick="showLoginHistory()"><i class="fas fa-history"></i> Показать историю</button>
+                            </div>
+                            
+                            <div class="danger-zone">
+                                <h4><i class="fas fa-exclamation-triangle"></i> Опасная зона</h4>
+                                <div class="setting-description">Эти действия нельзя отменить</div>
+                                <button class="btn btn-danger" onclick="showDeleteAccountModal()"><i class="fas fa-trash"></i> Удалить аккаунт</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Административные настройки (только для админов) -->
+                    <div id="adminSettings" style="display: none; margin-top: 30px;">
+                        <div class="section-title">
+                            <i class="fas fa-user-shield"></i>
+                            <h2>Административные настройки</h2>
+                        </div>
+                        
+                        <div class="settings-grid">
+                            <div class="setting-card">
+                                <h3><i class="fas fa-users-cog"></i> Управление пользователями</h3>
+                                
+                                <div class="setting-option">
+                                    <div class="setting-label">Смена никнеймов</div>
+                                    <div class="setting-description">Изменить никнейм любому пользователю</div>
+                                    <button class="btn btn-warning" onclick="showChangeNicknameModal(true)"><i class="fas fa-user-edit"></i> Сменить никнейм</button>
+                                </div>
+                                
+                                <div class="setting-option">
+                                    <div class="setting-label">Назначение званий</div>
+                                    <div class="setting-description">Назначить звание и должность пользователям</div>
+                                    <button class="btn btn-warning" onclick="showRankPositionModal(true)"><i class="fas fa-user-tie"></i> Назначить звание</button>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-card">
+                                <h3><i class="fas fa-chart-line"></i> Управление статистикой</h3>
+                                
+                                <div class="setting-option">
+                                    <div class="setting-label">Редактирование статистики</div>
+                                    <div class="setting-description">Изменение статистики любого пользователя</div>
+                                    <button class="btn btn-warning" onclick="showEditStatsModal()"><i class="fas fa-edit"></i> Редактировать статистику</button>
+                                </div>
+                                
+                                <div class="setting-option">
+                                    <div class="setting-label">Сброс статистики</div>
+                                    <div class="setting-description">Обнуление статистики пользователей</div>
+                                    <button class="btn btn-danger" onclick="showResetStatsModal()"><i class="fas fa-eraser"></i> Сбросить статистику</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 
                 <!-- Admin Section -->
                 <section id="admin-section" class="content-section" style="display: none;">
@@ -2636,8 +3115,7 @@
                                     <label for="editPosition">Должность</label>
                                     <input type="text" id="editPosition" class="form-control" placeholder="Введите должность">
                                 </div>
-                              <button class="btn" onclick="saveUserChanges()">
-<i class="fas fa-save"></i> Сохранить изменения</button>
+                                <button class="btn" onclick="saveUserChanges()"><i class="fas fa-save"></i> Сохранить изменения</button>
                             </div>
                             
                             <div class="admin-card">
@@ -3377,6 +3855,7 @@
           }
 
           document.getElementById('profileTab').style.display = 'block';
+          document.getElementById('settingsTab').style.display = 'block';
         }
 
         // Обновление информации в профиле
@@ -3598,6 +4077,8 @@
             document.getElementById('stat-licenses').textContent = currentUserStats.licenses;
             document.getElementById('stat-searches').textContent = currentUserStats.searches;
             document.getElementById('stat-rating').textContent = currentUserStats.rating;
+          } else if (sectionName === 'settings') {
+            loadSettings();
           }
         }
 
@@ -4035,6 +4516,557 @@
             }
         }
 
+        // ==================== НОВЫЕ ФУНКЦИИ ДЛЯ СИСТЕМЫ НАСТРОЕК ====================
+
+        // Показать раздел настроек
+        function showSettingsSection() {
+            showSection('settings');
+            loadSettings();
+        }
+
+        // Загрузка настроек пользователя
+        async function loadSettings() {
+            if (!currentUser) return;
+
+            try {
+                // Загружаем настройки из базы данных
+                const { data: settings, error } = await supabase
+                    .from('user_settings')
+                    .select('*')
+                    .eq('user_id', currentUser.id)
+                    .single();
+
+                if (error && error.code !== 'PGRST116') {
+                    console.error('Error loading settings:', error);
+                    return;
+                }
+
+                // Применяем настройки
+                if (settings) {
+                    // Тема
+                    if (settings.theme === 'dark') {
+                        setTheme(true);
+                    } else {
+                        setTheme(false);
+                    }
+
+                    // Размер шрифта
+                    if (settings.font_size) {
+                        document.getElementById('fontSize').value = settings.font_size;
+                        updateFontSize(settings.font_size);
+                    }
+
+                    // Компактный режим
+                    if (settings.compact_mode) {
+                        document.getElementById('compactMode').checked = true;
+                        toggleCompactMode(true);
+                    }
+
+                    // Уведомления
+                    if (settings.notifications) {
+                        const notifSettings = settings.notifications;
+                        document.getElementById('emailNotifications').checked = notifSettings.email || false;
+                        document.getElementById('systemUpdates').checked = notifSettings.system_updates || false;
+                        document.getElementById('weeklyReports').checked = notifSettings.weekly_reports || false;
+                    }
+                }
+
+                // Показываем административные настройки если пользователь админ
+                if (hasPermission(currentUser, 'manage_users')) {
+                    document.getElementById('adminSettings').style.display = 'block';
+                }
+
+            } catch (error) {
+                console.error('Error loading user settings:', error);
+            }
+        }
+
+        // Сохранение настроек
+        async function saveSettings(settings) {
+            if (!currentUser) return false;
+
+            try {
+                const { error } = await supabase
+                    .from('user_settings')
+                    .upsert({
+                        user_id: currentUser.id,
+                        ...settings,
+                        updated_at: new Date().toISOString()
+                    });
+
+                return !error;
+            } catch (error) {
+                console.error('Error saving settings:', error);
+                return false;
+            }
+        }
+
+        // ==================== СИСТЕМА СМЕНЫ ПАРОЛЯ ====================
+
+        // Показать модальное окно смены пароля
+        function showChangePasswordModal() {
+            if (!currentUser) {
+                showError('Необходимо авторизоваться');
+                return;
+            }
+            document.getElementById('changePasswordForm').reset();
+            showModal('changePasswordModal');
+        }
+
+        // Обработка смены пароля
+        document.getElementById('changePasswordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmNewPassword').value;
+
+            // Проверка совпадения паролей
+            if (newPassword !== confirmPassword) {
+                showError('Новые пароли не совпадают');
+                return;
+            }
+
+            // Проверка длины пароля
+            if (newPassword.length < 6) {
+                showError('Пароль должен содержать минимум 6 символов');
+                return;
+            }
+
+            try {
+                // Проверяем текущий пароль
+                const isCurrentPasswordValid = await hashPassword(currentPassword) === currentUser.password_hash;
+                if (!isCurrentPasswordValid) {
+                    showError('Текущий пароль неверен');
+                    return;
+                }
+
+                // Обновляем пароль в базе данных
+                const { error } = await supabase
+                    .from('users')
+                    .update({
+                        password_hash: await hashPassword(newPassword),
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', currentUser.id);
+
+                if (error) throw error;
+
+                // Обновляем локальные данные пользователя
+                currentUser.password_hash = await hashPassword(newPassword);
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+                alert('✅ Пароль успешно изменен!');
+                hideModal('changePasswordModal');
+                logAdminAction('change_password', currentUser.id, 'Смена пароля');
+
+            } catch (error) {
+                console.error('Error changing password:', error);
+                showError('Ошибка при смене пароля');
+            }
+        });
+
+        // ==================== СИСТЕМА СМЕНЫ НИКНЕЙМА ====================
+
+        // Показать модальное окно смены никнейма
+        function showChangeNicknameModal(forOtherUser = false) {
+            if (!currentUser) {
+                showError('Необходимо авторизоваться');
+                return;
+            }
+
+            document.getElementById('changeNicknameForm').reset();
+            const targetSection = document.getElementById('nicknameTarget');
+            
+            if (forOtherUser && hasPermission(currentUser, 'manage_users')) {
+                targetSection.style.display = 'block';
+                loadUsersForNicknameChange();
+            } else {
+                targetSection.style.display = 'none';
+                document.getElementById('newNickname').value = currentUser.nickname;
+            }
+
+            showModal('changeNicknameModal');
+        }
+
+        // Загрузка пользователей для смены никнейма
+        async function loadUsersForNicknameChange() {
+            if (!hasPermission(currentUser, 'manage_users')) return;
+
+            try {
+                const users = await getAllUsers();
+                const select = document.getElementById('targetUser');
+                select.innerHTML = '';
+
+                users.forEach(user => {
+                    const option = document.createElement('option');
+                    option.value = user.id;
+                    option.textContent = `${user.nickname} (${user.role})`;
+                    select.appendChild(option);
+                });
+
+            } catch (error) {
+                console.error('Error loading users for nickname change:', error);
+            }
+        }
+
+        // Обработка смены никнейма
+        document.getElementById('changeNicknameForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const newNickname = document.getElementById('newNickname').value.trim();
+            const targetUserSelect = document.getElementById('targetUser');
+            let targetUserId = currentUser.id;
+
+            // Если меняем ник другому пользователю
+            if (targetUserSelect.style.display !== 'none' && targetUserSelect.value) {
+                if (!hasPermission(currentUser, 'manage_users')) {
+                    showError('Недостаточно прав');
+                    return;
+                }
+                targetUserId = parseInt(targetUserSelect.value);
+            }
+
+            if (!newNickname) {
+                showError('Введите новый никнейм');
+                return;
+            }
+
+            try {
+                // Проверяем, не занят ли никнейм
+                const { data: existingUser, error: checkError } = await supabase
+                    .from('users')
+                    .select('id')
+                    .eq('nickname', newNickname)
+                    .neq('id', targetUserId)
+                    .single();
+
+                if (existingUser) {
+                    showError('Этот никнейм уже занят');
+                    return;
+                }
+
+                // Обновляем никнейм в базе данных
+                const { error } = await supabase
+                    .from('users')
+                    .update({
+                        nickname: newNickname,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', targetUserId);
+
+                if (error) throw error;
+
+                // Обновляем локальные данные если меняем свой ник
+                if (targetUserId === currentUser.id) {
+                    currentUser.nickname = newNickname;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateUserInterface();
+                }
+
+                alert('✅ Никнейм успешно изменен!');
+                hideModal('changeNicknameModal');
+                
+                const actionText = targetUserId === currentUser.id ? 
+                    'Смена собственного никнейма' : 
+                    `Смена никнейма пользователю ID: ${targetUserId}`;
+                
+                logAdminAction('change_nickname', targetUserId, actionText);
+
+            } catch (error) {
+                console.error('Error changing nickname:', error);
+                showError('Ошибка при смене никнейма');
+            }
+        });
+
+        // ==================== СИСТЕМА ВЫБОРА ЗВАНИЙ И ДОЛЖНОСТЕЙ ====================
+
+        // Показать модальное окно выбора звания и должности
+        function showRankPositionModal(forOtherUser = false) {
+            if (!currentUser) {
+                showError('Необходимо авторизоваться');
+                return;
+            }
+
+            document.getElementById('rankPositionForm').reset();
+            const targetSection = document.getElementById('rankPositionTarget');
+            
+            if (forOtherUser && hasPermission(currentUser, 'manage_users')) {
+                targetSection.style.display = 'block';
+                loadUsersForRankChange();
+            } else {
+                targetSection.style.display = 'none';
+                // Устанавливаем текущие значения
+                if (currentUser.rank) {
+                    selectRank(currentUser.rank);
+                }
+                document.getElementById('positionInput').value = currentUser.position || '';
+            }
+
+            showModal('rankPositionModal');
+        }
+
+        // Загрузка пользователей для изменения званий
+        async function loadUsersForRankChange() {
+            if (!hasPermission(currentUser, 'manage_users')) return;
+
+            try {
+                const users = await getAllUsers();
+                const select = document.getElementById('targetUserRank');
+                select.innerHTML = '';
+
+                users.forEach(user => {
+                    const option = document.createElement('option');
+                    option.value = user.id;
+                    option.textContent = `${user.nickname} (${user.rank || 'Без звания'})`;
+                    select.appendChild(option);
+                });
+
+            } catch (error) {
+                console.error('Error loading users for rank change:', error);
+            }
+        }
+
+        // Выбор звания
+        function selectRank(rank) {
+            // Снимаем выделение со всех вариантов
+            document.querySelectorAll('.rank-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Выделяем выбранный вариант
+            const selectedOption = document.querySelector(`.rank-option[data-rank="${rank}"]`);
+            if (selectedOption) {
+                selectedOption.classList.add('selected');
+                document.getElementById('selectedRank').value = rank;
+            }
+        }
+
+        // Обработка выбора звания и должности
+        document.getElementById('rankPositionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const selectedRank = document.getElementById('selectedRank').value;
+            const position = document.getElementById('positionInput').value.trim();
+            const targetUserSelect = document.getElementById('targetUserRank');
+            let targetUserId = currentUser.id;
+
+            // Если назначаем другому пользователю
+            if (targetUserSelect.style.display !== 'none' && targetUserSelect.value) {
+                if (!hasPermission(currentUser, 'manage_users')) {
+                    showError('Недостаточно прав');
+                    return;
+                }
+                targetUserId = parseInt(targetUserSelect.value);
+            }
+
+            if (!selectedRank) {
+                showError('Выберите звание');
+                return;
+            }
+
+            if (!position) {
+                showError('Введите должность');
+                return;
+            }
+
+            try {
+                // Обновляем данные в базе
+                const { error } = await supabase
+                    .from('users')
+                    .update({
+                        rank: selectedRank,
+                        position: position,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', targetUserId);
+
+                if (error) throw error;
+
+                // Обновляем локальные данные если меняем свои данные
+                if (targetUserId === currentUser.id) {
+                    currentUser.rank = selectedRank;
+                    currentUser.position = position;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateUserInterface();
+                }
+
+                alert('✅ Звание и должность успешно обновлены!');
+                hideModal('rankPositionModal');
+                
+                const actionText = targetUserId === currentUser.id ? 
+                    'Изменение собственного звания/должности' : 
+                    `Назначение звания/должности пользователю ID: ${targetUserId}`;
+                
+                logAdminAction('change_rank_position', targetUserId, actionText);
+
+            } catch (error) {
+                console.error('Error updating rank/position:', error);
+                showError('Ошибка при обновлении звания и должности');
+            }
+        });
+
+        // ==================== СИСТЕМА РЕДАКТИРОВАНИЯ СТАТИСТИКИ ====================
+
+        // Показать модальное окно редактирования статистики
+        async function showEditStatsModal() {
+            if (!hasPermission(currentUser, 'edit_stats') || !isSuperAdmin(currentUser)) {
+                showError('Недостаточно прав');
+                return;
+            }
+
+            try {
+                const users = await getAllUsers();
+                const select = document.getElementById('statsUser');
+                select.innerHTML = '';
+
+                users.forEach(user => {
+                    const option = document.createElement('option');
+                    option.value = user.id;
+                    option.textContent = `${user.nickname} (${user.rank || 'Без звания'})`;
+                    select.appendChild(option);
+                });
+
+                // Загружаем статистику первого пользователя по умолчанию
+                if (users.length > 0) {
+                    await loadUserStats(users[0].id);
+                }
+
+                showModal('editStatsModal');
+
+            } catch (error) {
+                console.error('Error loading users for stats edit:', error);
+                showError('Ошибка загрузки пользователей');
+            }
+        }
+
+        // Загрузка статистики пользователя
+        async function loadUserStats(userId) {
+            try {
+                const stats = await getUserStats(userId);
+                if (stats) {
+                    document.getElementById('editFines').value = stats.fines || 0;
+                    document.getElementById('editArrests').value = stats.arrests || 0;
+                    document.getElementById('editLicenses').value = stats.licenses || 0;
+                    document.getElementById('editSearches').value = stats.searches || 0;
+                    document.getElementById('editRating').value = stats.rating || 0;
+                }
+            } catch (error) {
+                console.error('Error loading user stats:', error);
+            }
+        }
+
+        // Обработка изменения выбора пользователя
+        document.getElementById('statsUser').addEventListener('change', function() {
+            const userId = parseInt(this.value);
+            if (userId) {
+                loadUserStats(userId);
+            }
+        });
+
+        // Обработка сохранения статистики
+        document.getElementById('editStatsForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            if (!hasPermission(currentUser, 'edit_stats') || !isSuperAdmin(currentUser)) {
+                showError('Недостаточно прав');
+                return;
+            }
+
+            const userId = parseInt(document.getElementById('statsUser').value);
+            const fines = parseInt(document.getElementById('editFines').value);
+            const arrests = parseInt(document.getElementById('editArrests').value);
+            const licenses = parseInt(document.getElementById('editLicenses').value);
+            const searches = parseInt(document.getElementById('editSearches').value);
+            const rating = parseInt(document.getElementById('editRating').value);
+
+            if (!userId) {
+                showError('Выберите пользователя');
+                return;
+            }
+
+            try {
+                // Обновляем статистику в базе данных
+                const { error } = await supabase
+                    .from('user_stats')
+                    .update({
+                        fines: fines,
+                        arrests: arrests,
+                        licenses: licenses,
+                        searches: searches,
+                        rating: rating,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('user_id', userId);
+
+                if (error) throw error;
+
+                alert('✅ Статистика успешно обновлена!');
+                hideModal('editStatsModal');
+                
+                logAdminAction('edit_user_stats', userId, 
+                    `Обновление статистики: штрафы=${fines}, задержания=${arrests}, права=${licenses}, досмотры=${searches}, рейтинг=${rating}`);
+
+            } catch (error) {
+                console.error('Error updating stats:', error);
+                showError('Ошибка при обновлении статистики');
+            }
+        });
+
+        // ==================== ФУНКЦИИ КАСТОМИЗАЦИИ ====================
+
+        // Установка темы
+        function setTheme(isDark) {
+            isDarkTheme = isDark;
+            localStorage.setItem('darkTheme', isDark);
+            applyTheme();
+            
+            // Обновляем кнопки
+            document.getElementById('lightThemeBtn').classList.toggle('selected', !isDark);
+            document.getElementById('darkThemeBtn').classList.toggle('selected', isDark);
+            
+            // Сохраняем в настройках
+            saveSettings({ theme: isDark ? 'dark' : 'light' });
+        }
+
+        // Обновление размера шрифта
+        function updateFontSize(size) {
+            document.body.style.fontSize = size === 'small' ? '14px' : size === 'large' ? '18px' : '16px';
+            saveSettings({ font_size: size });
+        }
+
+        // Переключение компактного режима
+        function toggleCompactMode(compact) {
+            if (compact) {
+                document.body.classList.add('compact-mode');
+            } else {
+                document.body.classList.remove('compact-mode');
+            }
+            saveSettings({ compact_mode: compact });
+        }
+
+        // Обновление настроек уведомлений
+        function updateNotificationSettings() {
+            const settings = {
+                email: document.getElementById('emailNotifications').checked,
+                system_updates: document.getElementById('systemUpdates').checked,
+                weekly_reports: document.getElementById('weeklyReports').checked
+            };
+            saveSettings({ notifications: settings });
+        }
+
+        // ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ====================
+
+        // Показать модальное окно
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        // Скрыть модальное окно
+        function hideModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
         // ==================== ФИКС КЭША CLOUDFLARE ====================
 
         // Принудительное обновление кэша при каждой загрузке
@@ -4218,7 +5250,7 @@
             }
         };
 
-        console.log('🎯 Функции загрузки пользователей загружены');
+        console.log('🎯 Все системы загружены и готовы к работе!');
     </script>
 </body>
 </html>
