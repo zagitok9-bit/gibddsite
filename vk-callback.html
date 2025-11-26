@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VK Auth Callback</title>
+</head>
+<body>
+    <script>
+        // Получаем параметры из URL
+        const urlParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = urlParams.get('access_token');
+        const userId = urlParams.get('user_id');
+        const email = urlParams.get('email');
+
+        if (accessToken) {
+            // Отправляем данные обратно в основное окно
+            window.opener.postMessage({
+                type: 'VK_AUTH_SUCCESS',
+                access_token: accessToken,
+                user_id: userId,
+                email: email
+            }, '*');
+            
+            // Закрываем окно
+            setTimeout(() => {
+                window.close();
+            }, 1000);
+        } else {
+            console.error('VK auth failed');
+            window.close();
+        }
+    </script>
+</body>
+</html>
