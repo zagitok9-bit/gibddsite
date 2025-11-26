@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    
+    <script src="https://unpkg.com/vk-io@latest/dist/vk-io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1543,6 +1545,13 @@
                     </div>
                     <button type="submit" class="btn" style="width: 100%;"><i class="fas fa-user-plus"></i> Зарегистрироваться</button>
                 </form>
+                <!-- В authModal добавьте после форм -->
+<div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+  <p style="margin-bottom: 15px; color: var(--gray);">Или войдите через VK</p>
+  <button class="btn" onclick="loginWithVK()" style="background: #4a76a8; color: white;">
+    <i class="fab fa-vk"></i> Войти через VK
+  </button>
+</div>
             </div>
         </div>
     </div>
@@ -3487,10 +3496,10 @@ async function registerUser(userData) {
 // Вход пользователя
 async function loginUser(login, password) {
   try {
-    // Ищем пользователя
+    // Ищем пользователя - убираем требования к 2FA полям
     const { data: user, error } = await supabase
       .from('users')
-      .select('*, two_factor_enabled, two_factor_secret') // ДОБАВЬТЕ ЭТО
+      .select('*')
       .or(`username.eq.${login},email.eq.${login}`)
       .single();
 
@@ -3519,6 +3528,10 @@ async function loginUser(login, password) {
       user.banned = false;
     }
 
+    // Убедимся, что поля 2FA существуют (могут быть null)
+    user.two_factor_enabled = user.two_factor_enabled || false;
+    user.two_factor_secret = user.two_factor_secret || null;
+
     // Сохраняем пользователя в localStorage
     localStorage.setItem('currentUser', JSON.stringify(user));
     
@@ -3529,56 +3542,38 @@ async function loginUser(login, password) {
   }
 }
         // Проверка авторизации
-        async function checkAuth() {
-            async function checkAuth() {
+async function checkAuth() {
   const storedUser = localStorage.getItem('currentUser');
   if (!storedUser) return null;
 
   try {
     const user = JSON.parse(storedUser);
     
-    // Получаем свежие данные пользователя включая 2FA статус
+    // Получаем свежие данные пользователя
     const { data: freshUser, error } = await supabase
       .from('users')
-      .select('*, two_factor_enabled, two_factor_secret') // ДОБАВЬТЕ ЭТИ ПОЛЯ
+      .select('*')
       .eq('id', user.id)
       .single();
 
     if (error) throw error;
+
+    // Убедимся, что поля 2FA существуют
+    freshUser.two_factor_enabled = freshUser.two_factor_enabled || false;
+    freshUser.two_factor_secret = freshUser.two_factor_secret || null;
+
+    // Если пользователь забанен, выходим
+    if (freshUser.banned && freshUser.ban_expires && new Date(freshUser.ban_expires) > new Date()) {
+      localStorage.removeItem('currentUser');
+      return null;
+    }
+
     return freshUser;
   } catch (error) {
-    console.error('Auth check error:', error);
+    localStorage.removeItem('currentUser');
     return null;
   }
 }
-          const storedUser = localStorage.getItem('currentUser');
-          if (!storedUser) return null;
-
-          try {
-            const user = JSON.parse(storedUser);
-            
-            // Проверяем, актуальны ли данные пользователя
-            const { data: freshUser, error } = await supabase
-              .from('users')
-              .select('*')
-              .eq('id', user.id)
-              .single();
-
-            if (error) throw error;
-
-            // Если пользователь забанен, выходим
-            if (freshUser.banned && freshUser.ban_expires && new Date(freshUser.ban_expires) > new Date()) {
-              localStorage.removeItem('currentUser');
-              return null;
-            }
-
-            return freshUser;
-          } catch (error) {
-            localStorage.removeItem('currentUser');
-            return null;
-          }
-        }
-
         // Выход
         function logout() {
           localStorage.removeItem('currentUser');
@@ -4035,25 +4030,29 @@ async function loginUser(login, password) {
           applyTheme();
         });
 
-        // Обработка формы входа
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-          e.preventDefault();
-          
-          const username = document.getElementById('loginUsername').value;
-          const password = document.getElementById('loginPassword').value;
-          
-          const result = await loginUser(username, password);
-          
-          if (result.success) {
-            currentUser = result.user;
-            currentUserStats = await getUserStats(currentUser.id);
-            updateUserInterface();
-            hideAuthModal();
-            alert('✅ Вход выполнен успешно!');
-          } else {
-            alert('❌ ' + result.error);
-          }
-        });
+// Обработка формы входа
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const username = document.getElementById('loginUsername').value;
+  const password = document.getElementById('loginPassword').value;
+  
+  console.log('🔄 Попытка входа:', username); // ДЛЯ ОТЛАДКИ
+  
+  const result = await loginUser(username, password);
+  
+  console.log('📊 Результат входа:', result); // ДЛЯ ОТЛАДКИ
+  
+  if (result.success) {
+    currentUser = result.user;
+    currentUserStats = await getUserStats(currentUser.id);
+    updateUserInterface();
+    hideAuthModal();
+    alert('✅ Вход выполнен успешно!');
+  } else {
+    alert('❌ ' + result.error);
+  }
+});
 
         // Обработка формы регистрации
         document.getElementById('registerForm').addEventListener('submit', async function(e) {
@@ -4575,81 +4574,83 @@ async function loginUser(login, password) {
         }
 
         // Загрузка настроек пользователя
-        async function loadSettings() {
-            if (!currentUser) return;
+async function loadSettings() {
+    if (!currentUser) return;
 
-            try {
-                // Загружаем настройки из базы данных
-                const { data: settings, error } = await supabase
-                    .from('user_settings')
-                    .select('*')
-                    .eq('user_id', currentUser.id)
-                    .single();
+    try {
+        // Загружаем настройки из базы данных
+        const { data: settings, error } = await supabase
+            .from('user_settings')
+            .select('*')
+            .eq('user_id', currentUser.id)
+            .single();
 
-                if (error && error.code !== 'PGRST116') {
-                    console.error('Error loading settings:', error);
-                    return;
-                }
+        if (error && error.code !== 'PGRST116') { // PGRST116 - нет записей
+            console.error('Error loading settings:', error);
+            return;
+        }
 
-                // Применяем настройки
-                if (settings) {
-                    // Тема
-                    if (settings.theme === 'dark') {
-                        setTheme(true);
-                    } else {
-                        setTheme(false);
-                    }
+        // Применяем настройки
+        if (settings) {
+            // Тема
+            if (settings.theme === 'dark') {
+                setTheme(true);
+            } else {
+                setTheme(false);
+            }
 
-                    // Размер шрифта
-                    if (settings.font_size) {
-                        document.getElementById('fontSize').value = settings.font_size;
-                        updateFontSize(settings.font_size);
-                    }
+            // Размер шрифта
+            if (settings.font_size) {
+                document.getElementById('fontSize').value = settings.font_size;
+                updateFontSize(settings.font_size);
+            }
 
-                    // Компактный режим
-                    if (settings.compact_mode) {
-                        document.getElementById('compactMode').checked = true;
-                        toggleCompactMode(true);
-                    }
+            // Компактный режим
+            if (settings.compact_mode) {
+                document.getElementById('compactMode').checked = true;
+                toggleCompactMode(true);
+            }
 
-                    // Уведомления
-                    if (settings.notifications) {
-                        const notifSettings = settings.notifications;
-                        document.getElementById('emailNotifications').checked = notifSettings.email || false;
-                        document.getElementById('systemUpdates').checked = notifSettings.system_updates || false;
-                        document.getElementById('weeklyReports').checked = notifSettings.weekly_reports || false;
-                    }
-                }
-
-                // Показываем административные настройки если пользователь админ
-                if (hasPermission(currentUser, 'manage_users')) {
-                    document.getElementById('adminSettings').style.display = 'block';
-                }
-
-            } catch (error) {
-                console.error('Error loading user settings:', error);
+            // Уведомления
+            if (settings.notifications) {
+                const notifSettings = settings.notifications;
+                document.getElementById('emailNotifications').checked = notifSettings.email || false;
+                document.getElementById('systemUpdates').checked = notifSettings.system_updates || false;
+                document.getElementById('weeklyReports').checked = notifSettings.weekly_reports || false;
             }
         }
+
+        // Показываем административные настройки если пользователь админ
+        if (hasPermission(currentUser, 'manage_users')) {
+            document.getElementById('adminSettings').style.display = 'block';
+        }
+
+    } catch (error) {
+        console.error('Error loading user settings:', error);
+    }
+}
 
         // Сохранение настроек
-        async function saveSettings(settings) {
-            if (!currentUser) return false;
+async function saveSettings(settings) {
+    if (!currentUser) return false;
 
-            try {
-                const { error } = await supabase
-                    .from('user_settings')
-                    .upsert({
-                        user_id: currentUser.id,
-                        ...settings,
-                        updated_at: new Date().toISOString()
-                    });
+    try {
+        const { error } = await supabase
+            .from('user_settings')
+            .upsert({
+                user_id: currentUser.id,
+                ...settings,
+                updated_at: new Date().toISOString()
+            }, {
+                onConflict: 'user_id'
+            });
 
-                return !error;
-            } catch (error) {
-                console.error('Error saving settings:', error);
-                return false;
-            }
-        }
+        return !error;
+    } catch (error) {
+        console.error('Error saving settings:', error);
+        return false;
+    }
+}
 
         // ==================== СИСТЕМА СМЕНЫ ПАРОЛЯ ====================
 
@@ -5374,7 +5375,7 @@ function enable2FA() {
     return;
   }
   
-  // Демо-реализация
+  // РЕАЛЬНАЯ РЕАЛИЗАЦИЯ
   save2FASettings(secret)
     .then(() => {
       alert('✅ Двухфакторная аутентификация успешно включена!');
@@ -5388,12 +5389,30 @@ function enable2FA() {
     });
 }
 
-// Сохранение настроек 2FA в базу (демо)
+// Сохранение настроек 2FA в базу (РЕАЛЬНАЯ РЕАЛИЗАЦИЯ)
 async function save2FASettings(secret) {
-  console.log('Сохранение 2FA настроек:', { secret });
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(), 1000);
-  });
+  try {
+    const { error } = await supabase
+      .from('users')
+      .update({
+        two_factor_secret: secret,
+        two_factor_enabled: true,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', currentUser.id);
+
+    if (error) throw error;
+    
+    // Обновляем локальные данные пользователя
+    currentUser.two_factor_secret = secret;
+    currentUser.two_factor_enabled = true;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    
+    return true;
+  } catch (error) {
+    console.error('Error saving 2FA settings:', error);
+    throw error;
+  }
 }
 
 // Обновление кнопки 2FA
@@ -5404,11 +5423,41 @@ function update2FAButton(isEnabled) {
       twoFactorBtn.innerHTML = '<i class="fas fa-mobile-alt"></i> Отключить 2FA';
       twoFactorBtn.classList.remove('btn-outline');
       twoFactorBtn.classList.add('btn-warning');
+      twoFactorBtn.onclick = disable2FA;
     } else {
       twoFactorBtn.innerHTML = '<i class="fas fa-mobile-alt"></i> Включить 2FA';
       twoFactorBtn.classList.remove('btn-warning');
       twoFactorBtn.classList.add('btn-outline');
+      twoFactorBtn.onclick = enableTwoFactorAuth;
     }
+  }
+}
+
+// Отключение 2FA
+async function disable2FA() {
+  try {
+    const { error } = await supabase
+      .from('users')
+      .update({
+        two_factor_secret: null,
+        two_factor_enabled: false,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', currentUser.id);
+
+    if (error) throw error;
+    
+    // Обновляем локальные данные
+    currentUser.two_factor_secret = null;
+    currentUser.two_factor_enabled = false;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    
+    alert('✅ Двухфакторная аутентификация отключена!');
+    update2FAButton(false);
+    
+  } catch (error) {
+    console.error('Error disabling 2FA:', error);
+    showError('Ошибка отключения 2FA');
   }
 }
 
@@ -5422,6 +5471,17 @@ function copySecretKey() {
   }
 }
 
+// Проверка статуса 2FA при загрузке
+function check2FAStatus() {
+  if (currentUser && currentUser.two_factor_enabled) {
+    update2FAButton(true);
+  }
+}
+
+// Вызовите эту функцию при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(check2FAStatus, 1000);
+});
 // ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ====================
 
 function showModal(modalId) {
@@ -5526,6 +5586,170 @@ async function disable2FA() {
     showError('Ошибка отключения 2FA');
   }
 }
+// VK конфигурация
+const VK_CONFIG = {
+  appId: 'YOUR_VK_APP_ID',
+  redirectUri: window.location.origin,
+  scope: 'email',
+  version: '5.199'
+};
+
+// Инициализация VK
+function initVK() {
+  VK.init({
+    apiId: VK_CONFIG.appId
+  });
+}
+
+// Вход через VK
+function loginWithVK() {
+  VK.Auth.login(function(response) {
+    if (response.session) {
+      // Пользователь успешно авторизовался
+      handleVKAuth(response);
+    } else {
+      // Пользователь нажал кнопку "Отмена"
+      showError('Авторизация через VK отменена');
+    }
+  }, VK_CONFIG.scope);
+}
+
+// Обработка успешной авторизации VK
+async function handleVKAuth(authData) {
+  try {
+    // Получаем данные пользователя
+    const userData = await getVKUserData(authData.session.user);
+    
+    // Проверяем, есть ли пользователь в нашей базе
+    const { data: existingUser, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('vk_id', userData.vk_id)
+      .single();
+
+    if (error && error.code !== 'PGRST116') {
+      throw error;
+    }
+
+    if (existingUser) {
+      // Пользователь уже есть - логиним
+      currentUser = existingUser;
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      currentUserStats = await getUserStats(currentUser.id);
+      updateUserInterface();
+      hideAuthModal();
+      alert('✅ Вход через VK выполнен!');
+    } else {
+      // Новый пользователь - показываем форму доп. данных
+      showVKRegistrationForm(userData);
+    }
+    
+  } catch (error) {
+    console.error('VK auth error:', error);
+    showError('Ошибка авторизации через VK');
+  }
+}
+
+// Получение данных пользователя VK
+async function getVKUserData(vkUser) {
+  return new Promise((resolve, reject) => {
+    VK.Api.call('users.get', {
+      user_ids: vkUser.id,
+      fields: 'photo_200,email',
+      v: VK_CONFIG.version
+    }, function(response) {
+      if (response.error) {
+        reject(response.error);
+      } else {
+        const user = response.response[0];
+        resolve({
+          vk_id: vkUser.id,
+          nickname: `${user.first_name} ${user.last_name}`,
+          email: user.email || `${vkUser.id}@vk.com`,
+          avatar: user.photo_200,
+          first_name: user.first_name,
+          last_name: user.last_name
+        });
+      }
+    });
+  });
+}
+// Показ формы регистрации VK
+function showVKRegistrationForm(vkData) {
+  document.getElementById('vkUserName').value = `${vkData.first_name} ${vkData.last_name}`;
+  document.getElementById('gameNickname').value = vkData.nickname;
+  document.getElementById('vkRegisterForm').reset();
+  showModal('vkRegisterModal');
+  
+  // Сохраняем VK данные временно
+  localStorage.setItem('vkUserData', JSON.stringify(vkData));
+}
+
+// Обработка формы регистрации VK
+document.getElementById('vkRegisterForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const vkData = JSON.parse(localStorage.getItem('vkUserData'));
+  const gameNickname = document.getElementById('gameNickname').value;
+  const serviceNumber = document.getElementById('serviceNumber').value;
+  const fraction = document.getElementById('fractionSelect').value;
+  
+  try {
+    // Создаем пользователя
+    const { data: user, error } = await supabase
+      .from('users')
+      .insert([{
+        nickname: gameNickname,
+        username: `vk_${vkData.vk_id}`,
+        email: vkData.email,
+        password_hash: 'vk_auth', // Пароль не нужен для VK auth
+        vk_id: vkData.vk_id,
+        vk_avatar: vkData.avatar,
+        role: 'USER',
+        rank: 'Рядовой',
+        position: 'Стажёр',
+        fraction: fraction,
+        service_number: serviceNumber,
+        city: fraction.includes('Невский') ? 'Невский' : 
+              fraction.includes('Мирный') ? 'Мирный' : 'Приволжск'
+      }])
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    // Создаем статистику
+    await supabase
+      .from('user_stats')
+      .insert([{
+        user_id: user.id,
+        fines: 0,
+        arrests: 0,
+        licenses: 0,
+        searches: 0,
+        rating: 0
+      }]);
+
+    // Логиним пользователя
+    currentUser = user;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    localStorage.removeItem('vkUserData');
+    currentUserStats = await getUserStats(currentUser.id);
+    updateUserInterface();
+    hideModal('vkRegisterModal');
+    hideAuthModal();
+    
+    alert('🎉 Регистрация через VK завершена! Добро пожаловать в систему ГИБДД!');
+    
+  } catch (error) {
+    console.error('VK registration error:', error);
+    showError('Ошибка регистрации через VK');
+  }
+});
+document.addEventListener('DOMContentLoaded', function() {
+  initVK(); // Инициализируем VK SDK
+  // ... остальной код
+});
     </script>
     <!-- Модальное окно 2FA -->
 <div id="twoFactorAuthModal" class="modal" style="display: none;">
@@ -5607,6 +5831,48 @@ async function disable2FA() {
           <button class="btn btn-outline" onclick="hideModal('deleteAccountModal')" style="flex: 1;">Отмена</button>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<!-- Модальное окно для VK регистрации -->
+<div id="vkRegisterModal" class="modal">
+  <div class="modal-content modal-medium">
+    <div class="modal-header" style="background: #4a76a8;">
+      <h2><i class="fab fa-vk"></i> Завершение регистрации</h2>
+    </div>
+    <div class="modal-body">
+      <form id="vkRegisterForm">
+        <div class="form-group">
+          <label>Ваше имя из VK:</label>
+          <input type="text" id="vkUserName" class="form-control" readonly>
+        </div>
+        <div class="form-group">
+          <label for="gameNickname"><i class="fas fa-gamepad"></i> Игровой никнейм *</label>
+          <input type="text" id="gameNickname" class="form-control" required placeholder="Ваш ник в игре">
+        </div>
+        <div class="form-group">
+          <label for="serviceNumber"><i class="fas fa-id-card"></i> Служебный номер *</label>
+          <input type="text" id="serviceNumber" class="form-control" required placeholder="Например: ГИБДД-001">
+          <small style="color: var(--gray);">Должен соответствовать вашему номеру в игре</small>
+        </div>
+        <div class="form-group">
+          <label for="fractionSelect"><i class="fas fa-shield-alt"></i> Подразделение *</label>
+          <select id="fractionSelect" class="form-control" required>
+            <option value="">Выберите подразделение</option>
+            <option value="ГИБДД">ГИБДД Приволжска</option>
+            <option value="ГИБДД Невского">ГИБДД Невского</option>
+            <option value="ГИБДД Мирного">ГИБДД Мирного</option>
+          </select>
+        </div>
+        <div class="form-group" style="display: flex; gap: 10px;">
+          <button type="submit" class="btn btn-success" style="flex: 1;">
+            <i class="fas fa-check"></i> Завершить регистрацию
+          </button>
+          <button type="button" class="btn btn-outline" style="flex: 1;" onclick="hideModal('vkRegisterModal')">
+            <i class="fas fa-times"></i> Отмена
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
