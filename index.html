@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    
-    <script src="https://unpkg.com/vk-io@latest/dist/vk-io.js"></script>
+ <script src="https://unpkg.com/@vkid/sdk@2.1.0/dist/sdk.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ГИБДД Республики Провинция - Официальный сайт</title>
@@ -1495,6 +1495,334 @@
   background: var(--card-bg);
   color: var(--text-color);
 }
+/* Стили для раздела База нарушителей */
+.violators-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.violators-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.violators-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.violator-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.violator-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.violator-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.violator-card-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.violator-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.violator-name {
+    flex: 1;
+}
+
+.violator-name h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: white;
+    border: none;
+    padding: 0;
+}
+
+.violator-id {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+
+.violator-card-body {
+    padding: 20px;
+}
+
+.violator-info {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.violator-info:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.violator-label {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.violator-value {
+    color: var(--text-color);
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.evidence-link {
+    color: var(--primary);
+    text-decoration: none;
+    background: var(--light);
+    padding: 6px 12px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    border: 1px solid var(--border-color);
+}
+
+.evidence-link:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.violator-card-footer {
+    background: var(--light);
+    padding: 15px 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.violator-meta {
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.violator-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.violator-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Стили для модального окна создания карточки */
+.modal-large {
+    max-width: 600px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* Стили для центрального размещения карточки */
+.card-center-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.new-violator-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    padding: 0;
+    width: 90%;
+    max-width: 500px;
+    border: 2px solid var(--primary);
+    animation: cardAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.7) translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.new-violator-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(135deg, var(--primary), var(--success));
+}
+
+.new-violator-card-header {
+    background: linear-gradient(135deg, var(--success), var(--primary));
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.new-violator-card-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.6rem;
+    border: none;
+    padding: 0;
+}
+
+.new-violator-card-body {
+    padding: 25px;
+}
+
+.close-card {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.close-card:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.success-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+/* Статусные метки */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.status-active {
+    background: var(--success);
+    color: white;
+}
+
+.status-archived {
+    background: var(--gray);
+    color: white;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .violators-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .violators-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .violator-card-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .violator-actions {
+        flex-direction: column;
+    }
+}
     </style>
 </head>
 <body>
@@ -1545,12 +1873,11 @@
                     </div>
                     <button type="submit" class="btn" style="width: 100%;"><i class="fas fa-user-plus"></i> Зарегистрироваться</button>
                 </form>
-                <!-- В authModal добавьте после форм -->
+<!-- В authModal, после форм входа/регистрации -->
 <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color);">
-  <p style="margin-bottom: 15px; color: var(--gray);">Или войдите через VK</p>
-  <button class="btn" onclick="loginWithVK()" style="background: #4a76a8; color: white;">
-    <i class="fab fa-vk"></i> Войти через VK
-  </button>
+    <p style="margin-bottom: 15px; color: var(--gray);">Быстрый вход через VK ID</p>
+    <div id="vkIdOneTap" style="display: inline-block;"></div>
+</div>
 </div>
             </div>
         </div>
@@ -1742,10 +2069,11 @@
                 <li><a href="#" onclick="showSection('binds')"><i class="fas fa-keyboard"></i> Бинды</a></li>
                 <li><a href="#" onclick="showSection('commands')"><i class="fas fa-terminal"></i> Команды</a></li>
                 <li><a href="#" onclick="showSection('documents')"><i class="fas fa-file-alt"></i> Документы</a></li>
-                <li><a href="#" onclick="showSection('weapon')"><i class="fas fa-shield-alt"></i> Табельное оружие</a></li>
+                <li><a href="#" onclick="showSection('weapon')"><i class="fas fa-shield-alt"></i> Табельное оружие и снаряжение</a></li>
                 <li><a href="#" onclick="showSection('radio')"><i class="fas fa-walkie-talkie"></i> Регламент радиообмена</a></li>
                 <li><a href="#" onclick="showSection('jurisdiction')"><i class="fas fa-map-marked-alt"></i> Юрисдикции МВД</a></li>
                 <li><a href="#" onclick="showSection('map')"><i class="fas fa-map"></i> Карта постов</a></li>
+                <li><a href="#" onclick="showSection('violators')"><i class="fas fa-database"></i> База нарушителей</a></li>
                 <li><a href="#" onclick="showSection('statistics')"><i class="fas fa-chart-bar"></i> Статистика</a></li>
                 <li><a href="#" onclick="showSection('leaderboard')"><i class="fas fa-trophy"></i> Таблица лидеров</a></li>
                 <li><a href="#" onclick="showSection('profile')" id="profileTab"><i class="fas fa-user"></i> Профиль</a></li>
@@ -1812,6 +2140,34 @@
                         </div>
                     </div>
                 </section>
+                <!-- Violators Section -->
+<section id="violators-section" class="content-section" style="display: none;">
+    <div class="section-title">
+        <i class="fas fa-database"></i>
+        <h2>База нарушителей</h2>
+    </div>
+    <p>В этом разделе вы можете создавать и просматривать карточки нарушителей.</p>
+    
+    <div class="violators-container">
+        <div class="violators-controls">
+            <button class="btn" onclick="showCreateViolatorModal()">
+                <i class="fas fa-plus"></i> Создать карточку нарушителя
+            </button>
+            <div class="form-group" style="max-width: 300px;">
+                <input type="text" id="searchViolators" class="form-control" placeholder="Поиск по имени или нарушению...">
+            </div>
+        </div>
+        
+        <div id="violatorsGrid" class="violators-grid">
+            <!-- Карточки нарушителей будут появляться здесь -->
+            <div class="no-violators" style="text-align: center; padding: 40px; color: var(--gray);">
+                <i class="fas fa-database" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                <h3>Нет созданных карточек</h3>
+                <p>Нажмите кнопку "Создать карточку нарушителя" чтобы добавить первую запись</p>
+            </div>
+        </div>
+    </div>
+</section>
                 
                 <!-- Binds Section -->
                 <section id="binds-section" class="content-section" style="display: none;">
@@ -4182,89 +4538,151 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             }
         }
 
-        // Загрузка пользователей для админ-панели
-        async function loadUsersForAdmin() {
-            if (!requirePermission('view_users')) return;
-            
-            try {
-                const users = await getAllUsers();
-                
-                // Заполняем выпадающие списки
-                const editUserSelect = document.getElementById('editUser');
-                const adminUserSelect = document.getElementById('adminUser');
-                const banUserSelect = document.getElementById('banUser');
-                
-                editUserSelect.innerHTML = '';
-                adminUserSelect.innerHTML = '';
-                banUserSelect.innerHTML = '';
-                
-                users.forEach(user => {
-                    if (user.id !== currentUser.id && !isSuperAdmin(user)) {
-                        // Для редактирования
-                        const option1 = document.createElement('option');
-                        option1.value = user.id;
-                        option1.textContent = `${user.nickname} (${user.role})`;
-                        editUserSelect.appendChild(option1);
-                        
-                        // Для назначения админа (только обычные пользователи)
-                        if (user.role === 'USER') {
-                            const option2 = document.createElement('option');
-                            option2.value = user.id;
-                            option2.textContent = user.nickname;
-                            adminUserSelect.appendChild(option2);
-                        }
-                        
-                        // Для бана
-                        const option3 = document.createElement('option');
-                        option3.value = user.id;
-                        option3.textContent = user.nickname;
-                        banUserSelect.appendChild(option3);
-                    }
-                });
-                
-                // Заполняем таблицу пользователей
-                const usersTable = document.getElementById('usersTable');
-                usersTable.innerHTML = '';
-                
-                users.forEach(user => {
-                    const row = document.createElement('tr');
-                    
-                    let roleBadge = '';
-                    if (isSuperAdmin(user)) {
-                        roleBadge = '<span style="color: gold;">Главный Админ</span>';
-                    } else if (user.role === 'ADMIN') {
-                        roleBadge = '<span style="color: var(--accent);">Админ</span>';
-                    } else if (user.role === 'MODERATOR') {
-                        roleBadge = '<span style="color: #f59e0b;">Модератор</span>';
-                    } else if (user.role === 'HELPER') {
-                        roleBadge = '<span style="color: #10b981;">Помощник</span>';
-                    } else {
-                        roleBadge = 'Гражданский';
-                    }
-                    
-                    row.innerHTML = `
-                        <td>${user.id}</td>
-                        <td>${user.nickname}</td>
-                        <td>${user.rank}</td>
-                        <td>${user.position}</td>
-                        <td>${user.fraction}</td>
-                        <td>${user.city}</td>
-                        <td>${user.banned ? '<span style="color: var(--danger);">Заблокирован</span>' : roleBadge}</td>
-                        <td>
-                            ${hasPermission(currentUser, 'manage_users') ? 
-                              `<button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem;" onclick="selectUserForEdit(${user.id})">Изменить</button>` : ''}
-                            ${hasPermission(currentUser, 'assign_roles') && user.role === 'USER' ? 
-                              `<button class="btn btn-warning" style="padding: 5px 10px; font-size: 0.8rem;" onclick="assignAdminPrompt(${user.id})">Сделать админом</button>` : ''}
-                        </td>
-                    `;
-                    usersTable.appendChild(row);
-                });
-                
-            } catch (error) {
-                console.error('Error loading users for admin:', error);
-                showError('Ошибка загрузки пользователей');
-            }
+        // Обновленная функция загрузки пользователей для админ-панели
+window.loadUsersForAdmin = async function() {
+    console.log('🔄 Загрузка пользователей для админки');
+    
+    try {
+        // Получаем всех пользователей из базы
+        const { data: users, error } = await supabase
+            .from('users')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error('❌ Ошибка загрузки пользователей:', error);
+            return;
         }
+
+        console.log('✅ Пользователи загружены:', users);
+        allUsers = users;
+
+        // Заполняем выпадающие списки
+        const editUserSelect = document.getElementById('editUser');
+        const adminUserSelect = document.getElementById('adminUser');
+        const banUserSelect = document.getElementById('banUser');
+        const removeAdminSelect = document.getElementById('removeAdminUser');
+        const unbanSelect = document.getElementById('unbanUser');
+
+        // Очищаем списки
+        [editUserSelect, adminUserSelect, banUserSelect, removeAdminSelect, unbanSelect].forEach(select => {
+            if (select) {
+                select.innerHTML = '<option value="">Выберите пользователя</option>';
+            }
+        });
+
+        // Заполняем списки
+        users.forEach(user => {
+            if (user.id === currentUser.id) return;
+
+            const optionText = `${user.nickname} (${user.role})${user.banned ? ' ⛔' : ''}`;
+
+            // Для редактирования - все пользователи
+            if (editUserSelect) {
+                const editOption = document.createElement('option');
+                editOption.value = user.id;
+                editOption.textContent = optionText;
+                editUserSelect.appendChild(editOption);
+            }
+
+            // Для назначения админа - только обычные пользователи не в бане
+            if (adminUserSelect && user.role === 'USER' && !user.banned) {
+                const adminOption = document.createElement('option');
+                adminOption.value = user.id;
+                adminOption.textContent = user.nickname;
+                adminUserSelect.appendChild(adminOption);
+            }
+
+            // Для бана - все пользователи кроме суперадминов и тех, кто уже в бане
+            if (banUserSelect && !isSuperAdmin(user) && !user.banned) {
+                const banOption = document.createElement('option');
+                banOption.value = user.id;
+                banOption.textContent = user.nickname;
+                banUserSelect.appendChild(banOption);
+            }
+
+            // Для снятия прав - только админы и модераторы не в бане
+            if (removeAdminSelect && (user.role === 'ADMIN' || user.role === 'MODERATOR') && !user.banned) {
+                const removeAdminOption = document.createElement('option');
+                removeAdminOption.value = user.id;
+                removeAdminOption.textContent = user.nickname;
+                removeAdminSelect.appendChild(removeAdminOption);
+            }
+
+            // Для разбана - только заблокированные
+            if (unbanSelect && user.banned) {
+                const unbanOption = document.createElement('option');
+                unbanOption.value = user.id;
+                
+                const banInfo = user.ban_expires ? 
+                    ` (до ${new Date(user.ban_expires).toLocaleDateString('ru-RU')})` : 
+                    ' (перманентно)';
+                    
+                unbanOption.textContent = user.nickname + banInfo;
+                unbanSelect.appendChild(unbanOption);
+            }
+        });
+
+        // Заполняем таблицу пользователей
+        const usersTable = document.getElementById('usersTable');
+        if (usersTable) {
+            usersTable.innerHTML = '';
+            
+            if (users.length === 0) {
+                usersTable.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 40px; color: var(--gray);">
+                            <i class="fas fa-users" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+                            Нет пользователей
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                
+                let roleBadge = '';
+                if (isSuperAdmin(user)) {
+                    roleBadge = '<span style="color: gold;">Главный Админ</span>';
+                } else if (user.role === 'ADMIN') {
+                    roleBadge = '<span style="color: var(--accent);">Админ</span>';
+                } else if (user.role === 'MODERATOR') {
+                    roleBadge = '<span style="color: #f59e0b;">Модератор</span>';
+                } else if (user.role === 'HELPER') {
+                    roleBadge = '<span style="color: #10b981;">Помощник</span>';
+                } else {
+                    roleBadge = 'Гражданский';
+                }
+
+                const statusBadge = user.banned ? 
+                    '<span style="color: var(--danger);">⛔ Заблокирован</span>' : 
+                    '<span style="color: var(--success);">✅ Активен</span>';
+
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.nickname}</td>
+                    <td>${user.rank}</td>
+                    <td>${user.position}</td>
+                    <td>${user.fraction}</td>
+                    <td>${user.city}</td>
+                    <td>${roleBadge}</td>
+                    <td>${statusBadge}</td>
+                    <td>
+                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem;" onclick="selectUserForEdit(${user.id})">
+                            <i class="fas fa-edit"></i> Изменить
+                        </button>
+                    </td>
+                `;
+                usersTable.appendChild(row);
+            });
+        }
+
+    } catch (error) {
+        console.error('❌ Ошибка загрузки пользователей:', error);
+    }
+};
 
         // Загрузка администраторов
         async function loadAdminsForAdmin() {
@@ -4500,70 +4918,339 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             }
         }
 
-        // Блокировка пользователя
-        async function banUser() {
-            if (!requirePermission('ban_users')) return;
-            
-            const userId = parseInt(document.getElementById('banUser').value);
-            const reason = document.getElementById('banReason').value;
-            const duration = parseInt(document.getElementById('banDuration').value) || 0;
-            
-            if (!userId) {
-                showError('Выберите пользователя');
-                return;
-            }
-            
-            if (!reason) {
-                showError('Введите причину блокировки');
-                return;
-            }
-            
-            try {
-                const success = await banUserInDatabase(userId, reason, duration, currentUser.nickname);
-                
-                if (success) {
-                    alert('✅ Пользователь заблокирован!');
-                    document.getElementById('banReason').value = '';
-                    document.getElementById('banDuration').value = '';
-                    loadUsersForAdmin();
-                    loadBansForAdmin();
-                    logAdminAction('ban_user', userId, `Блокировка. Причина: ${reason}, срок: ${duration} дней`);
-                } else {
-                    showError('Ошибка при блокировке пользователя');
-                }
-            } catch (error) {
-                console.error('Error banning user:', error);
-                showError('Ошибка при блокировке пользователя');
-            }
+       // ==================== ИСПРАВЛЕННЫЕ ФУНКЦИИ БАНОВ ====================
+
+// Блокировка пользователя
+async function banUser() {
+    if (!requirePermission('ban_users')) return;
+    
+    const userId = parseInt(document.getElementById('banUser').value);
+    const reason = document.getElementById('banReason').value;
+    const duration = parseInt(document.getElementById('banDuration').value) || 0;
+    
+    if (!userId) {
+        showError('Выберите пользователя');
+        return;
+    }
+    
+    if (!reason) {
+        showError('Введите причину блокировки');
+        return;
+    }
+    
+    // Проверяем, не пытаемся ли забанить суперадмина или себя
+    const targetUser = allUsers.find(u => u.id === userId);
+    if (!targetUser) {
+        showError('Пользователь не найден');
+        return;
+    }
+    
+    if (isSuperAdmin(targetUser)) {
+        showError('Нельзя заблокировать главного администратора');
+        return;
+    }
+    
+    if (targetUser.id === currentUser.id) {
+        showError('Нельзя заблокировать самого себя');
+        return;
+    }
+    
+    try {
+        const banExpires = duration > 0 ? 
+            new Date(Date.now() + duration * 24 * 60 * 60 * 1000).toISOString() : 
+            null;
+
+        const { error } = await supabase
+            .from('users')
+            .update({
+                banned: true,
+                ban_reason: reason,
+                ban_expires: banExpires,
+                banned_by: currentUser.nickname,
+                banned_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', userId);
+
+        if (error) throw error;
+
+        // Обновляем локальные данные
+        const bannedUserIndex = allUsers.findIndex(u => u.id === userId);
+        if (bannedUserIndex !== -1) {
+            allUsers[bannedUserIndex] = {
+                ...allUsers[bannedUserIndex],
+                banned: true,
+                ban_reason: reason,
+                ban_expires: banExpires,
+                banned_by: currentUser.nickname,
+                banned_at: new Date().toISOString()
+            };
         }
 
-        // Разблокировка пользователя
-        async function unbanUser() {
-            if (!requirePermission('ban_users')) return;
-            
-            const userId = parseInt(document.getElementById('unbanUser').value);
-            
-            if (!userId) {
-                showError('Выберите пользователя');
-                return;
-            }
-            
-            try {
-                const success = await unbanUserInDatabase(userId);
-                
-                if (success) {
-                    alert('✅ Пользователь разблокирован!');
-                    loadUsersForAdmin();
-                    loadBansForAdmin();
-                    logAdminAction('unban_user', userId, 'Разблокировка пользователя');
-                } else {
-                    showError('Ошибка при разблокировке пользователя');
-                }
-            } catch (error) {
-                console.error('Error unbanning user:', error);
-                showError('Ошибка при разблокировке пользователя');
-            }
+        alert('✅ Пользователь заблокирован!');
+        document.getElementById('banReason').value = '';
+        document.getElementById('banDuration').value = '';
+        
+        // Обновляем все связанные списки
+        loadUsersForAdmin();
+        if (document.getElementById('admin-bans').style.display !== 'none') {
+            loadBansForAdmin();
         }
+        
+        logAdminAction('ban_user', userId, `Блокировка. Причина: ${reason}, срок: ${duration} дней`);
+        
+    } catch (error) {
+        console.error('Error banning user:', error);
+        showError('Ошибка при блокировке пользователя: ' + error.message);
+    }
+}
+
+// Разблокировка пользователя
+async function unbanUser() {
+    if (!requirePermission('ban_users')) return;
+    
+    const userId = parseInt(document.getElementById('unbanUser').value);
+    
+    if (!userId) {
+        showError('Выберите пользователя');
+        return;
+    }
+    
+    try {
+        const { error } = await supabase
+            .from('users')
+            .update({
+                banned: false,
+                ban_reason: null,
+                ban_expires: null,
+                banned_by: null,
+                banned_at: null,
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', userId);
+
+        if (error) throw error;
+
+        // Обновляем локальные данные
+        const unbannedUserIndex = allUsers.findIndex(u => u.id === userId);
+        if (unbannedUserIndex !== -1) {
+            allUsers[unbannedUserIndex] = {
+                ...allUsers[unbannedUserIndex],
+                banned: false,
+                ban_reason: null,
+                ban_expires: null,
+                banned_by: null,
+                banned_at: null
+            };
+        }
+
+        alert('✅ Пользователь разблокирован!');
+        
+        // Обновляем все связанные списки
+        loadUsersForAdmin();
+        if (document.getElementById('admin-bans').style.display !== 'none') {
+            loadBansForAdmin();
+        }
+        
+        logAdminAction('unban_user', userId, 'Разблокировка пользователя');
+        
+    } catch (error) {
+        console.error('Error unbanning user:', error);
+        showError('Ошибка при разблокировке пользователя: ' + error.message);
+    }
+}
+
+// Загрузка банов для админ-панели
+async function loadBansForAdmin() {
+    if (!requirePermission('view_logs')) return;
+    
+    try {
+        const users = await getAllUsers();
+        const bannedUsers = users.filter(user => user.banned);
+        
+        // Заполняем выпадающий список для разбана
+        const unbanSelect = document.getElementById('unbanUser');
+        unbanSelect.innerHTML = '<option value="">Выберите пользователя</option>';
+        
+        bannedUsers.forEach(user => {
+            const option = document.createElement('option');
+            option.value = user.id;
+            
+            const banInfo = user.ban_expires ? 
+                ` (до ${new Date(user.ban_expires).toLocaleDateString('ru-RU')})` : 
+                ' (перманентно)';
+                
+            option.textContent = `${user.nickname}${banInfo}`;
+            unbanSelect.appendChild(option);
+        });
+        
+        // Заполняем таблицу банов
+        const bansTable = document.getElementById('bansTable');
+        if (!bansTable) return;
+        
+        bansTable.innerHTML = '';
+        
+        if (bannedUsers.length === 0) {
+            bansTable.innerHTML = `
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 40px; color: var(--gray);">
+                        <i class="fas fa-check-circle" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+                        Нет заблокированных пользователей
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+        
+        bannedUsers.forEach(user => {
+            const row = document.createElement('tr');
+            
+            const banDate = user.banned_at ? 
+                new Date(user.banned_at).toLocaleDateString('ru-RU') : 
+                'Неизвестно';
+                
+            const banExpires = user.ban_expires ? 
+                new Date(user.ban_expires).toLocaleDateString('ru-RU') : 
+                '<span style="color: var(--danger);">Перманентно</span>';
+            
+            const timeLeft = user.ban_expires ? 
+                getTimeLeft(new Date(user.ban_expires)) : 
+                '<span style="color: var(--danger);">Бессрочно</span>';
+            
+            row.innerHTML = `
+                <td>${user.id}</td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="width: 8px; height: 8px; background: var(--danger); border-radius: 50%;"></div>
+                        ${user.nickname}
+                    </div>
+                </td>
+                <td>
+                    <div style="max-width: 200px; word-wrap: break-word;">
+                        ${user.ban_reason || 'Не указана'}
+                    </div>
+                </td>
+                <td>${banDate}</td>
+                <td>${banExpires}</td>
+                <td>${timeLeft}</td>
+                <td>${user.banned_by || 'Система'}</td>
+                <td>
+                    <button class="btn btn-success" style="padding: 5px 10px; font-size: 0.8rem;" onclick="unbanUserPrompt(${user.id})">
+                        <i class="fas fa-unlock"></i> Разблокировать
+                    </button>
+                </td>
+            `;
+            bansTable.appendChild(row);
+        });
+        
+    } catch (error) {
+        console.error('Error loading bans:', error);
+        showError('Ошибка загрузки списка банов: ' + error.message);
+    }
+}
+
+// Вспомогательная функция для расчета оставшегося времени бана
+function getTimeLeft(expiryDate) {
+    const now = new Date();
+    const diff = expiryDate - now;
+    
+    if (diff <= 0) return '<span style="color: var(--success);">Истек</span>';
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    
+    if (days > 0) {
+        return `<span style="color: var(--warning);">${days}д ${hours}ч</span>`;
+    } else {
+        return `<span style="color: var(--warning);">${hours}ч</span>`;
+    }
+}
+
+// Проверка банов при авторизации
+async function checkBansOnAuth(user) {
+    if (user.banned && user.ban_expires) {
+        const banExpiry = new Date(user.ban_expires);
+        const now = new Date();
+        
+        if (banExpiry > now) {
+            // Бан еще активен
+            const timeLeft = getTimeLeft(banExpiry);
+            throw new Error(`Аккаунт заблокирован. Причина: ${user.ban_reason}. Разблокировка: ${banExpiry.toLocaleDateString('ru-RU')} (${timeLeft})`);
+        } else {
+            // Бан истек, разблокируем
+            await unbanUserInDatabase(user.id);
+            user.banned = false;
+            user.ban_reason = null;
+            user.ban_expires = null;
+            user.banned_by = null;
+        }
+    }
+    
+    return user;
+}
+
+// Обновленная функция входа с проверкой банов
+async function loginUser(login, password) {
+    try {
+        const { data: user, error } = await supabase
+            .from('users')
+            .select('*')
+            .or(`username.eq.${login},email.eq.${login}`)
+            .single();
+
+        if (error) throw error;
+
+        // Проверяем пароль
+        const isPasswordValid = await hashPassword(password) === user.password_hash;
+        if (!isPasswordValid) throw new Error('Неверный пароль');
+
+        // Проверяем бан
+        const userWithBanCheck = await checkBansOnAuth(user);
+        
+        // Убедимся, что поля 2FA существуют
+        userWithBanCheck.two_factor_enabled = userWithBanCheck.two_factor_enabled || false;
+        userWithBanCheck.two_factor_secret = userWithBanCheck.two_factor_secret || null;
+
+        // Сохраняем пользователя в localStorage
+        localStorage.setItem('currentUser', JSON.stringify(userWithBanCheck));
+        
+        return { success: true, user: userWithBanCheck };
+    } catch (error) {
+        console.error('Login error:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Обновленная функция проверки авторизации
+async function checkAuth() {
+    const storedUser = localStorage.getItem('currentUser');
+    if (!storedUser) return null;
+
+    try {
+        const user = JSON.parse(storedUser);
+        
+        // Получаем свежие данные пользователя
+        const { data: freshUser, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('id', user.id)
+            .single();
+
+        if (error) throw error;
+
+        // Проверяем бан
+        const userWithBanCheck = await checkBansOnAuth(freshUser);
+        
+        // Убедимся, что поля 2FA существуют
+        userWithBanCheck.two_factor_enabled = userWithBanCheck.two_factor_enabled || false;
+        userWithBanCheck.two_factor_secret = userWithBanCheck.two_factor_secret || null;
+
+        return userWithBanCheck;
+    } catch (error) {
+        localStorage.removeItem('currentUser');
+        return null;
+    }
+}
 
         // ==================== НОВЫЕ ФУНКЦИИ ДЛЯ СИСТЕМЫ НАСТРОЕК ====================
 
@@ -5588,7 +6275,7 @@ async function disable2FA() {
 }
 // VK конфигурация
 const VK_CONFIG = {
-  appId: 'YOUR_VK_APP_ID',
+  appId: '54358244',
   redirectUri: window.location.origin,
   scope: 'email',
   version: '5.199'
@@ -5596,9 +6283,16 @@ const VK_CONFIG = {
 
 // Инициализация VK
 function initVK() {
-  VK.init({
-    apiId: VK_CONFIG.appId
-  });
+  // Ждем загрузки VK SDK
+  if (typeof VK !== 'undefined') {
+    VK.init({
+      apiId: VK_CONFIG.appId
+    });
+    console.log('✅ VK SDK инициализирован');
+  } else {
+    // Если VK не загружен, пробуем снова через секунду
+    setTimeout(initVK, 1000);
+  }
 }
 
 // Вход через VK
@@ -5614,11 +6308,11 @@ function loginWithVK() {
   }, VK_CONFIG.scope);
 }
 
-// Обработка успешной авторизации VK
-async function handleVKAuth(authData) {
+// Обработка успешной авторизации VK ID
+async function handleVKIDAuth(authData) {
   try {
-    // Получаем данные пользователя
-    const userData = await getVKUserData(authData.session.user);
+    // Получаем данные пользователя через VK API
+    const userData = await getVKUserData(authData.user);
     
     // Проверяем, есть ли пользователь в нашей базе
     const { data: existingUser, error } = await supabase
@@ -5645,11 +6339,10 @@ async function handleVKAuth(authData) {
     }
     
   } catch (error) {
-    console.error('VK auth error:', error);
+    console.error('VK ID auth error:', error);
     showError('Ошибка авторизации через VK');
   }
 }
-
 // Получение данных пользователя VK
 async function getVKUserData(vkUser) {
   return new Promise((resolve, reject) => {
@@ -5685,71 +6378,608 @@ function showVKRegistrationForm(vkData) {
   localStorage.setItem('vkUserData', JSON.stringify(vkData));
 }
 
-// Обработка формы регистрации VK
-document.getElementById('vkRegisterForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
+// Обработка формы регистрации VK с проверкой
+function initVKFormHandler() {
+  const vkForm = document.getElementById('vkRegisterForm');
+  if (vkForm) {
+    vkForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const vkData = JSON.parse(localStorage.getItem('vkUserData'));
+      const gameNickname = document.getElementById('gameNickname').value;
+      const serviceNumber = document.getElementById('serviceNumber').value;
+      const fraction = document.getElementById('fractionSelect').value;
+      
+      try {
+        // Создаем пользователя
+        const { data: user, error } = await supabase
+          .from('users')
+          .insert([{
+            nickname: gameNickname,
+            username: `vk_${vkData.vk_id}`,
+            email: vkData.email,
+            password_hash: 'vk_auth',
+            vk_id: vkData.vk_id,
+            vk_avatar: vkData.avatar,
+            role: 'USER',
+            rank: 'Рядовой',
+            position: 'Стажёр',
+            fraction: fraction,
+            service_number: serviceNumber,
+            city: fraction.includes('Невский') ? 'Невский' : 
+                  fraction.includes('Мирный') ? 'Мирный' : 'Приволжск'
+          }])
+          .select()
+          .single();
+
+        if (error) throw error;
+
+        // Создаем статистику
+        await supabase
+          .from('user_stats')
+          .insert([{
+            user_id: user.id,
+            fines: 0,
+            arrests: 0,
+            licenses: 0,
+            searches: 0,
+            rating: 0
+          }]);
+
+        // Логиним пользователя
+        currentUser = user;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        localStorage.removeItem('vkUserData');
+        currentUserStats = await getUserStats(currentUser.id);
+        updateUserInterface();
+        hideModal('vkRegisterModal');
+        hideAuthModal();
+        
+        alert('🎉 Регистрация через VK завершена! Добро пожаловать в систему ГИБДД!');
+        
+      } catch (error) {
+        console.error('VK registration error:', error);
+        showError('Ошибка регистрации через VK');
+      }
+    });
+    console.log('✅ VK форма инициализирована');
+  } else {
+    setTimeout(initVKFormHandler, 500);
+  }
+}
+// ==================== VK OAuth АВТОРИЗАЦИЯ ====================
+
+function initVKAuth() {
+  console.log('🎯 Инициализация VK OAuth');
+  showVKAuthButton();
+  handleVKCallback(); // Проверяем callback
+}
+
+function showVKAuthButton() {
+  const vkContainer = document.getElementById('vkIdOneTap');
+  if (vkContainer) {
+    vkContainer.innerHTML = `
+      <div style="text-align: center;">
+        <button onclick="startVKOAuth()" class="btn" style="background: #4a76a8; color: white; padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; width: 100%; font-size: 16px;">
+          <i class="fab fa-vk" style="margin-right: 8px;"></i> Войти через VK
+        </button>
+        <p style="font-size: 12px; color: #666; margin-top: 8px;">OAuth 2.0 авторизация</p>
+      </div>
+    `;
+  }
+}
+
+// Запуск VK OAuth
+function startVKOAuth() {
+  const appId = 54358244;
+  const redirectUri = encodeURIComponent('https://gibddsite.vercel.app');
+  const scope = 'email';
+  const display = 'page';
+  const responseType = 'code';
   
-  const vkData = JSON.parse(localStorage.getItem('vkUserData'));
-  const gameNickname = document.getElementById('gameNickname').value;
-  const serviceNumber = document.getElementById('serviceNumber').value;
-  const fraction = document.getElementById('fractionSelect').value;
+  const vkAuthUrl = `https://oauth.vk.com/authorize?client_id=${appId}&display=${display}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}&v=5.199`;
   
+  console.log('🔗 Переход на VK OAuth:', vkAuthUrl);
+  window.location.href = vkAuthUrl;
+}
+
+// Обработка callback от VK
+async function handleVKCallback() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
+  const error = urlParams.get('error');
+  
+  if (error) {
+    console.error('❌ VK OAuth error:', error);
+    showError(`Ошибка VK авторизации: ${error}`);
+    return;
+  }
+  
+  if (code) {
+    console.log('🔐 Получен code от VK:', code);
+    
+    try {
+      // Обмениваем code на access_token
+      const authData = await exchangeCodeForToken(code);
+      console.log('✅ Получен access_token:', authData);
+      
+      // Получаем информацию о пользователе
+      const userInfo = await getVKUserInfo(authData.access_token);
+      console.log('👤 Данные пользователя:', userInfo);
+      
+      // Регистрируем/логиним пользователя
+      await registerOrLoginVKUser(userInfo, authData);
+      
+      // Убираем code из URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+      
+    } catch (error) {
+      console.error('❌ Ошибка обработки VK callback:', error);
+      showError('Ошибка авторизации: ' + error.message);
+    }
+  }
+}
+
+// Обмен code на access_token
+async function exchangeCodeForToken(code) {
+  // В реальном приложении этот запрос должен идти к твоему бэкенду
+  // Но для демо сделаем напрямую (небезопасно!)
+  
+  const redirectUri = 'https://gibddsite.vercel.app';
+  
+  const response = await fetch('https://oauth.vk.com/access_token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      client_id: '54358244',
+      client_secret: 'fIdZdQRoLL6hRP2rptma',
+      redirect_uri: redirectUri,
+      code: code,
+    }),
+  });
+
+  const data = await response.json();
+  
+  if (data.error) {
+    throw new Error(data.error_description || data.error);
+  }
+  
+  return data;
+}
+
+// Получение информации о пользователе VK
+async function getVKUserInfo(accessToken) {
+  const response = await fetch(`https://api.vk.com/method/users.get?fields=photo_200,first_name,last_name&access_token=${accessToken}&v=5.199`);
+  const data = await response.json();
+  
+  if (data.error) {
+    throw new Error(data.error.error_msg);
+  }
+  
+  const user = data.response[0];
+  return {
+    id: user.id,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    email: `vk_${user.id}@vk.com`, // VK не отдает email в этом flow
+    photo: user.photo_200
+  };
+}
+
+// Регистрация или логин VK пользователя
+async function registerOrLoginVKUser(vkUser, authData) {
   try {
-    // Создаем пользователя
-    const { data: user, error } = await supabase
+    // Проверяем существование пользователя
+    const { data: existingUser, error } = await supabase
       .from('users')
-      .insert([{
-        nickname: gameNickname,
-        username: `vk_${vkData.vk_id}`,
-        email: vkData.email,
-        password_hash: 'vk_auth', // Пароль не нужен для VK auth
-        vk_id: vkData.vk_id,
-        vk_avatar: vkData.avatar,
-        role: 'USER',
-        rank: 'Рядовой',
-        position: 'Стажёр',
-        fraction: fraction,
-        service_number: serviceNumber,
-        city: fraction.includes('Невский') ? 'Невский' : 
-              fraction.includes('Мирный') ? 'Мирный' : 'Приволжск'
-      }])
-      .select()
+      .select('*')
+      .eq('vk_id', vkUser.id)
       .single();
 
-    if (error) throw error;
+    if (error && error.code !== 'PGRST116') {
+      throw error;
+    }
 
-    // Создаем статистику
-    await supabase
-      .from('user_stats')
-      .insert([{
-        user_id: user.id,
-        fines: 0,
-        arrests: 0,
-        licenses: 0,
-        searches: 0,
-        rating: 0
-      }]);
+    let user;
+    
+    if (existingUser) {
+      // Пользователь существует - логиним
+      user = existingUser;
+      console.log('✅ Пользователь найден, выполняем вход');
+    } else {
+      // Создаем нового пользователя
+      console.log('🆕 Создаем нового пользователя VK');
+      const { data: newUser, error: createError } = await supabase
+        .from('users')
+        .insert([{
+          nickname: `${vkUser.first_name} ${vkUser.last_name}`,
+          username: `vk_${vkUser.id}`,
+          email: vkUser.email,
+          password_hash: 'vk_oauth_' + Date.now(),
+          vk_id: vkUser.id,
+          vk_avatar: vkUser.photo,
+          role: 'USER',
+          rank: 'Рядовой',
+          position: 'Стажёр',
+          fraction: 'ГИБДД',
+          city: 'Приволжск',
+          created_at: new Date().toISOString()
+        }])
+        .select()
+        .single();
+
+      if (createError) throw createError;
+      user = newUser;
+
+      // Создаем статистику
+      const { error: statsError } = await supabase
+        .from('user_stats')
+        .insert([{
+          user_id: user.id,
+          fines: 0,
+          arrests: 0,
+          licenses: 0,
+          searches: 0,
+          rating: 0
+        }]);
+
+      if (statsError) throw statsError;
+    }
 
     // Логиним пользователя
     currentUser = user;
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    localStorage.removeItem('vkUserData');
     currentUserStats = await getUserStats(currentUser.id);
     updateUserInterface();
-    hideModal('vkRegisterModal');
     hideAuthModal();
     
-    alert('🎉 Регистрация через VK завершена! Добро пожаловать в систему ГИБДД!');
+    alert(existingUser ? '✅ Вход через VK выполнен!' : '🎉 Регистрация через VK завершена! Добро пожаловать в ГИБДД!');
     
   } catch (error) {
     console.error('VK registration error:', error);
-    showError('Ошибка регистрации через VK');
+    throw error;
   }
-});
+}
+
+// ==================== ЗАПУСК ====================
 document.addEventListener('DOMContentLoaded', function() {
-  initVK(); // Инициализируем VK SDK
-  // ... остальной код
+  initVKAuth();
 });
+// ==================== ФУНКЦИИ ДЛЯ БАЗЫ НАРУШИТЕЛЕЙ ====================
+
+let violators = JSON.parse(localStorage.getItem('violators')) || [];
+let violatorCounter = parseInt(localStorage.getItem('violatorCounter')) || 1;
+
+// Функция для определения типа доказательства
+function getEvidenceType(evidence) {
+    if (!evidence) return 'text';
+    
+    const lowerEvidence = evidence.toLowerCase();
+    
+    if (lowerEvidence.includes('drive.google.com') || 
+        lowerEvidence.includes('docs.google.com') ||
+        lowerEvidence.startsWith('https://drive.google.com') ||
+        lowerEvidence.startsWith('http://drive.google.com')) {
+        return 'google_drive';
+    }
+    
+    if (lowerEvidence.startsWith('http://') || 
+        lowerEvidence.startsWith('https://') ||
+        lowerEvidence.includes('.com') || 
+        lowerEvidence.includes('.ru') ||
+        lowerEvidence.includes('.org')) {
+        return 'link';
+    }
+    
+    return 'text';
+}
+
+// Функция для отображения доказательства
+function renderEvidence(evidence) {
+    const type = getEvidenceType(evidence);
+    
+    switch(type) {
+        case 'google_drive':
+            return `
+                <a href="${evidence}" target="_blank" class="evidence-link">
+                    <i class="fab fa-google-drive"></i>
+                    Google Drive
+                </a>
+            `;
+        case 'link':
+            return `
+                <a href="${evidence}" target="_blank" class="evidence-link">
+                    <i class="fas fa-external-link-alt"></i>
+                    Ссылка на доказательства
+                </a>
+            `;
+        default:
+            return `<div class="violator-value">${evidence}</div>`;
+    }
+}
+
+// Показать модальное окно создания карточки
+function showCreateViolatorModal() {
+    document.getElementById('createViolatorForm').reset();
+    showModal('createViolatorModal');
+}
+
+// Создание новой карточки нарушителя
+function createViolatorCard() {
+    const name = document.getElementById('violatorName').value.trim();
+    const violation = document.getElementById('violation').value.trim();
+    const evidence = document.getElementById('evidence').value.trim();
+    const notes = document.getElementById('notes').value.trim();
+    
+    if (!name || !violation || !evidence) {
+        showError('Заполните все обязательные поля');
+        return;
+    }
+    
+    const newViolator = {
+        id: Date.now(),
+        violatorId: `НАР-${violatorCounter.toString().padStart(4, '0')}`,
+        name: name,
+        violation: violation,
+        evidence: evidence,
+        notes: notes,
+        createdAt: new Date().toLocaleDateString('ru-RU'),
+        createdTime: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
+        createdBy: currentUser ? currentUser.nickname : 'Аноним',
+        status: 'active'
+    };
+    
+    violators.unshift(newViolator); // Добавляем в начало
+    violatorCounter++;
+    
+    localStorage.setItem('violators', JSON.stringify(violators));
+    localStorage.setItem('violatorCounter', violatorCounter.toString());
+    
+    hideModal('createViolatorModal');
+    showNewViolatorCard(newViolator);
+    updateViolatorsGrid();
+}
+
+// Показать новую карточку по центру экрана
+function showNewViolatorCard(violator) {
+    const cardHtml = `
+        <div class="card-center-container">
+            <div class="new-violator-card">
+                <button class="close-card" onclick="closeNewCard()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="new-violator-card-header">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Карточка создана успешно!</h3>
+                </div>
+                <div class="new-violator-card-body">
+                    <div class="violator-info">
+                        <div class="violator-label">
+                            <i class="fas fa-id-card"></i> ID карточки:
+                        </div>
+                        <div class="violator-value" style="font-weight: 600; color: var(--primary);">
+                            ${violator.violatorId}
+                        </div>
+                    </div>
+                    <div class="violator-info">
+                        <div class="violator-label">
+                            <i class="fas fa-user"></i> Нарушитель:
+                        </div>
+                        <div class="violator-value">${violator.name}</div>
+                    </div>
+                    <div class="violator-info">
+                        <div class="violator-label">
+                            <i class="fas fa-exclamation-triangle"></i> Нарушение:
+                        </div>
+                        <div class="violator-value">${violator.violation}</div>
+                    </div>
+                    <div class="violator-info">
+                        <div class="violator-label">
+                            <i class="fas fa-file-alt"></i> Доказательства:
+                        </div>
+                        ${renderEvidence(violator.evidence)}
+                    </div>
+                    ${violator.notes ? `
+                    <div class="violator-info">
+                        <div class="violator-label">
+                            <i class="fas fa-sticky-note"></i> Примечания:
+                        </div>
+                        <div class="violator-value">${violator.notes}</div>
+                    </div>
+                    ` : ''}
+                    <div class="violator-actions" style="justify-content: center; margin-top: 20px;">
+                        <button class="btn btn-success" onclick="closeNewCard()" style="min-width: 150px;">
+                            <i class="fas fa-check"></i> Понятно
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', cardHtml);
+}
+
+// Закрыть карточку
+function closeNewCard() {
+    const container = document.querySelector('.card-center-container');
+    if (container) {
+        container.remove();
+    }
+}
+
+// Обновление сетки карточек
+function updateViolatorsGrid() {
+    const grid = document.getElementById('violatorsGrid');
+    const searchTerm = document.getElementById('searchViolators')?.value.toLowerCase() || '';
+    
+    const filteredViolators = violators.filter(violator => 
+        violator.name.toLowerCase().includes(searchTerm) ||
+        violator.violation.toLowerCase().includes(searchTerm) ||
+        violator.violatorId.toLowerCase().includes(searchTerm)
+    );
+    
+    if (filteredViolators.length === 0) {
+        grid.innerHTML = `
+            <div class="no-violators" style="text-align: center; padding: 60px; color: var(--gray); grid-column: 1 / -1;">
+                <i class="fas fa-search" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                <h3 style="margin-bottom: 10px;">Ничего не найдено</h3>
+                <p>Попробуйте изменить поисковый запрос или создать новую карточку</p>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = filteredViolators.map(violator => `
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>${violator.name}</h3>
+                    <div class="violator-id">${violator.violatorId}</div>
+                </div>
+                <span class="status-badge ${violator.status === 'active' ? 'status-active' : 'status-archived'}">
+                    <i class="fas fa-circle"></i>
+                    ${violator.status === 'active' ? 'Активно' : 'В архиве'}
+                </span>
+            </div>
+            
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-exclamation-triangle"></i> Нарушение:
+                    </div>
+                    <div class="violator-value">${violator.violation}</div>
+                </div>
+                
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-file-alt"></i> Доказательства:
+                    </div>
+                    ${renderEvidence(violator.evidence)}
+                </div>
+                
+                ${violator.notes ? `
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-sticky-note"></i> Примечания:
+                    </div>
+                    <div class="violator-value">${violator.notes}</div>
+                </div>
+                ` : ''}
+            </div>
+            
+            <div class="violator-card-footer">
+                <div class="violator-meta">
+                    <div class="violator-date">
+                        <i class="fas fa-calendar"></i>
+                        ${violator.createdAt} в ${violator.createdTime}
+                    </div>
+                    <div style="margin-top: 5px;">
+                        <i class="fas fa-user-shield"></i>
+                        ${violator.createdBy}
+                    </div>
+                </div>
+                
+                <div class="violator-actions">
+                    <button class="btn btn-outline" onclick="editViolator(${violator.id})" title="Редактировать">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteViolator(${violator.id})" title="Удалить">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Удаление карточки
+function deleteViolator(id) {
+    if (confirm('Вы уверены, что хотите удалить эту карточку?')) {
+        violators = violators.filter(v => v.id !== id);
+        localStorage.setItem('violators', JSON.stringify(violators));
+        updateViolatorsGrid();
+        
+        // Показываем уведомление об удалении
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.innerHTML = `
+            <div style="position: fixed; top: 20px; right: 20px; background: var(--danger); color: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1001;">
+                <i class="fas fa-trash"></i> Карточка удалена
+            </div>
+        `;
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 3000);
+    }
+}
+
+// Редактирование карточки (заглушка)
+function editViolator(id) {
+    alert('Функция редактирования будет реализована в будущем обновлении');
+}
+
+// Поиск по карточкам
+function initSearch() {
+    const searchInput = document.getElementById('searchViolators');
+    if (searchInput) {
+        searchInput.addEventListener('input', updateViolatorsGrid);
+    }
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Обработчик формы создания карточки
+    const form = document.getElementById('createViolatorForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            createViolatorCard();
+        });
+    }
+    
+    // Инициализация поиска
+    initSearch();
+    
+    // Обновляем сетку при показе раздела
+    const originalShowSection = window.showSection;
+    window.showSection = function(sectionName) {
+        if (originalShowSection) {
+            originalShowSection(sectionName);
+        }
+        
+        if (sectionName === 'violators') {
+            updateViolatorsGrid();
+        }
+    };
+});
+// Вспомогательная функция для разблокировки пользователя в базе
+async function unbanUserInDatabase(userId) {
+    try {
+        const { error } = await supabase
+            .from('users')
+            .update({
+                banned: false,
+                ban_reason: null,
+                ban_expires: null,
+                banned_by: null,
+                banned_at: null,
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', userId);
+
+        return !error;
+    } catch (error) {
+        console.error('Unban user error:', error);
+        return false;
+    }
+}
     </script>
     <!-- Модальное окно 2FA -->
 <div id="twoFactorAuthModal" class="modal" style="display: none;">
@@ -5875,6 +7105,48 @@ document.addEventListener('DOMContentLoaded', function() {
       </form>
     </div>
   </div>
+</div>
+<!-- Модальное окно создания карточки нарушителя -->
+<div id="createViolatorModal" class="modal">
+    <div class="modal-content modal-large">
+        <div class="modal-header">
+            <h2><i class="fas fa-user-plus"></i> Создание карточки нарушителя</h2>
+        </div>
+        <div class="modal-body">
+            <form id="createViolatorForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="violatorName"><i class="fas fa-user"></i> Имя и фамилия *</label>
+                        <input type="text" id="violatorName" class="form-control" required placeholder="Иван Иванов">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="violation"><i class="fas fa-exclamation-triangle"></i> Нарушение *</label>
+                    <textarea id="violation" class="form-control" rows="3" required placeholder="Описание нарушения..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="evidence"><i class="fas fa-file-alt"></i> Доказательства нарушения *</label>
+                    <textarea id="evidence" class="form-control" rows="3" required placeholder="Описание доказательств..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes"><i class="fas fa-sticky-note"></i> Примечания</label>
+                    <textarea id="notes" class="form-control" rows="2" placeholder="Дополнительная информация..."></textarea>
+                </div>
+                
+                <div class="form-group" style="display: flex; gap: 10px;">
+                    <button type="submit" class="btn btn-success" style="flex: 1;">
+                        <i class="fas fa-save"></i> Создать карточку
+                    </button>
+                    <button type="button" class="btn btn-outline" style="flex: 1;" onclick="hideModal('createViolatorModal')">
+                        <i class="fas fa-times"></i> Отмена
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>
