@@ -2383,6 +2383,368 @@
   background: linear-gradient(135deg, #dc2626, #ef4444, #f87171) !important;
   color: white !important;
 }
+/* Стили для системы уведомлений */
+.notifications-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    max-width: 400px;
+}
+
+.notification {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-left: 5px solid var(--primary);
+    animation: slideInRight 0.3s ease-out;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.notification::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.notification.success {
+    border-left-color: var(--success);
+}
+
+.notification.success::before {
+    background: linear-gradient(90deg, var(--success), #10b981);
+}
+
+.notification.warning {
+    border-left-color: var(--warning);
+}
+
+.notification.warning::before {
+    background: linear-gradient(90deg, var(--warning), #f59e0b);
+}
+
+.notification.error {
+    border-left-color: var(--danger);
+}
+
+.notification.error::before {
+    background: linear-gradient(90deg, var(--danger), #ef4444);
+}
+
+.notification.info {
+    border-left-color: var(--primary);
+}
+
+.notification-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.notification-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: var(--gray);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.notification-close:hover {
+    background: var(--light);
+    color: var(--danger);
+}
+
+.notification-content {
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.notification-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--primary);
+    animation: progressBar 5s linear forwards;
+}
+
+.notification.success .notification-progress {
+    background: var(--success);
+}
+
+.notification.warning .notification-progress {
+    background: var(--warning);
+}
+
+.notification.error .notification-progress {
+    background: var(--danger);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes progressBar {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+/* Стили для раздела тестов ПДД */
+.pdd-test-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.test-progress {
+    background: var(--light);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+}
+
+.progress-bar {
+    height: 8px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.test-question {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 25px;
+}
+
+.question-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: var(--primary);
+    line-height: 1.5;
+}
+
+.answers-grid {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.answer-option {
+    background: var(--light);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.answer-option:hover {
+    border-color: var(--primary);
+    background: rgba(30, 58, 138, 0.05);
+}
+
+.answer-option.selected {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+}
+
+.answer-option.correct {
+    border-color: var(--success);
+    background: var(--success);
+    color: white;
+}
+
+.answer-option.incorrect {
+    border-color: var(--danger);
+    background: var(--danger);
+    color: white;
+}
+
+.answer-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.answer-option.selected .answer-checkbox,
+.answer-option.correct .answer-checkbox,
+.answer-option.incorrect .answer-checkbox {
+    background: white;
+    border-color: white;
+}
+
+.answer-text {
+    flex: 1;
+    font-weight: 500;
+}
+
+.test-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.test-results {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.results-score {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.results-message {
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    color: var(--text-color);
+}
+
+.results-details {
+    background: var(--light);
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 25px;
+    text-align: left;
+}
+
+.result-item {
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-question {
+    flex: 1;
+    font-weight: 500;
+}
+
+.result-status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.result-status.correct {
+    background: var(--success);
+    color: white;
+}
+
+.result-status.incorrect {
+    background: var(--danger);
+    color: white;
+}
+
+.koap-note {
+    background: linear-gradient(135deg, #fef3c7, #f59e0b);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    border-left: 4px solid #f59e0b;
+}
+
+.koap-note h4 {
+    color: #92400e;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.koap-note p {
+    color: #92400e;
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .notifications-container {
+        left: 20px;
+        right: 20px;
+        max-width: none;
+    }
+    
+    .test-question {
+        padding: 20px;
+    }
+    
+    .question-text {
+        font-size: 1.1rem;
+    }
+    
+    .test-navigation {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .test-navigation .btn {
+        width: 100%;
+    }
+}
 
     </style>
 </head>
@@ -2639,6 +3001,9 @@
                 <li><a href="#" onclick="showSection('jurisdiction')"><i class="fas fa-map-marked-alt"></i> Юрисдикции МВД</a></li>
                 <li><a href="#" onclick="showSection('map')"><i class="fas fa-map"></i> Карта постов</a></li>
                 <li><a href="#" onclick="showSection('violators')"><i class="fas fa-database"></i> База нарушителей</a></li>
+                <li><a href="#" onclick="showSection('pdd-tests')"><i class="fas fa-graduation-cap"></i> Тесты ПДД</a></li>
+                <li><a href="#" onclick="showSection('hotspots')"><i class="fas fa-map-marker-alt"></i> Очаги нарушений</a></li>
+<li><a href="#" onclick="showSection('guides')"><i class="fas fa-book-open"></i> Мини гайды</a></li>
                 <li><a href="#" onclick="showSection('statistics')"><i class="fas fa-chart-bar"></i> Статистика</a></li>
                 <li><a href="#" onclick="showSection('leaderboard')"><i class="fas fa-trophy"></i> Таблица лидеров</a></li>
                 <li><a href="#" onclick="showSection('profile')" id="profileTab"><i class="fas fa-user"></i> Профиль</a></li>
@@ -2705,6 +3070,423 @@
                         </div>
                     </div>
                 </section>
+                <!-- Hotspots Section -->
+<section id="hotspots-section" class="content-section" style="display: none;">
+    <div class="section-title">
+        <i class="fas fa-map-marker-alt"></i>
+        <h2>Очаги нарушений ПДД</h2>
+    </div>
+    <p>Статистика и информация о местах, где наиболее часто фиксируются нарушения правил дорожного движения.</p>
+    
+    <div class="violators-grid">
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-road"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>Кольцо у авторынка</h3>
+                    <div class="violator-id">Очаг №1</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Высокая активность
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-car-crash"></i>
+                        Основное нарушение:
+                    </div>
+                    <div class="violator-value">Проезд по встречной полосе движения</div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-chart-line"></i>
+                        Статистика:
+                    </div>
+                    <div class="violator-value">Множество водителей регулярно нарушают</div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-lightbulb"></i>
+                        Рекомендации:
+                    </div>
+                    <div class="violator-value">Усилить патрулирование, установить дополнительные знаки</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-traffic-light"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>Светофоры у ТТУ</h3>
+                    <div class="violator-id">Очаг №2</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Высокая активность
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-car-crash"></i>
+                        Основное нарушение:
+                    </div>
+                    <div class="violator-value">Проезд на красный сигнал светофора</div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-chart-line"></i>
+                        Статистика:
+                    </div>
+                    <div class="violator-value">Множество людей проезжают на красный</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-traffic-light"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>Светофоры у Вива Лэнда</h3>
+                    <div class="violator-id">Очаг №3</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Средняя активность
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-car-crash"></i>
+                        Основное нарушение:
+                    </div>
+                    <div class="violator-value">Проезд на красный сигнал светофора</div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-chart-line"></i>
+                        Статистика:
+                    </div>
+                    <div class="violator-value">Множество людей проезжают на красный</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-traffic-light"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>Светофор на перекрестке у ТК</h3>
+                    <div class="violator-id">Очаг №4</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Высокая активность
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-car-crash"></i>
+                        Основное нарушение:
+                    </div>
+                    <div class="violator-value">Проезд на красный сигнал светофора</div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-chart-line"></i>
+                        Статистика:
+                    </div>
+                    <div class="violator-value">Большинство людей проезжают на красный</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>Магазин "Лента"</h3>
+                    <div class="violator-id">Очаг №5</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Сезонная активность
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-car-crash"></i>
+                        Основное нарушение:
+                    </div>
+                    <div class="violator-value">Дрифт, опасное вождение</div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-chart-line"></i>
+                        Статистика:
+                    </div>
+                    <div class="violator-value">Достаточно часто там дрифтят, особенно зимой</div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-snowflake"></i>
+                        Сезонность:
+                    </div>
+                    <div class="violator-value">Активность возрастает в зимний период</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-train"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>Парковка у Вокзала</h3>
+                    <div class="violator-id">Очаг №6</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Постоянная активность
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-car-crash"></i>
+                        Основное нарушение:
+                    </div>
+                    <div class="violator-value">Дрифт, несанкционированные сходки</div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-chart-line"></i>
+                        Статистика:
+                    </div>
+                    <div class="violator-value">Достаточно часто там дрифтят, делают сходки</div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-users"></i>
+                        Особенность:
+                    </div>
+                    <div class="violator-value">Массовые несанкционированные мероприятия</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-flag-checkered"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>Парковка у гоночного трека</h3>
+                    <div class="violator-id">Очаг №7</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Регулярная активность
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-car-crash"></i>
+                        Основное нарушение:
+                    </div>
+                    <div class="violator-value">Массовые сходки, нарушение ПДД</div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-chart-line"></i>
+                        Статистика:
+                    </div>
+                    <div class="violator-value">Часто делают массовые сходки и нарушают ПДД</div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-calendar"></i>
+                        Периодичность:
+                    </div>
+                    <div class="violator-value">Регулярные мероприятия по вечерам</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Mini Guides Section -->
+<section id="guides-section" class="content-section" style="display: none;">
+    <div class="section-title">
+        <i class="fas fa-book-open"></i>
+        <h2>Мини гайды</h2>
+    </div>
+    <p>Краткие руководства и инструкции для сотрудников ГИБДД по различным аспектам службы.</p>
+    
+    <div class="binds-categories">
+        <div class="bind-category">
+            <h3><i class="fas fa-handcuffs"></i> Задержания</h3>
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">1</span>
+                    <span>Процедура задержания</span>
+                    <div class="bind-description">
+                        <strong>Порядок действий:</strong><br>
+                        1. Представиться и при просьбе гражданина предъявить служебное удостоверение<br>
+                        2. Объявить о задержании и причинах<br>
+                        3. Применить наручники <br>
+                        4. Осуществить личный досмотр при желании<br>
+                        5. Отвезти гражданина в отдел полиции
+                        6. Объявить его в розыск, если его еще нет. (Перед этим необходимо узнать его личность)
+                        7. Передать конвоиру.
+                    </div>
+                </div>
+            </div>
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">2</span>
+                    <span>Права задержанного</span>
+                    <div class="bind-description">
+                        Задержанный имеет право:<br>
+                        • Знать причину задержания<br>                  
+                        • Хранить молчание
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bind-category">
+            <h3><i class="fas fa-car-side"></i> Остановка ТС</h3>
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">1</span>
+                    <span>Процедура остановки</span>
+                    <div class="bind-description">
+                        <strong>Правильная последовательность:</strong><br>
+                        1. Подать сигнал жезлом/сказать в громкоговоритель<br>
+                        2. Включить проблесковые маячки (Вслучае, если Вы остановили гражданина на машине)<br>
+                        4. Подойти к транспортному средству<br>
+                        5. Представиться и назвать причину остановки
+                    </div>
+                </div>
+            </div>
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">2</span>
+                    <span>Общение с водителем</span>
+                    <div class="bind-description">
+                        • Вежливо представиться<br>
+                        • Четко назвать причину остановки<br>
+                        • Требовать документы в тактичной форме<br>
+                        • Объяснять нарушения понятным языком<br>
+                        • Сохранять спокойный тон
+                    </div>
+                </div>
+            </div>
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">3</span>
+                    <span>Безопасность при остановке</span>
+                    <div class="bind-description">
+                        • Подходить со стороны водителя<br>
+                        • Следить за руками водителя<br>
+                        • Использовать патрульный автомобиль как укрытие<br>
+                        • Быть готовым к нестандартным ситуациям
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bind-category">
+            <h3><i class="fas fa-file-contract"></i> Оформление документов</h3>
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">1</span>
+                    <span>Протокол нарушения ПДД</span>
+                    <div class="bind-description">
+                        <strong>Обязательные пункты:</strong><br>
+                        • Дата, время и место составления<br>
+                        • Данные сотрудника ГИБДД<br>
+                        • Данные нарушителя<br>
+                        • Суть нарушения (статья КоАП)<br>
+                        • Объяснения нарушителя<br>
+                        • Подписи сторон
+                    </div>
+                </div>
+            </div>
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">2</span>
+                    <span>Изъятие прав</span>
+                    <div class="bind-description">
+                        <strong>Основания для изъятия:</strong><br>
+                        • Управление в состоянии опьянения<br>
+                        • Оставление места ДТП<br>
+                        • Систематические нарушения<br>
+                        • Подделка документов<br>
+                        <em>Обязательно составление протокола</em>
+                    </div>
+                </div>
+            </div>
+        <div class="bind-category">
+            <h3><i class="fas fa-shield-alt"></i> Безопасность и тактика</h3>
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">1</span>
+                    <span>Работа в темное время суток</span>
+                    <div class="bind-description">
+                        • Использовать световозвращающие элементы<br>
+                        • Использовать автомобиль как укрытие<br>
+                        • Быть особенно внимательным к подозрительным ТС
+                    </div>
+                </div>
+            </div>
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">2</span>
+                    <span>Действия при сопротивлении</span>
+                    <div class="bind-description">
+                        • Использовать средства связи<br>
+                        • Применить спецсредства по ситуации<br>
+                        • Контролировать дистанцию<br>
+                        • Запомнить приметы нарушителя
+                    </div>
+                </div>
+            </div>
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">3</span>
+                    <span>Первая помощь</span>
+                    <div class="bind-description">
+                        <strong>Основные действия:</strong><br>
+                        • Оценить обстановку на безопасность<br>
+                        • Проверить сознание и дыхание<br>
+                        • Вызвать скорую помощь<br>
+                        • Остановить кровотечение<br>
+                        • Не перемещать пострадавшего без необходимости
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
                 <!-- Leadership Section -->
 <section id="leadership-section" class="content-section" style="display: none;">
     <div class="section-title">
@@ -2743,6 +3525,18 @@
                 <p>Нажмите кнопку "Создать карточку нарушителя" чтобы добавить первую запись</p>
             </div>
         </div>
+    </div>
+</section>
+<!-- PDD Tests Section -->
+<section id="pdd-tests-section" class="content-section" style="display: none;">
+    <div class="section-title">
+        <i class="fas fa-graduation-cap"></i>
+        <h2>Тесты по ПДД</h2>
+    </div>
+    <p>Проверьте свои знания правил дорожного движения. В каждом вопросе укажите статью КоАП и наказание.</p>
+    
+    <div id="pddTestContent" class="pdd-test-container">
+        <!-- Контент тестов будет загружен через JavaScript -->
     </div>
 </section>
                 
@@ -7831,6 +8625,793 @@ function showSection(sectionName) {
     }
   }, 150);
 }
+// ==================== СИСТЕМА УВЕДОМЛЕНИЙ ====================
+
+// Переопределение системных функций уведомлений
+(function() {
+    // Сохраняем оригинальные функции
+    const originalAlert = window.alert;
+    const originalConfirm = window.confirm;
+    const originalPrompt = window.prompt;
+    
+    // Флаг для отслеживания показа кастомного уведомления
+    let isCustomNotificationShowing = false;
+
+    // Переопределяем alert
+    window.alert = function(message) {
+        if (isCustomNotificationShowing) return;
+        
+        isCustomNotificationShowing = true;
+        showNotification('Системное уведомление', message, 'info', 5000);
+        
+        // Возвращаем true для совместимости
+        return true;
+    };
+
+    // Переопределяем confirm
+    window.confirm = function(message) {
+        return new Promise((resolve) => {
+            if (isCustomNotificationShowing) {
+                resolve(false);
+                return;
+            }
+            
+            isCustomNotificationShowing = true;
+            
+            const notification = showNotification(
+                'Подтверждение действия', 
+                message, 
+                'warning', 
+                0 // Бесконечная длительность пока пользователь не ответит
+            );
+            
+            // Добавляем кнопки действий
+            const notificationContent = notification.querySelector('.notification-content');
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.style.cssText = `
+                display: flex;
+                gap: 10px;
+                margin-top: 15px;
+                justify-content: flex-end;
+            `;
+            
+            const confirmBtn = document.createElement('button');
+            confirmBtn.textContent = 'OK';
+            confirmBtn.className = 'btn btn-success';
+            confirmBtn.style.cssText = 'padding: 5px 15px; font-size: 14px;';
+            
+            const cancelBtn = document.createElement('button');
+            cancelBtn.textContent = 'Отмена';
+            cancelBtn.className = 'btn btn-outline';
+            cancelBtn.style.cssText = 'padding: 5px 15px; font-size: 14px;';
+            
+            confirmBtn.onclick = function() {
+                notification.remove();
+                isCustomNotificationShowing = false;
+                resolve(true);
+            };
+            
+            cancelBtn.onclick = function() {
+                notification.remove();
+                isCustomNotificationShowing = false;
+                resolve(false);
+            };
+            
+            buttonsContainer.appendChild(cancelBtn);
+            buttonsContainer.appendChild(confirmBtn);
+            notificationContent.appendChild(buttonsContainer);
+        });
+    };
+
+    // Переопределяем prompt
+    window.prompt = function(message, defaultValue = '') {
+        return new Promise((resolve) => {
+            if (isCustomNotificationShowing) {
+                resolve(null);
+                return;
+            }
+            
+            isCustomNotificationShowing = true;
+            
+            const notification = showNotification(
+                'Ввод данных', 
+                message, 
+                'info', 
+                0 // Бесконечная длительность
+            );
+            
+            const notificationContent = notification.querySelector('.notification-content');
+            const inputContainer = document.createElement('div');
+            inputContainer.style.cssText = 'margin-top: 15px;';
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = defaultValue;
+            input.style.cssText = `
+                width: 100%;
+                padding: 8px 12px;
+                border: 1px solid var(--border-color);
+                border-radius: 6px;
+                font-size: 14px;
+                margin-bottom: 10px;
+            `;
+            
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.style.cssText = `
+                display: flex;
+                gap: 10px;
+                justify-content: flex-end;
+            `;
+            
+            const okBtn = document.createElement('button');
+            okBtn.textContent = 'OK';
+            okBtn.className = 'btn btn-success';
+            okBtn.style.cssText = 'padding: 5px 15px; font-size: 14px;';
+            
+            const cancelBtn = document.createElement('button');
+            cancelBtn.textContent = 'Отмена';
+            cancelBtn.className = 'btn btn-outline';
+            cancelBtn.style.cssText = 'padding: 5px 15px; font-size: 14px;';
+            
+            okBtn.onclick = function() {
+                const value = input.value;
+                notification.remove();
+                isCustomNotificationShowing = false;
+                resolve(value);
+            };
+            
+            cancelBtn.onclick = function() {
+                notification.remove();
+                isCustomNotificationShowing = false;
+                resolve(null);
+            };
+            
+            // Обработка нажатия Enter
+            input.onkeypress = function(e) {
+                if (e.key === 'Enter') {
+                    okBtn.click();
+                }
+            };
+            
+            inputContainer.appendChild(input);
+            buttonsContainer.appendChild(cancelBtn);
+            buttonsContainer.appendChild(okBtn);
+            inputContainer.appendChild(buttonsContainer);
+            notificationContent.appendChild(inputContainer);
+            
+            // Фокус на input
+            setTimeout(() => input.focus(), 100);
+        });
+    };
+
+    // Перехватываем события beforeunload (предупреждение о закрытии страницы)
+    window.addEventListener('beforeunload', function(e) {
+        if (isCustomNotificationShowing) return;
+        
+        // Показываем кастомное уведомление вместо стандартного
+        showNotification(
+            'Внимание!', 
+            'Вы пытаетесь покинуть страницу. Несохраненные данные могут быть потеряны.', 
+            'warning', 
+            4000
+        );
+        
+        // Стандартное сообщение для браузера
+        const confirmationMessage = 'Вы уверены, что хотите покинуть страницу? Несохраненные данные будут потеряны.';
+        e.returnValue = confirmationMessage;
+        return confirmationMessage;
+    });
+
+    // Перехватываем ошибки JavaScript
+    window.addEventListener('error', function(e) {
+        if (isCustomNotificationShowing) return;
+        
+        showNotification(
+            'Ошибка JavaScript', 
+            e.message, 
+            'error', 
+            5000
+        );
+    });
+
+    // Перехватываем неперехваченные Promise rejection
+    window.addEventListener('unhandledrejection', function(e) {
+        if (isCustomNotificationShowing) return;
+        
+        showNotification(
+            'Ошибка Promise', 
+            e.reason?.message || 'Произошла неизвестная ошибка', 
+            'error', 
+            5000
+        );
+    });
+
+    console.log('Система кастомных уведомлений активирована!');
+})();
+
+// Улучшенная функция показа уведомлений
+function showNotification(title, message, type = 'info', duration = 5000) {
+    const container = document.getElementById('notificationsContainer');
+    if (!container) {
+        // Создаем контейнер если его нет
+        const newContainer = document.createElement('div');
+        newContainer.id = 'notificationsContainer';
+        newContainer.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            max-width: 400px;
+        `;
+        document.body.appendChild(newContainer);
+        return showNotification(title, message, type, duration);
+    }
+    
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.style.cssText = `
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        margin-bottom: 10px;
+        border-left: 4px solid var(--${type});
+        animation: slideInRight 0.3s ease-out;
+        overflow: hidden;
+    `;
+    
+    const icon = getNotificationIcon(type);
+    
+    notification.innerHTML = `
+        <div class="notification-header" style="padding: 15px 15px 10px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+            <div class="notification-title" style="display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--text-color);">
+                ${icon}
+                <span>${title}</span>
+            </div>
+            <button class="notification-close" style="background: none; border: none; font-size: 16px; cursor: pointer; color: var(--gray); padding: 0; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-content" style="padding: 15px; color: var(--text-color); line-height: 1.4;">
+            ${message}
+        </div>
+        ${duration > 0 ? `<div class="notification-progress" style="height: 3px; background: var(--${type}); width: 100%; animation: progressBar ${duration}ms linear;"></div>` : ''}
+    `;
+    
+    // Обработчик закрытия
+    const closeBtn = notification.querySelector('.notification-close');
+    closeBtn.onclick = function() {
+        notification.style.animation = 'slideInRight 0.3s ease-out reverse';
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.remove();
+            }
+        }, 300);
+    };
+    
+    container.appendChild(notification);
+    
+    // Автоматическое удаление через указанное время
+    if (duration > 0) {
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => notification.remove(), 300);
+            }
+        }, duration);
+    }
+    
+    return notification;
+}
+
+// Получить иконку для типа уведомления
+function getNotificationIcon(type) {
+    const icons = {
+        success: '<i class="fas fa-check-circle" style="color: var(--success);"></i>',
+        warning: '<i class="fas fa-exclamation-triangle" style="color: var(--warning);"></i>',
+        error: '<i class="fas fa-times-circle" style="color: var(--danger);"></i>',
+        info: '<i class="fas fa-info-circle" style="color: var(--primary);"></i>'
+    };
+    return icons[type] || icons.info;
+}
+
+// Добавляем CSS анимации
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes progressBar {
+        from {
+            width: 100%;
+        }
+        to {
+            width: 0%;
+        }
+    }
+    
+    .notification {
+        transition: all 0.3s ease;
+    }
+    
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-success {
+        background: var(--success);
+        color: white;
+    }
+    
+    .btn-outline {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+    }
+    
+    .btn:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+    }
+`;
+document.head.appendChild(style);
+
+
+// ==================== СИСТЕМА ТЕСТОВ ПДД ====================
+
+const pddQuestions = [
+    {
+        id: 1,
+        question: "Человек повернул со средней полосы направо.",
+        answers: [
+            "Нарушение правил маневрирования",
+            "Нарушение расположения ТС на проезжей части", 
+            "Создание помех другим ТС",
+            "Неподача сигнала поворота"
+        ],
+        correctAnswer: 0,
+        koap: "Статья 8.3 КоАП",
+        punishment: "Штраф 20.000 рублей"
+    },
+    {
+        id: 2,
+        question: "Человек проехал по тротуару.",
+        answers: [
+            "Нарушение правил остановки",
+            "Движение по тротуару",
+            "Создание помех пешеходам", 
+            "Нарушение правил маневрирования"
+        ],
+        correctAnswer: 1,
+        koap: "Статья 9.5 КоАП",
+        punishment: "Штраф 30.000 рублей"
+    },
+    {
+        id: 3,
+        question: "Человек помешал обгону Т/С.",
+        answers: [
+            "Нарушение правил обгона",
+            "Создание помех движению",
+            "Опасное вождение",
+            "Нарушение дистанции"
+        ],
+        correctAnswer: 0,
+        koap: "Статья 10.4 КоАП", 
+        punishment: "Штраф 20.000 рублей"
+    },
+    {
+        id: 4,
+        question: "Человек припарковал автомобиль на тротуаре.",
+        answers: [
+            "Нарушение правил остановки",
+            "Нарушение правил стоянки",
+            "Создание помех пешеходам",
+            "Неправильная парковка"
+        ],
+        correctAnswer: 1,
+        koap: "Статья 11.1 КоАП",
+        punishment: "Штраф 10.000 рублей"
+    },
+    {
+        id: 5,
+        question: "Человек не предоставил преимущество спец.транспорту с включенным проблесковым маячком и специальным звуковым сигналом.",
+        answers: [
+            "Нарушение правил проезда перекрёстков",
+            "Невыполнение требований ПДД",
+            "Непредоставление преимущества",
+            "Создание помех спецтранспорту"
+        ],
+        correctAnswer: 2,
+        koap: "Статья 15.1 КоАП",
+        punishment: "Штраф 20.000 рублей"
+    },
+    {
+        id: 6,
+        question: "Неоказание первой помощи при ДТП.",
+        answers: [
+            "Нарушение ПДД",
+            "Оставление места ДТП", 
+            "Невыполнение обязанностей при ДТП",
+            "Неоказание помощи пострадавшим"
+        ],
+        correctAnswer: 2,
+        koap: "Статья 16.2 КоАП",
+        punishment: "Штраф 20.000 рублей"
+    },
+    {
+        id: 7,
+        question: "Человек входил в управляемый занос на общественной дороге.",
+        answers: [
+            "Нарушение правил эксплуатации ТС",
+            "Опасное вождение", 
+            "Создание аварийной ситуации",
+            "Нарушение скоростного режима"
+        ],
+        correctAnswer: 1,
+        koap: "Статья 17.2 КоАП",
+        punishment: "Штраф до 30.000 рублей с лишением права на управление ТС сроком до 2 лет"
+    },
+    {
+        id: 8,
+        question: "Человек не уступил дорогу пешеходу.",
+        answers: [
+            "Нарушение правил проезда пешеходных переходов",
+            "Создание помех пешеходам",
+            "Невыполнение требований ПДД", 
+            "Нарушение правил маневрирования"
+        ],
+        correctAnswer: 0,
+        koap: "Статья 15.4 КоАП",
+        punishment: "Предупреждение или штраф 5.000 рублей"
+    },
+    {
+        id: 9,
+        question: "Человек повернул направо без указателя поворота.",
+        answers: [
+            "Нарушение правил маневрирования",
+            "Неподача сигнала поворота", 
+            "Создание аварийной ситуации",
+            "Нарушение расположения ТС"
+        ],
+        correctAnswer: 1,
+        koap: "Статья 8.1 КоАП",
+        punishment: "Предупреждение или штраф 5.000 рублей"
+    },
+    {
+        id: 10,
+        question: "Человек управлял Т/С без документов при себе.",
+        answers: [
+            "Управление ТС без документов", 
+            "Нарушение правил эксплуатации ТС",
+            "Невыполнение требований ПДД",
+            "Отсутствие необходимых документов"
+        ],
+        correctAnswer: 0,
+        koap: "Статья 5.1 КоАП",
+        punishment: "Штраф 20.000 рублей"
+    },
+    {
+        id: 11,
+        question: "Человек проигнорировал требование об остановке при помощи жезла.",
+        answers: [
+            "Неподчинение сигналу регулировщика",
+            "Невыполнение требования об остановке", 
+            "Нарушение правил дорожного движения",
+            "Сопротивление сотруднику полиции"
+        ],
+        correctAnswer: 1,
+        koap: "Статья 5.9 КоАП",
+        punishment: "Штраф 20.000 рублей"
+    }
+];
+
+let currentTestState = {
+    currentQuestion: 0,
+    userAnswers: [],
+    testStarted: false
+};
+
+// Загрузка теста ПДД при показе секции
+function loadPDDTestSection() {
+    const container = document.getElementById('pddTestContent');
+    if (!container) return;
+    
+    // Всегда показываем стартовый экран при входе в раздел
+    currentTestState = {
+        currentQuestion: 0,
+        userAnswers: new Array(pddQuestions.length).fill(null),
+        testStarted: false
+    };
+    showTestStartScreen(container);
+}
+
+// Показать стартовый экран теста
+function showTestStartScreen(container) {
+    container.innerHTML = `
+        <div class="test-start-screen" style="text-align: center; padding: 60px 20px;">
+            <div style="font-size: 4rem; margin-bottom: 20px;">🚓</div>
+            <h2 style="margin-bottom: 15px; color: var(--primary);">Тест по ПДД</h2>
+            <p style="margin-bottom: 30px; font-size: 1.1rem; color: var(--gray);">
+                Проверьте свои знания правил дорожного движения.<br>
+                В тесте ${pddQuestions.length} вопросов. Укажите статью КоАП и наказание.
+            </p>
+            <div style="background: var(--light); padding: 25px; border-radius: 12px; margin: 30px 0; text-align: left;">
+                <h4 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-info-circle"></i> Правила тестирования:</h4>
+                <ul style="color: var(--text-color); line-height: 1.6;">
+                    <li>Выберите правильный вариант ответа</li>
+                    <li>Укажите соответствующую статью КоАП</li>
+                    <li>Запишите предусмотренное наказание</li>
+                    <li>Можно вернуться к предыдущим вопросам</li>
+                    <li>Результат покажет ваш уровень знаний</li>
+                </ul>
+            </div>
+            <button class="btn btn-success" onclick="startPDDTest()" style="padding: 15px 40px; font-size: 1.1rem;">
+                <i class="fas fa-play"></i> Начать тест
+            </button>
+        </div>
+    `;
+}
+
+// Начать тест
+function startPDDTest() {
+    currentTestState = {
+        currentQuestion: 0,
+        userAnswers: new Array(pddQuestions.length).fill(null),
+        testStarted: true
+    };
+    showQuestion(document.getElementById('pddTestContent'));
+    showNotification('Тест начался!', 'Ответьте на вопросы по ПДД.', 'info', 4000);
+}
+
+// Показать вопрос
+function showQuestion(container) {
+    const question = pddQuestions[currentTestState.currentQuestion];
+    const progress = ((currentTestState.currentQuestion + 1) / pddQuestions.length) * 100;
+    
+    container.innerHTML = `
+        <div class="test-progress">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span>Вопрос ${currentTestState.currentQuestion + 1} из ${pddQuestions.length}</span>
+                <span style="font-weight: 600; color: var(--primary);">${Math.round(progress)}%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: ${progress}%"></div>
+            </div>
+        </div>
+        
+        <div class="test-question">
+            <div class="question-text">${question.question}</div>
+            
+            <div class="answers-grid">
+                ${question.answers.map((answer, index) => `
+                    <div class="answer-option ${currentTestState.userAnswers[currentTestState.currentQuestion] === index ? 'selected' : ''}" 
+                         onclick="selectAnswer(${index})">
+                        <div class="answer-checkbox">
+                            ${currentTestState.userAnswers[currentTestState.currentQuestion] === index ? '<i class="fas fa-check" style="color: var(--primary); font-size: 12px;"></i>' : ''}
+                        </div>
+                        <div class="answer-text">${answer}</div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div class="koap-note">
+                <h4><i class="fas fa-gavel"></i> Примечание:</h4>
+                <p><strong>Статья КоАП:</strong> ${question.koap}</p>
+                <p><strong>Наказание:</strong> ${question.punishment}</p>
+            </div>
+            
+            <div class="test-navigation">
+                <button class="btn btn-outline" onclick="previousQuestion()" ${currentTestState.currentQuestion === 0 ? 'disabled' : ''}>
+                    <i class="fas fa-arrow-left"></i> Назад
+                </button>
+                
+                <div style="display: flex; gap: 10px;">
+                    ${currentTestState.currentQuestion < pddQuestions.length - 1 ? `
+                        <button class="btn btn-outline" onclick="nextQuestion()">
+                            Следующий вопрос <i class="fas fa-arrow-right"></i>
+                        </button>
+                    ` : ''}
+                    
+                    ${currentTestState.currentQuestion === pddQuestions.length - 1 ? `
+                        <button class="btn btn-success" onclick="finishTest()">
+                            <i class="fas fa-flag-checkered"></i> Завершить тест
+                        </button>
+                    ` : ''}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Выбор ответа
+function selectAnswer(answerIndex) {
+    currentTestState.userAnswers[currentTestState.currentQuestion] = answerIndex;
+    showQuestion(document.getElementById('pddTestContent'));
+    
+    // Показать уведомление о правильности ответа
+    const question = pddQuestions[currentTestState.currentQuestion];
+    if (answerIndex === question.correctAnswer) {
+        showNotification('Правильно!', 'Вы выбрали верный ответ.', 'success', 2000);
+    } else {
+        showNotification('Неправильно!', 'Попробуйте ещё раз.', 'warning', 2000);
+    }
+}
+
+// Следующий вопрос
+function nextQuestion() {
+    if (currentTestState.currentQuestion < pddQuestions.length - 1) {
+        currentTestState.currentQuestion++;
+        showQuestion(document.getElementById('pddTestContent'));
+    }
+}
+
+// Предыдущий вопрос
+function previousQuestion() {
+    if (currentTestState.currentQuestion > 0) {
+        currentTestState.currentQuestion--;
+        showQuestion(document.getElementById('pddTestContent'));
+    }
+}
+
+// Завершить тест
+function finishTest() {
+    const score = calculateTestScore();
+    showTestResults(score);
+    showNotification(
+        'Тест завершён!', 
+        `Ваш результат: ${score.correctAnswers} из ${pddQuestions.length} правильных ответов.`, 
+        score.percentage >= 70 ? 'success' : 'warning',
+        5000
+    );
+}
+
+// Расчет результатов
+function calculateTestScore() {
+    let correctAnswers = 0;
+    const results = [];
+    
+    pddQuestions.forEach((question, index) => {
+        const isCorrect = currentTestState.userAnswers[index] === question.correctAnswer;
+        if (isCorrect) correctAnswers++;
+        
+        results.push({
+            question: question.question,
+            userAnswer: question.answers[currentTestState.userAnswers[index]] || 'Не отвечено',
+            correctAnswer: question.answers[question.correctAnswer],
+            isCorrect: isCorrect,
+            koap: question.koap,
+            punishment: question.punishment
+        });
+    });
+    
+    const percentage = (correctAnswers / pddQuestions.length) * 100;
+    
+    return {
+        correctAnswers,
+        totalQuestions: pddQuestions.length,
+        percentage,
+        results
+    };
+}
+
+// Показать результаты
+function showTestResults(score) {
+    const container = document.getElementById('pddTestContent');
+    const message = getResultMessage(score.percentage);
+    
+    container.innerHTML = `
+        <div class="test-results">
+            <div class="results-score">${score.correctAnswers}/${score.totalQuestions}</div>
+            <div class="results-message">${message}</div>
+            <div style="font-size: 1.1rem; color: var(--gray); margin-bottom: 30px;">
+                Правильных ответов: ${Math.round(score.percentage)}%
+            </div>
+            
+            <div class="results-details">
+                <h4 style="margin-bottom: 20px; color: var(--primary);"><i class="fas fa-list-alt"></i> Детализация ответов:</h4>
+                ${score.results.map((result, index) => `
+                    <div class="result-item">
+                        <div class="result-question">
+                            <strong>Вопрос ${index + 1}:</strong> ${result.question}
+                        </div>
+                        <div class="result-status ${result.isCorrect ? 'correct' : 'incorrect'}">
+                            ${result.isCorrect ? 'Правильно' : 'Неправильно'}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
+                <button class="btn btn-outline" onclick="restartTest()">
+                    <i class="fas fa-redo"></i> Пройти ещё раз
+                </button>
+                <button class="btn btn-success" onclick="showSection('dashboard')">
+                    <i class="fas fa-home"></i> На главную
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+// Получить сообщение по результатам
+function getResultMessage(percentage) {
+    if (percentage >= 90) return 'Отлично! Вы прекрасно знаете ПДД! 🎉';
+    if (percentage >= 70) return 'Хорошо! Solidные знания ПДД. 👍';
+    if (percentage >= 50) return 'Удовлетворительно. Есть над чем поработать. 💪';
+    return 'Нужно повторить ПДД. Рекомендуем пройти обучение. 📚';
+}
+
+// Перезапустить тест
+function restartTest() {
+    currentTestState = {
+        currentQuestion: 0,
+        userAnswers: new Array(pddQuestions.length).fill(null),
+        testStarted: false
+    };
+    loadPDDTestSection();
+}
+
+// ==================== ИНТЕГРАЦИЯ ====================
+
+// Добавляем обработку секции тестов ПДД
+document.addEventListener('DOMContentLoaded', function() {
+    // Показать приветственное уведомление при загрузке
+    setTimeout(() => {
+        showNotification(
+            'Добро пожаловать в систему ГИБДД!', 
+            'Доступны новые функции: тесты ПДД и система уведомлений.', 
+            'info', 
+            6000
+        );
+    }, 1000);
+});
+
+// Обновляем функцию showSection для тестов ПДД (если она есть)
+if (typeof showSection === 'function') {
+    const originalShowSection = showSection;
+    window.showSection = function(sectionName) {
+        originalShowSection(sectionName);
+        
+        if (sectionName === 'pdd-tests') {
+            setTimeout(() => {
+                loadPDDTestSection();
+            }, 100);
+        }
+    };
+} else {
+    // Если функции showSection нет, создаем простую версию
+    window.showSection = function(sectionName) {
+        // Скрываем все секции
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.style.display = 'none';
+        });
+        
+        // Показываем нужную секцию
+        const targetSection = document.getElementById(sectionName + '-section');
+        if (targetSection) {
+            targetSection.style.display = 'block';
+        }
+        
+        // Обработка тестов ПДД
+        if (sectionName === 'pdd-tests') {
+            setTimeout(() => {
+                loadPDDTestSection();
+            }, 100);
+        }
+    };
+}
     </script>
     <!-- Модальное окно 2FA -->
 <div id="twoFactorAuthModal" class="modal" style="display: none;">
@@ -8036,5 +9617,6 @@ function createSnowflakes() {
 // Запуск при загрузке
 document.addEventListener('DOMContentLoaded', createSnowflakes);
 </script>
+<div id="notificationsContainer" class="notifications-container"></div>
 </body>
 </html>
