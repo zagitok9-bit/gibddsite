@@ -2999,13 +2999,16 @@
                 <li><a href="#" onclick="showSection('weapon')"><i class="fas fa-shield-alt"></i> Табельное оружие и снаряжение</a></li>
                 <li><a href="#" onclick="showSection('radio')"><i class="fas fa-walkie-talkie"></i> Регламент радиообмена</a></li>
                 <li><a href="#" onclick="showSection('jurisdiction')"><i class="fas fa-map-marked-alt"></i> Юрисдикции МВД</a></li>
+                <li><a href="#" onclick="showSection('roleplay')"><i class="fas fa-comment-medical"></i> Полезные отыгровки</a></li>
                 <li><a href="#" onclick="showSection('map')"><i class="fas fa-map"></i> Карта постов</a></li>
+                <li><a href="#" onclick="showSection('fleet')"><i class="fas fa-car"></i> Автопарк</a></li>
                 <li><a href="#" onclick="showSection('violators')"><i class="fas fa-database"></i> База нарушителей</a></li>
                 <li><a href="#" onclick="showSection('pdd-tests')"><i class="fas fa-graduation-cap"></i> Тесты ПДД</a></li>
                 <li><a href="#" onclick="showSection('hotspots')"><i class="fas fa-map-marker-alt"></i> Очаги нарушений</a></li>
 <li><a href="#" onclick="showSection('guides')"><i class="fas fa-book-open"></i> Мини гайды</a></li>
                 <li><a href="#" onclick="showSection('statistics')"><i class="fas fa-chart-bar"></i> Статистика</a></li>
                 <li><a href="#" onclick="showSection('leaderboard')"><i class="fas fa-trophy"></i> Таблица лидеров</a></li>
+                <li><a href="#" onclick="showSection('profile-settings')"><i class="fas fa-user-cog"></i> Настройки профиля</a></li>
                 <li><a href="#" onclick="showSection('profile')" id="profileTab"><i class="fas fa-user"></i> Профиль</a></li>
                 <li><a href="#" onclick="showSection('settings')" id="settingsTab"><i class="fas fa-cog"></i> Настройки</a></li>
                 <li><a href="#" onclick="showSection('admin')" id="adminTab" style="display:none;"><i class="fas fa-cogs"></i> Админ-панель</a></li>
@@ -3070,6 +3073,50 @@
                         </div>
                     </div>
                 </section>
+                <section id="profile-settings-section" class="content-section" style="display: none;">
+    <div class="section-title">
+        <i class="fas fa-user-cog"></i>
+        <h2>Настройки профиля</h2>
+    </div>
+    
+    <div class="profile-edit-section">
+        <h3><i class="fas fa-user-edit"></i> Редактирование профиля</h3>
+        
+        <div class="avatar-upload">
+            <div class="avatar-preview" id="avatarPreview">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="avatar-controls">
+                <label class="btn btn-outline" for="avatarInput">
+                    <i class="fas fa-upload"></i> Загрузить аватар
+                </label>
+                <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="handleAvatarUpload(event)">
+                <button class="btn btn-outline" onclick="removeAvatar()">
+                    <i class="fas fa-trash"></i> Удалить аватар
+                </button>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--gray);">
+                    Рекомендуемый размер: 200x200px
+                </p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="profileDescription"><i class="fas fa-align-left"></i> Описание профиля</label>
+            <textarea id="profileDescription" class="form-control" rows="4" placeholder="Расскажите о себе..."></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="profileStatus"><i class="fas fa-circle"></i> Статус</label>
+            <input type="text" id="profileStatus" class="form-control" placeholder="Ваш текущий статус...">
+        </div>
+        
+        <div class="form-group">
+            <button class="btn btn-success" onclick="saveProfileSettings()">
+                <i class="fas fa-save"></i> Сохранить изменения
+            </button>
+        </div>
+    </div>
+</section>
                 <!-- Hotspots Section -->
 <section id="hotspots-section" class="content-section" style="display: none;">
     <div class="section-title">
@@ -3328,6 +3375,695 @@
                     </div>
                     <div class="violator-value">Регулярные мероприятия по вечерам</div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Замените существующую секцию автопарка на эту -->
+<section id="fleet-section" class="content-section" style="display: none;">
+    <div class="section-title">
+        <i class="fas fa-car"></i>
+        <h2>Автопарк ГИБДД</h2>
+    </div>
+    <p>Служебные транспортные средства, доступные для использования сотрудниками ДПС ОГИБДД.</p>
+    
+    <div class="violators-grid">
+        <!-- Патрульные автомобили -->
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-car-side"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>LADA Vesta</h3>
+                    <div class="violator-id">Патрульный автомобиль</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-check-circle"></i>
+                    Доступен
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Характеристики:
+                    </div>
+                    <div class="violator-value">
+                        • Разгон 0-100: 8 сек<br>
+                        • Макс. скорость: 193 км/ч<br>
+                        • Класс: Седан<br>
+                        • Привод: передний
+                    </div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-shield-alt"></i>
+                        Оснащение:
+                    </div>
+                    <div class="violator-value">
+                        • Проблесковые маячки<br>
+                        • Громкоговоритель<br>
+                        • Радиостанция<br>
+                        • Видеорегистратор
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-car-side"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>Skoda Octavia</h3>
+                    <div class="violator-id">Патрульный автомобиль</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-check-circle"></i>
+                    Доступен
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Характеристики:
+                    </div>
+                    <div class="violator-value">
+                        • Разгон 0-100: 6 сек<br>
+                        • Макс. скорость: 231 км/ч<br>
+                        • Класс: Лифтбек<br>
+                        • Привод: передний
+                    </div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-shield-alt"></i>
+                        Оснащение:
+                    </div>
+                    <div class="violator-value">
+                        • Проблесковые маячки<br>
+                        • Громкоговоритель<br>
+                        • Радиостанция<br>
+                        • Видеорегистратор
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>Volkswagen Touareg</h3>
+                    <div class="violator-id">Внедорожник</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-check-circle"></i>
+                    Доступен
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Характеристики:
+                    </div>
+                    <div class="violator-value">
+                        • Разгон 0-100: 5 сек<br>
+                        • Макс. скорость: 266 км/ч<br>
+                        • Класс: Внедорожник<br>
+                        • Привод: полный
+                    </div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-shield-alt"></i>
+                        Оснащение:
+                    </div>
+                    <div class="violator-value">
+                        • Усиленная подвеска<br>
+
+                        • Спец. сигналы
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>BMW M5 (E60)</h3>
+                    <div class="violator-id">Спортивный патруль</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-check-circle"></i>
+                    Доступен
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Характеристики:
+                    </div>
+                    <div class="violator-value">
+                        • Разгон 0-100: 4 сек<br>
+                        • Макс. скорость: 275 км/ч<br>
+                        • Класс: Бизнес-седаны<br>
+                        • Привод: задний
+                    </div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-shield-alt"></i>
+                        Оснащение:
+                    </div>
+                    <div class="violator-value">
+                        • Спортивная подвеска<br>
+                        • Мощный двигатель V10<br>
+                        • Система стабилизации<br>
+                        • Спец. сигналы
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>Mercedes-Benz E63 S AMG (W212)</h3>
+                    <div class="violator-id">Высокоскоростной патруль</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-check-circle"></i>
+                    Доступен
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Характеристики:
+                    </div>
+                    <div class="violator-value">
+                        • Разгон 0-100: 3 сек<br>
+                        • Макс. скорость: 298 км/ч<br>
+                        • Класс: Бизнес-седаны<br>
+                        • Привод: полный (4MATIC+)
+                    </div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-shield-alt"></i>
+                        Оснащение:
+                    </div>
+                    <div class="violator-value">
+                        • Би-турбо двигатель V8<br>
+                        • Адаптивная подвеска<br>
+                        • Система полного привода<br>
+                        • Спец. сигналы
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>Lexus LX570</h3>
+                    <div class="violator-id">Внедорожник для спецопераций</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-check-circle"></i>
+                    Доступен
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Характеристики:
+                    </div>
+                    <div class="violator-value">
+                        • Разгон 0-100: 5 сек<br>
+                        • Макс. скорость: 247 км/ч<br>
+                        • Класс: Люксовый внедорожник<br>
+                        • Привод: полный
+                    </div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-shield-alt"></i>
+                        Оснащение:
+                    </div>
+                    <div class="violator-value">
+                        • Адаптивная подвеска<br>
+                        • Система полного привода<br>
+                        • Спец. сигналы
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Мотоциклы -->
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-motorcycle"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>BMW R1200</h3>
+                    <div class="violator-id">Патрульный мотоцикл</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-check-circle"></i>
+                    Доступен
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Характеристики:
+                    </div>
+                    <div class="violator-value">
+                        • Разгон 0-100: 3 сек<br>
+                        • Макс. скорость: 264 км/ч<br>
+                        • Тип: Спортивный турер<br>
+                        • Объем: 1170 см³
+                    </div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-shield-alt"></i>
+                        Оснащение:
+                    </div>
+                    <div class="violator-value">
+                        • Проблесковые маячки<br>
+                        • Защитное оснащение<br>
+                        • Багажные кофры
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Спецтранспорт -->
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-bus"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>ПАЗ-320405-04 Вектор Next</h3>
+                    <div class="violator-id">Автобус для перевозки</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-check-circle"></i>
+                    Доступен
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Характеристики:
+                    </div>
+                    <div class="violator-value">
+                        • Разгон 0-100: 14 сек<br>
+                        • Макс. скорость: 133 км/ч<br>
+                        • Тип: Городской автобус
+                    </div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-shield-alt"></i>
+                        Оснащение:
+                    </div>
+                    <div class="violator-value">
+                        • Усиленный кузов<br>
+                        • Дополнительные сиденья<br>
+                        • Сигнальное оборудование
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Воздушный транспорт -->
+        <div class="violator-card">
+            <div class="violator-card-header">
+                <div class="violator-avatar">
+                    <i class="fas fa-helicopter"></i>
+                </div>
+                <div class="violator-name">
+                    <h3>Патрульный вертолет</h3>
+                    <div class="violator-id">Воздушное патрулирование</div>
+                </div>
+                <span class="status-badge status-active">
+                    <i class="fas fa-check-circle"></i>
+                    Доступен
+                </span>
+            </div>
+            <div class="violator-card-body">
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Характеристики:
+                    </div>
+                    <div class="violator-value">
+                        • Макс. скорость: 132 км/ч<br>
+                        • Дальность: 450 км<br>
+                        • Экипаж: 2 человека<br>
+                        • Тип: Многоцелевой вертолет
+                    </div>
+                </div>
+                <div class="violator-info">
+                    <div class="violator-label">
+                        <i class="fas fa-shield-alt"></i>
+                        Оснащение:
+                    </div>
+                    <div class="violator-value">
+                        • Тепловизор<br>
+                        • Прожектор<br>
+                        • Система громкой связи<br>
+                        • Навигационное оборудование
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Добавьте эту секцию в основной контент -->
+<section id="roleplay-section" class="content-section" style="display: none;">
+    <div class="section-title">
+        <i class="fas fa-comment-medical"></i>
+        <h2>Полезные отыгровки</h2>
+    </div>
+    <p>Медицинские отыгровки и процедуры оказания первой помощи для сотрудников ГИБДД.</p>
+    
+    <div class="binds-categories">
+        <!-- Определение состояния пострадавшего -->
+        <div class="bind-category">
+            <h3><i class="fas fa-user-injured"></i> Определение состояния пострадавшего</h3>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">1</span>
+                    <span>Первичный осмотр</span>
+                    <div class="bind-description">
+                        <strong>me осмотрел пострадавшего на наличие видимых травм и кровотечений</strong><br>
+                        <strong>do Есть ли повреждения на теле пострадавшего? Если есть, то какие?</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('me осмотрел пострадавшего на наличие видимых травм и кровотечений\ndo Есть ли повреждения на теле пострадавшего? Если есть, то какие?')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">2</span>
+                    <span>Проверка пульса</span>
+                    <div class="bind-description">
+                        <strong>me приложил два пальца к сонной артерии пострадавшего для проверки пульса</strong><br>
+                        <strong>do У пострадавшего есть пульс?</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('me приложил два пальца к сонной артерии пострадавшего для проверки пульса\ndo У пострадавшего есть пульс?')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">3</span>
+                    <span>Проверка дыхания</span>
+                    <div class="bind-description">
+                        <strong>me запрокинув голову пострадавшего, нагнулся к ней для проверки дыхания</strong><br>
+                        <strong>do У пострадавшего есть дыхание?</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('me запрокинув голову пострадавшего, нагнулся к ней для проверки дыхания\ndo У пострадавшего есть дыхание?')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+        </div>
+
+        <!-- Сердечно-лёгочная реанимация -->
+        <div class="bind-category">
+            <h3><i class="fas fa-heartbeat"></i> Сердечно-лёгочная реанимация (СЛР)</h3>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">4</span>
+                    <span>Подготовка к СЛР</span>
+                    <div class="bind-description">
+                        <strong>me запрокинул голову пострадавшего и снял с него стесняющую одежду</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('me запрокинул голову пострадавшего и снял с него стесняющую одежду')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">5</span>
+                    <span>Компрессии грудной клетки</span>
+                    <div class="bind-description">
+                        <strong>me начал делать 30 компрессий грудной клетки пострадавшему</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('me начал делать 30 компрессий грудной клетки пострадавшему')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">6</span>
+                    <span>Искусственное дыхание</span>
+                    <div class="bind-description">
+                        <strong>me используя метод реанимации «рот в рот», сделал два вдоха в пострадавшего</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('me используя метод реанимации «рот в рот», сделал два вдоха в пострадавшего')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">7</span>
+                    <span>Проверка эффективности</span>
+                    <div class="bind-description">
+                        <strong>try проверил пульс пострадавшего и почувствовал пульсацию</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('try проверил пульс пострадавшего и почувствовал пульсацию')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+        </div>
+
+        <!-- Помощь при отсутствии сознания -->
+        <div class="bind-category">
+            <h3><i class="fas fa-procedures"></i> Помощь при отсутствии сознания</h3>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">8</span>
+                    <span>Подготовка пострадавшего</span>
+                    <div class="bind-description">
+                        <strong>me расстегнул стесняющую одежду пострадавшему для притока воздуха</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('me расстегнул стесняющую одежду пострадавшему для притока воздуха')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">9</span>
+                    <span>Устойчивое боковое положение</span>
+                    <div class="bind-description">
+                        <strong>me задал пострадавшему устойчивое боковое положение для его безопасности</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('me задал пострадавшему устойчивое боковое положение для его безопасности')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+        </div>
+
+        <!-- Помощь при переломах -->
+        <div class="bind-category">
+            <h3><i class="fas fa-bone"></i> Помощь при переломах</h3>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">F1</span>
+                    <span>Определение типа перелома</span>
+                    <div class="bind-description">
+                        <strong>do У пострадавшего открытый или закрытый перелом?</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('do У пострадавшего открытый или закрытый перелом?')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">F2</span>
+                    <span>Закрытый перелом</span>
+                    <div class="bind-description">
+                        <strong>do В аптечке сотрудника лежит шина и бинт.</strong><br>
+                        <strong>me достал бинт и шину из аптечки</strong><br>
+                        <strong>todo Все будет хорошо*закрепив шину на пострадавшем</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('do В аптечке сотрудника лежит шина и бинт.\nme достал бинт и шину из аптечки\ntodo Все будет хорошо*закрепив шину на пострадавшем')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">F3</span>
+                    <span>Открытый перелом</span>
+                    <div class="bind-description">
+                        <strong>do В аптечке сотрудника лежит жгут, шина и бинт.</strong><br>
+                        <strong>me достал жгут из аптечки и закрепил его выше перелома пострадавшего</strong><br>
+                        <strong>me достал бинт и шину из аптечки</strong><br>
+                        <strong>todo Все будет хорошо*закрепив шину на пострадавшем</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('do В аптечке сотрудника лежит жгут, шина и бинт.\nme достал жгут из аптечки и закрепил его выше перелома пострадавшего\nme достал бинт и шину из аптечки\ntodo Все будет хорошо*закрепив шину на пострадавшем')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+        </div>
+
+        <!-- Помощь при кровотечениях -->
+        <div class="bind-category">
+            <h3><i class="fas fa-tint"></i> Помощь при кровотечениях</h3>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">F4</span>
+                    <span>Определение места кровотечения</span>
+                    <div class="bind-description">
+                        <strong>do В каком месте у пострадавшего кровотечение?</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('do В каком месте у пострадавшего кровотечение?')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">F5</span>
+                    <span>Кровотечение из конечности</span>
+                    <div class="bind-description">
+                        <strong>do В кармане сотрудника лежит бинт и жгут.</strong><br>
+                        <strong>me достал бинт и жгут, затем наложил жгут поверх бинта выше раны</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('do В кармане сотрудника лежит бинт и жгут.\nme достал бинт и жгут, затем наложил жгут поверх бинта выше раны')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">F6</span>
+                    <span>Кровотечение в других местах</span>
+                    <div class="bind-description">
+                        <strong>do В кармане сотрудника лежит чистая салфетка.</strong><br>
+                        <strong>me достал салфетку и прижал её к месту кровотечения рукой</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('do В кармане сотрудника лежит чистая салфетка.\nme достал салфетку и прижал её к месту кровотечения рукой')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+        </div>
+
+        <!-- Другие виды помощи -->
+        <div class="bind-category">
+            <h3><i class="fas fa-first-aid"></i> Другие виды помощи</h3>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">F7</span>
+                    <span>Помощь при охлаждении</span>
+                    <div class="bind-description">
+                        <strong>do В багажнике лежит аптечка с изотермическим одеялом.</strong><br>
+                        <strong>me достал одеяло из аптечки</strong><br>
+                        <strong>me окутал пострадавшего в спасательное одеяло по инструкции</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('do В багажнике лежит аптечка с изотермическим одеялом.\nme достал одеяло из аптечки\nme окутал пострадавшего в спасательное одеяло по инструкции')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">F8</span>
+                    <span>Огнестрельное ранение</span>
+                    <div class="bind-description">
+                        <strong>do Куда ранен пострадавший?</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('do Куда ранен пострадавший?')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">F9</span>
+                    <span>Ранение в конечности</span>
+                    <div class="bind-description">
+                        <strong>do В кармане сотрудника лежит бинт и жгут.</strong><br>
+                        <strong>me достал бинт и жгут, затем наложил жгут поверх бинта выше раны</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('do В кармане сотрудника лежит бинт и жгут.\nme достал бинт и жгут, затем наложил жгут поверх бинта выше раны')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
+            </div>
+            
+            <div class="bind-item">
+                <div class="bind-content">
+                    <span class="bind-key">F10</span>
+                    <span>Ранение в другие части тела</span>
+                    <div class="bind-description">
+                        <strong>do В кармане сотрудника лежит самоклеющаяся силиконовая лента.</strong><br>
+                        <strong>me достал самоклеющуюся силиконовую ленту для остановки кровотечения</strong><br>
+                        <strong>me открыл силиконовую ленту и прилепил её на место ранения</strong>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyBindText('do В кармане сотрудника лежит самоклеющаяся силиконовая лента.\nme достал самоклеющуюся силиконовую ленту для остановки кровотечения\nme открыл силиконовую ленту и прилепил её на место ранения')">
+                    <i class="fas fa-copy"></i> Копировать
+                </button>
             </div>
         </div>
     </div>
@@ -5591,10 +6327,9 @@ async function checkAuth() {
           let statusBadge = '';
           
           if (isSuperAdmin(currentUser)) {
-            statusBadge = '<span class="super-admin-badge">ГЛАВНЫЙ АДМИН</span>';
-            displayRank = 'Главный Администратор';
+            statusBadge = '<span class="super-admin-badge">ГЛАВНЫЙ АДМИНИСТРАТОР</span>';
           } else if (currentUser.role === 'ADMIN') {
-            statusBadge = '<span class="admin-badge">АДМИН</span>';
+            statusBadge = '<span class="admin-badge">АДМИНИСТРАТОР</span>';
           } else if (currentUser.role === 'MODERATOR') {
             statusBadge = '<span class="admin-badge" style="background: #f59e0b;">МОДЕРАТОР</span>';
           } else if (currentUser.role === 'HELPER') {
@@ -9412,6 +10147,97 @@ if (typeof showSection === 'function') {
         }
     };
 }
+// Функции для работы с профилем
+function handleAvatarUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const avatarPreview = document.getElementById('avatarPreview');
+            avatarPreview.innerHTML = `<img src="${e.target.result}" alt="Аватар">`;
+            
+            // Сохраняем в localStorage
+            localStorage.setItem('userAvatar', e.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function removeAvatar() {
+    const avatarPreview = document.getElementById('avatarPreview');
+    avatarPreview.innerHTML = '<i class="fas fa-user"></i>';
+    localStorage.removeItem('userAvatar');
+}
+
+function saveProfileSettings() {
+    const description = document.getElementById('profileDescription').value;
+    const status = document.getElementById('profileStatus').value;
+    
+    // Сохраняем в localStorage
+    localStorage.setItem('userDescription', description);
+    localStorage.setItem('userStatus', status);
+    
+    // Обновляем профиль в реальном времени
+    updateUserProfile();
+    
+    alert('Настройки профиля сохранены!');
+}
+
+function loadProfileSettings() {
+    // Загружаем настройки из localStorage
+    const avatar = localStorage.getItem('userAvatar');
+    const description = localStorage.getItem('userDescription');
+    const status = localStorage.getItem('userStatus');
+    
+    if (avatar) {
+        document.getElementById('avatarPreview').innerHTML = `<img src="${avatar}" alt="Аватар">`;
+    }
+    
+    if (description) {
+        document.getElementById('profileDescription').value = description;
+    }
+    
+    if (status) {
+        document.getElementById('profileStatus').value = status;
+    }
+}
+
+function updateUserProfile() {
+    // Обновляем профиль в интерфейсе
+    const status = localStorage.getItem('userStatus') || 'Активен';
+    const avatar = localStorage.getItem('userAvatar');
+    
+    // Обновляем статус в хедере
+    const statusElement = document.querySelector('.user-status');
+    if (!statusElement) {
+        // Создаем элемент статуса если его нет
+        const userInfo = document.querySelector('.user-info');
+        if (userInfo) {
+            const statusElement = document.createElement('div');
+            statusElement.className = 'user-status';
+            statusElement.style.fontSize = '0.85rem';
+            statusElement.style.opacity = '0.9';
+            statusElement.textContent = status;
+            userInfo.appendChild(statusElement);
+        }
+    } else {
+        statusElement.textContent = status;
+    }
+    
+    // Обновляем аватар в хедере
+    if (avatar) {
+        const headerAvatar = document.querySelector('.user-avatar');
+        if (headerAvatar) {
+            headerAvatar.innerHTML = `<img src="${avatar}" alt="Аватар" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+        }
+    }
+}
+
+// Загружаем настройки при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    loadProfileSettings();
+    updateUserProfile();
+});
     </script>
     <!-- Модальное окно 2FA -->
 <div id="twoFactorAuthModal" class="modal" style="display: none;">
